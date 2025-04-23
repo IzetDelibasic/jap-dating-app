@@ -1,0 +1,79 @@
+##################################
+# Build artifacts
+##################################
+bin/
+obj/
+out/
+artifacts/
+publish/
+TestResults/
+*.dll
+*.exe
+*.app
+*.pdb
+*.cache
+*.mdb
+*.dbmdl
+*.log
+
+##################################
+# Config & secrets
+##################################
+appsettings.json
+secrets.json
+*.key
+*.pem
+
+##################################
+# Dotnet CLI
+##################################
+project.lock.json
+project.fragment.lock.json
+*.nuspec
+*.nupkg
+*.snupkg
+*.psmdcp
+*.user
+*.suo
+
+##################################
+# OS-specific
+##################################
+.DS_Store
+Thumbs.db
+
+##################################
+# IDEs and editors
+##################################
+# Visual Studio
+.vs/
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# MonoDevelop
+*.userprefs
+
+##################################
+# NuGet
+##################################
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+package-lock.json
+
+##################################
+# Others
+##################################
+*.tlog
+*.vsp
+*.sdf
+*.scc
+*.bak
+*.orig
+*.rej
