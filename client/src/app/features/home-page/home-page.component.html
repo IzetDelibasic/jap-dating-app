@@ -16,7 +16,9 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-4">
-        <p>Register form goes here</p>
+        <app-register-form
+          (cancelRegister)="cancelRegisterMode($event)"
+        ></app-register-form>
       </div>
     </div>
   </div>

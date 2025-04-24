@@ -14,7 +14,7 @@ namespace DatingApp.Controllers
     public class AccountController(DataContext context, ITokenService tokenService) : BaseApiController
     {
         [HttpPost("register")]
-        public async Task<ActionResult<AppUser>> Register([FromBody] RegisterDto registerDto)
+        public async Task<ActionResult<UserDto>> Register([FromBody] RegisterDto registerDto)
         {
             using var hmac = new HMACSHA512();
 
@@ -31,7 +31,11 @@ namespace DatingApp.Controllers
             context.Users.Add(user);
             await context.SaveChangesAsync();
 
-            return user;
+            return new UserDto
+            {
+                Username = user.UserName,
+                Token = tokenService.CreateToken(user),
+            };
         }
 
         [HttpPost("login")]
