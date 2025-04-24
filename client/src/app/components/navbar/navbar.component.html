@@ -1,29 +1,36 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container d-flex justify-content-between">
     <div class="d-flex">
-      <a class="navbar-brand">Dating</a>
-      @if(accountService.currentUser()){
+      <a class="navbar-brand" routerLinkActive="active">Dating</a>
       <ul class="navbar-nav d-flex">
+        @if(accountService.currentUser()){
+
         <li class="nav-item">
-          <a class="nav-link">Matches</a>
+          <a routerLink="/members" routerLinkActive="active" class="nav-link"
+            >Matches</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link">Lists</a>
+          <a routerLink="/lists" routerLinkActive="active" class="nav-link"
+            >Lists</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link">Messages</a>
+          <a routerLink="/messages" routerLinkActive="active" class="nav-link"
+            >Messages</a
+          >
         </li>
         <li class="nav-item">
           <a class="nav-link" (click)="logout()">Logout</a>
         </li>
+        }
       </ul>
-      }
     </div>
 
     @if(accountService.currentUser()) {
     <div dropdown class="dropdown">
       <a dropdownToggle class="dropdown-toggle text-light text-decoration-none"
-        >Welcome user</a
+        >Welcome {{ accountService.currentUser()?.username | titlecase }}</a
       >
       <div *dropdownMenu="" class="dropdown-menu">
         <a class="dropdown-item">Edit profile</a>
@@ -50,10 +57,10 @@
         name="password"
         [(ngModel)]="model.password"
         class="form-control me-2"
-        type="text"
+        type="password"
         placeholder="Password"
       />
-      <button class="btn btn-outline-success" type="submit">Submit</button>
+      <button class="btn btn-success" type="submit">Submit</button>
     </form>
     }
   </div>
