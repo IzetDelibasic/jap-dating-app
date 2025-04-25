@@ -1,4 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
 .dropdown-toggle,
 .dropdown-item {
+  cursor: pointer;
+}
+
+.navbar {
+  background-color: #39a0ca;
+  font-family: 'Rubik', sans-serif;
+}
+
+.nav-item{
   cursor: pointer;
 }
