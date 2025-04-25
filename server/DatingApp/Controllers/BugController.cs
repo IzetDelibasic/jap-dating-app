@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DatingApp.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/bug")]
     public class BugController(DataContext context) : ControllerBase
     {
         [Authorize]
