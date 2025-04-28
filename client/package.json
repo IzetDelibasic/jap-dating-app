@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/cdk": "^19.2.11",
     "@angular/common": "^19.2.0",
     "@angular/compiler": "^19.2.0",
     "@angular/core": "^19.2.0",
@@ -20,7 +21,9 @@
     "bootstrap": "^5.3.5",
     "bootswatch": "^5.3.5",
     "font-awesome": "^4.7.0",
+    "ng-gallery": "^12.0.0",
     "ngx-bootstrap": "^19.0.2",
+    "ngx-spinner": "^19.0.0",
     "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
