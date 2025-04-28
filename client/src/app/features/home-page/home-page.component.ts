@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RegisterFormComponent } from '../../components/register-form/register-form.component';
+import { RegisterFormComponent } from '../../components/forms/register-form/register-form.component';
 
 @Component({
   selector: 'app-home-page',
