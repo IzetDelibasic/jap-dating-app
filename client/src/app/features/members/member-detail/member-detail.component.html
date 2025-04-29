@@ -3,7 +3,7 @@
   <div class="col-4">
     <div class="card">
       <img
-        src="{{ member.photoUrl || './assets/user.png' }}"
+        src="{{ member.photoUrl }}"
         alt="{{ member.knownAs }}"
         class="card-img img-thumbnail"
       />
@@ -46,8 +46,14 @@
         <h4>Interests</h4>
         <p>{{ member.interests }}</p>
       </tab>
-      <tab heading="Photos">
-        <h4>Photos will go here</h4>
+      <tab heading="Photos" #photoTab="tab">
+        @if(photoTab.active) {
+        <gallery
+          [items]="images"
+          [itemAutosize]="true"
+          class="gallery"
+        ></gallery>
+        }
       </tab>
       <tab heading="Messages">
         <h4>Messages will go here</h4>
