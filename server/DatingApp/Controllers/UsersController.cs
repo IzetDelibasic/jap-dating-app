@@ -93,4 +93,29 @@ public class UserController(IUserRepository userRepository, IMapper mapper, IPho
 
         return BadRequest("Problem setting main photo");
     }
+
+    [HttpDelete("delete-photo/{photoId:int}")]
+    public async Task<IActionResult> DeletePhoto(int photoId)
+    {
+        var user = await userRepository.GetUserByUsernameAsync(User.GetUsername());
+
+        if (user == null) return BadRequest("User not found");
+
+        var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
+
+        if (photo == null || photo.IsMain) return BadRequest("This photo cannot be deleted");
+
+        if (photo.PublicId != null)
+        {
+            var result = await photoService.DeletePhotoAsync(photo.PublicId);
+            if (result.Error != null) return BadRequest(result.Error.Message);
+        }
+
+        user.Photos.Remove(photo);
+
+        if (await userRepository.SaveAllAsync()) return Ok();
+
+        return BadRequest("Problem deleting photo");
+    }
+
 }
