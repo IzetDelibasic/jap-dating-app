@@ -3,12 +3,13 @@ import { MembersService } from '../../../services/members.service';
 import { ActivatedRoute } from '@angular/router';
 import { Member } from '../../../models/member';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
+import { TimeagoModule } from 'ngx-timeago';
 
 @Component({
   selector: 'app-member-detail',
-  imports: [TabsModule, CommonModule, GalleryModule],
+  imports: [TabsModule, CommonModule, GalleryModule, TimeagoModule, DatePipe],
   templateUrl: './member-detail.component.html',
   styleUrl: './member-detail.component.css',
 })
