@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Controllers
 {
+    [Route("api/account")]
+    [ApiController]
     public class AccountController(DataContext context, ITokenService tokenService,
     IMapper mapper) : BaseApiController
     {
