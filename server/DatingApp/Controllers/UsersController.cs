@@ -16,7 +16,6 @@ namespace DatingApp.Controllers;
 [Route("api/user")]
 public class UserController(IUserRepository userRepository, IMapper mapper, IPhotoService photoService) : BaseApiController
 {
-
     [HttpGet]
     public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
     {
