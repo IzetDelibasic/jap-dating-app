@@ -21,5 +21,6 @@ public class AppUser
     public ICollection<Photo> Photos { get; set; } = [];
     public List<UserLike> LikedBy { get; set; } = [];
     public List<UserLike> LikedUsers { get; set; } = [];
-
+    public List<Message> MessagesSent { get; set; } = [];
+    public List<Message> MessagesRecieved { get; set; } = [];
 }
