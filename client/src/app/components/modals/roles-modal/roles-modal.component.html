@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{ title }}</h4>
+  <button
+    class="btn-close close pull-right"
+    type="button"
+    (click)="bsModalRef.hide()"
+  >
+    <span class="visually-hidden">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  @for (role of availableRoles; track $index) {
+  <div class="form-check">
+    <input
+      type="checkbox"
+      class="form-check-input"
+      [checked]="selectedRoles.includes(role)"
+      value="role"
+      (change)="updateChecked(role)"
+      [disabled]="role === 'Admin' && username === 'admin'"
+    />
+    <label>{{ role }}</label>
+  </div>
+  }
+</div>
+<div class="modal-footer">
+  <button
+    class="btn btn-defaults"
+    [disabled]="selectedRoles.length === 0"
+    type="button"
+    (click)="onSelectRoles()"
+  >
+    Submit
+  </button>
+</div>

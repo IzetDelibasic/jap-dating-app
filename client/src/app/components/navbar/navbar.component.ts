@@ -5,6 +5,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TitleCasePipe } from '@angular/common';
+import { HasRoleDirective } from '../../directives/has-role.directive';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +15,7 @@ import { TitleCasePipe } from '@angular/common';
     RouterLink,
     RouterLinkActive,
     TitleCasePipe,
+    HasRoleDirective,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
