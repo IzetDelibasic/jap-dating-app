@@ -21,7 +21,14 @@ namespace DatingApp.Controllers
         {
             if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
 
+            // Validacija za DateOfBirth
+            if (!DateOnly.TryParse(registerDto.DateOfBirth, out var parsedDateOfBirth))
+            {
+                return BadRequest("Invalid DateOfBirth format");
+            }
+
             var user = mapper.Map<AppUser>(registerDto);
+            user.DateOfBirth = parsedDateOfBirth;
 
             user.UserName = registerDto.Username.ToLower();
 
@@ -44,7 +51,7 @@ namespace DatingApp.Controllers
             var user = await userManager.Users
                 .Include(p => p.Photos)
                     .FirstOrDefaultAsync(x =>
-                        x.UserName == loginDto.Username.ToUpper());
+                        x.NormalizedUserName == loginDto.Username.ToUpper());
 
             if (user == null || user.UserName == null) return Unauthorized("Invalid username");
 

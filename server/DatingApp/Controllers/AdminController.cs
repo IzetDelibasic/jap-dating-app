@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/admin")]
     [ApiController]
     public class AdminController(UserManager<AppUser> userManager) : BaseApiController
     {
