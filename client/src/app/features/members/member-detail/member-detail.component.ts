@@ -1,5 +1,4 @@
 import { Component, inject, OnInit, ViewChild, viewChild } from '@angular/core';
-import { MembersService } from '../../../services/members.service';
 import { ActivatedRoute } from '@angular/router';
 import { Member } from '../../../models/member';
 import { TabDirective, TabsetComponent, TabsModule } from 'ngx-bootstrap/tabs';
@@ -9,6 +8,7 @@ import { TimeagoModule } from 'ngx-timeago';
 import { MemberMessagesComponent } from '../../../components/members/member-messages/member-messages.component';
 import { Message } from '../../../models/message';
 import { MessageService } from '../../../services/message.service';
+import { PresenceService } from '../../../services/presence.service';
 
 @Component({
   selector: 'app-member-detail',
@@ -25,7 +25,7 @@ import { MessageService } from '../../../services/message.service';
 })
 export class MemberDetailComponent implements OnInit {
   @ViewChild('memberTabs', { static: true }) memberTabs?: TabsetComponent;
-  private membersService = inject(MembersService);
+  presenceService = inject(PresenceService);
   private messageService = inject(MessageService);
   private route = inject(ActivatedRoute);
   member: Member = {} as Member;
