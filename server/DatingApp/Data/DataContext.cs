@@ -6,10 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Data;
 
-public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, AppRole, int,
-     IdentityUserClaim<int>, AppUserRole, IdentityUserLogin<int>,
-     IdentityRoleClaim<int>, IdentityUserToken<int>>(options)
+public class DataContext(DbContextOptions options) : DbContext
 {
+    public DbSet<AppUser> Users { get; set; }
     public DbSet<UserLike> Likes { get; set; }
     public DbSet<Message> Messages { get; set; }
     public DbSet<Group> Groups { get; set; }
