@@ -28,13 +28,11 @@ public class UserController(IUnitOfWork unitOfWork, IMapper mapper, IPhotoServic
     }
 
     [HttpGet("{username}")]
-    public async Task<ActionResult<MemberDto>> GetUser(string username)
+    public async Task<ActionResult<MemberDto?>> GetUser(string username)
     {
-        var user = await unitOfWork.UserRepository.GetMemberAsync(username);
-
-        if (user == null) return NotFound();
-
-        return user;
+        // 7. Ignore Query filter for the current user (GetMemberAsync) so the current user still sees their unapproved photos
+        var user = User.GetUsername();
+        return await unitOfWork.UserRepository.GetMemberAsync(username, isCurrentUser: user == username);
     }
 
     [HttpPut]
@@ -51,6 +49,7 @@ public class UserController(IUnitOfWork unitOfWork, IMapper mapper, IPhotoServic
         return BadRequest("Failed to update the user");
     }
 
+    // 13. Remove the logic in the UsersController when adding a photo to automatically set a photo to main if they do not have a main photo (no unapproved photos should be a users main photo).
     [HttpPost("add-photo")]
     public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
     {
@@ -67,8 +66,6 @@ public class UserController(IUnitOfWork unitOfWork, IMapper mapper, IPhotoServic
             Url = result.SecureUrl.AbsoluteUri,
             PublicId = result.PublicId,
         };
-
-        if (user.Photos.Count == 0) photo.IsMain = true;
 
         user.Photos.Add(photo);
 
@@ -99,6 +96,7 @@ public class UserController(IUnitOfWork unitOfWork, IMapper mapper, IPhotoServic
         return BadRequest("Problem setting main photo");
     }
 
+    // 15. Update the Delete Photo method in the UsersController to use the GetPhotoById method from the PhotoRepository so they have the ability to delete photos not yet approved.
     [HttpDelete("delete-photo/{photoId:int}")]
     public async Task<IActionResult> DeletePhoto(int photoId)
     {
@@ -106,7 +104,7 @@ public class UserController(IUnitOfWork unitOfWork, IMapper mapper, IPhotoServic
 
         if (user == null) return BadRequest("User not found");
 
-        var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
+        var photo = await unitOfWork.PhotoRepository.GetPhotoById(photoId);
 
         if (photo == null || photo.IsMain) return BadRequest("This photo cannot be deleted");
 

@@ -11,12 +11,17 @@ namespace DatingApp.Repository;
 
 public class UserRepository(DataContext db, IMapper mapper) : IUserRepository
 {
-    public async Task<MemberDto?> GetMemberAsync(string username)
+    // 7. Ignore Query filter for the current user (GetMemberAsync) so the current user still sees their unapproved photos
+    public async Task<MemberDto?> GetMemberAsync(string username, bool isCurrentUser)
     {
-        return await db.Users
+        var query = db.Users
             .Where(x => x.UserName == username)
             .ProjectTo<MemberDto>(mapper.ConfigurationProvider)
-            .SingleOrDefaultAsync();
+            .AsQueryable();
+
+        if (isCurrentUser) query = query.IgnoreQueryFilters();
+
+        return await query.FirstOrDefaultAsync();
     }
 
     public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
@@ -48,6 +53,12 @@ public class UserRepository(DataContext db, IMapper mapper) : IUserRepository
     public async Task<AppUser?> GetUserByIdAsync(int id)
     {
         return await db.Users.FindAsync(id);
+    }
+
+    // 14. Add the logic in the Admin controller approve photo method to check to see if the user has anyphotos that are set to main, if not then set the photo to main when approving.
+    public async Task<AppUser?> GetUserByPhotoId(int photoId)
+    {
+        return await db.Users.Include(x => x.Photos).IgnoreQueryFilters().Where(x => x.Photos.Any(x => x.Id == photoId)).FirstOrDefaultAsync();
     }
 
     public async Task<AppUser?> GetUserByUsernameAsync(string username)
