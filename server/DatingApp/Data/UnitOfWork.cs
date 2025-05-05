@@ -1,9 +1,10 @@
+using DatingApp.Repository;
 using DatingApp.Repository.Interfaces;
 
 namespace DatingApp.Data;
 
 public class UnitOfWork(DataContext db, IUserRepository userRepository,
-    ILikesRepository likesRepository, IMessageRepository messageRepository) : IUnitOfWork
+    ILikesRepository likesRepository, IMessageRepository messageRepository, IPhotoRepository photoRepository) : IUnitOfWork
 {
     public IUserRepository UserRepository => userRepository;
 
@@ -11,6 +12,7 @@ public class UnitOfWork(DataContext db, IUserRepository userRepository,
 
     public ILikesRepository LikesRepository => likesRepository;
 
+    public IPhotoRepository PhotoRepository => photoRepository;
     public async Task<bool> Complete()
     {
         return await db.SaveChangesAsync() > 0;

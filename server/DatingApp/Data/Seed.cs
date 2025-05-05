@@ -35,9 +35,13 @@ public class Seed
 
         foreach (var user in users)
         {
+            // 4. Update the Seed Users so the initial photo is approved for seeded users
+            user.Photos.First().IsApproved = true;
+
             user.UserName = user.UserName!.ToLower();
             await userManager.CreateAsync(user, "Pa$$w0rd");
             await userManager.AddToRoleAsync(user, "Member");
+
         }
 
         var admin = new AppUser

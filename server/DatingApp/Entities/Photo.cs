@@ -11,4 +11,7 @@ public class Photo
     public string? PublicId { get; set; }
     public int AppUserId { get; set; }
     public AppUser AppUser { get; set; } = null!;
+
+    // 1. Add isApproved to Photo entity.
+    public bool IsApproved { get; set; } = false;
 }

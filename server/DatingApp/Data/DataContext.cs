@@ -6,13 +6,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Data;
 
-public class DataContext(DbContextOptions options) : DbContext
+public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, AppRole, int,
+    IdentityUserClaim<int>, AppUserRole, IdentityUserLogin<int>, IdentityRoleClaim<int>,
+    IdentityUserToken<int>>(options)
 {
     public DbSet<AppUser> Users { get; set; }
     public DbSet<UserLike> Likes { get; set; }
     public DbSet<Message> Messages { get; set; }
     public DbSet<Group> Groups { get; set; }
     public DbSet<Connection> Connections { get; set; }
+
+    // 2. Add a DbSet for the photos so we can query directly
+    public DbSet<Photo> Photos { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -54,5 +60,9 @@ public class DataContext(DbContextOptions options) : DbContext
             .HasOne(x => x.Sender)
             .WithMany(x => x.MessagesSent)
             .OnDelete(DeleteBehavior.Restrict);
+
+        // 6. Add a Query filter to only return approved photos
+
+        builder.Entity<Photo>().HasQueryFilter(x => x.IsApproved);
     }
 }
