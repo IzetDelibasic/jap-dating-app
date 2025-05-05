@@ -13,6 +13,7 @@ import { preventUnsavedChangesGuard } from './guards/prevent-unsaved-changes.gua
 import { memberDetailResolver } from './resolvers/member-detail.resolver';
 import { AdminPanelComponent } from './features/admin/admin-panel/admin-panel.component';
 import { adminGuard } from './guards/admin.guard';
+import { LoginFormComponent } from './components/forms/login-form/login-form.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -41,7 +42,7 @@ export const routes: Routes = [
       },
     ],
   },
-  { path: 'errors', component: TestErrorsComponent },
+  { path: 'login', component: LoginFormComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },
   { path: '**', component: HomePageComponent, pathMatch: 'full' },

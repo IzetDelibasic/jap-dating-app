@@ -25,15 +25,7 @@
             >Admin</a
           >
         </li>
-        <li class="nav-item">
-          <a class="nav-link" (click)="logout()">Logout</a>
-        </li>
         }
-        <li class="nav-item">
-          <a routerLink="/errors" routerLinkActive="active" class="nav-link"
-            >Errors</a
-          >
-        </li>
       </ul>
     </div>
 
@@ -55,28 +47,7 @@
     </div>
 
     } @if(!accountService.currentUser()) {
-    <form
-      #loginForm="ngForm"
-      (ngSubmit)="login()"
-      autocomplete="off"
-      class="d-flex"
-    >
-      <input
-        name="username"
-        [(ngModel)]="model.username"
-        class="form-control me-2"
-        type="text"
-        placeholder="Username"
-      />
-      <input
-        name="password"
-        [(ngModel)]="model.password"
-        class="form-control me-2"
-        type="password"
-        placeholder="Password"
-      />
-      <button class="btn btn-success" type="submit">Submit</button>
-    </form>
+    <a routerLink="/login" class="nav-item">Already User?</a>
     }
   </div>
 </nav>

@@ -1,3 +1,4 @@
+// -Angular-
 import { NgIf } from '@angular/common';
 import { Component, input, Self } from '@angular/core';
 import {
@@ -22,7 +23,9 @@ export class TextInputComponent implements ControlValueAccessor {
   }
 
   writeValue(obj: any): void {}
+
   registerOnChange(fn: any): void {}
+
   registerOnTouched(fn: any): void {}
 
   get control(): FormControl {
