@@ -1,11 +1,16 @@
+// -Angular-
 import { Component, inject, input, OnInit, output } from '@angular/core';
-import { Member } from '../../../models/member';
 import { DecimalPipe, NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
-import { FileUploadModule, FileUploader } from 'ng2-file-upload';
-import { AccountService } from '../../../services/account.service';
-import { environment } from '../../../environments/environment';
+// -Models-
+import { Member } from '../../../models/member';
 import { Photo } from '../../../models/photo';
+// -Ng2-
+import { FileUploadModule, FileUploader } from 'ng2-file-upload';
+// -Service-
+import { AccountService } from '../../../services/account.service';
 import { MembersService } from '../../../services/members.service';
+// -Environment-
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-photo-editor',

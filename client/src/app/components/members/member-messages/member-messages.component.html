@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-    @if (messageService.messageTrehad().length === 0) {
+    @if (messageService.messageThread().length === 0) {
     <p>No messages yet</p>
     } @else {
     <ul
@@ -8,7 +8,7 @@
       #scrollMe
       style="overflow: scroll; max-height: 500px; scroll-behavior: smooth"
     >
-      @for (message of messageService.messageTrehad(); track message.id) {
+      @for (message of messageService.messageThread(); track message.id) {
       <li>
         <div>
           <span class="chat-img float-end">
@@ -20,7 +20,9 @@
           </span>
           <div class="chat-body">
             <div class="header">
-              <small class="text-muted d-flex flex-column flex-sm-row mb-2 mb-sm-0">
+              <small
+                class="text-muted d-flex flex-column flex-sm-row mb-2 mb-sm-0"
+              >
                 <div class="me-1">
                   <i class="fa fa-clock-o me-1"></i>
                   <span>{{ message.messageSent | timeago }}</span>

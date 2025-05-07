@@ -1,6 +1,9 @@
-import { Component, computed, inject, input } from '@angular/core';
-import { Member } from '../../../models/member';
+// -Angular-
 import { RouterLink } from '@angular/router';
+import { Component, computed, inject, input } from '@angular/core';
+// -Models-
+import { Member } from '../../../models/member';
+// -Service-
 import { LikesService } from '../../../services/likes.service';
 import { PresenceService } from '../../../services/presence.service';
 

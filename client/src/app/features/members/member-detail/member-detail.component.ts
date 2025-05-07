@@ -1,22 +1,23 @@
-import {
-  Component,
-  inject,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  viewChild,
-} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Member } from '../../../models/member';
-import { TabDirective, TabsetComponent, TabsModule } from 'ngx-bootstrap/tabs';
+// -Angular-
+import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
+import { ActivatedRoute, Router } from '@angular/router';
+// -SignalR-
+import { HubConnectionState } from '@microsoft/signalr';
+// -Models-
+import { Member } from '../../../models/member';
+// -Ngx-
+import { TabDirective, TabsetComponent, TabsModule } from 'ngx-bootstrap/tabs';
 import { TimeagoModule } from 'ngx-timeago';
+// -Ng-
+import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
+// -Components-
 import { MemberMessagesComponent } from '../../../components/members/member-messages/member-messages.component';
+// -Service-
 import { MessageService } from '../../../services/message.service';
 import { PresenceService } from '../../../services/presence.service';
 import { AccountService } from '../../../services/account.service';
-import { HubConnectionState } from '@microsoft/signalr';
+import { LikesService } from '../../../services/likes.service';
 
 @Component({
   selector: 'app-member-detail',
@@ -36,6 +37,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   presenceService = inject(PresenceService);
   private messageService = inject(MessageService);
   private accountService = inject(AccountService);
+  private likeService = inject(LikesService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   member: Member = {} as Member;
@@ -45,6 +47,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.data.subscribe({
       next: (data) => {
+        console.log(data);
         this.member = data['member'];
         this.member &&
           this.member.photos.map((p) => {

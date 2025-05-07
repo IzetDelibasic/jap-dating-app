@@ -1,4 +1,4 @@
-<div *ngIf="member" class="container mt-4">
+<div class="container mt-4">
   <div class="row">
     <!-- Left Column: Profile Information -->
     <div class="col-md-4">
@@ -10,43 +10,30 @@
           class="card-img img-thumbnail"
         />
         <div class="card-body">
-          <!-- Online Status -->
-          <div *ngIf="presenceService.onlineUsers().includes(member.userName)" class="mb-2">
+          @if(presenceService.onlineUsers().includes(member.userName)){
+          <div class="mb-2">
             <i class="fa fa-user-circle text-success"></i> Online now
           </div>
+          }
 
-          <!-- Location Info -->
           <div>
             <strong>Location:</strong>
             <p>{{ member.city }}, {{ member.country }}</p>
           </div>
 
-          <!-- Age Info -->
           <div>
             <strong>Age:</strong>
             <p>{{ member.age }}</p>
           </div>
 
-          <!-- Last Active Info -->
           <div>
             <strong>Last active:</strong>
             <p>{{ member.lastActive | timeago }}</p>
           </div>
 
-          <!-- Member Since Info -->
           <div>
             <strong>Member since:</strong>
             <p>{{ member.created | date : "dd MMM yyyy" }}</p>
-          </div>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="card-footer">
-          <div class="btn-group d-flex">
-            <button class="btn btn-primary">Like</button>
-            <button (click)="selectTab('Messages')" class="btn btn-success">
-              Message
-            </button>
           </div>
         </div>
       </div>
@@ -54,7 +41,11 @@
 
     <div class="col-md-8">
       <tabset class="member-tabset" #memberTabs>
-        <tab heading="About {{ member.knownAs }}" (selectTab)="onTabActivated($event)" class="m-4">
+        <tab
+          heading="About {{ member.knownAs }}"
+          (selectTab)="onTabActivated($event)"
+          class="m-4"
+        >
           <h4>Description</h4>
           <p>{{ member.introduction }}</p>
 
@@ -62,19 +53,38 @@
           <p>{{ member.lookingFor }}</p>
         </tab>
 
-        <tab heading="Interests" (selectTab)="onTabActivated($event)" class="m-4">
+        <tab
+          heading="Interests"
+          (selectTab)="onTabActivated($event)"
+          class="m-4"
+        >
           <h4>Interests</h4>
           <p>{{ member.interests }}</p>
         </tab>
 
-        <tab heading="Photos" #photoTab="tab" (selectTab)="onTabActivated($event)" class="m-4">
-          <div *ngIf="photoTab.active">
-            <gallery [items]="images" [itemAutosize]="true" class="gallery"></gallery>
-          </div>
+        <tab
+          heading="Photos"
+          #photoTab="tab"
+          (selectTab)="onTabActivated($event)"
+          class="m-4"
+        >
+          @if(photoTab.active) {
+          <gallery
+            [items]="images"
+            [itemAutosize]="true"
+            class="gallery"
+          ></gallery>
+          }
         </tab>
 
-        <tab heading="Messages" (selectTab)="onTabActivated($event)" class="my-4">
-          <app-member-messages [username]="member.userName"></app-member-messages>
+        <tab
+          heading="Messages"
+          (selectTab)="onTabActivated($event)"
+          class="my-4"
+        >
+          <app-member-messages
+            [username]="member.userName"
+          ></app-member-messages>
         </tab>
       </tabset>
     </div>

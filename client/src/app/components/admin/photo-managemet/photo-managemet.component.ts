@@ -1,5 +1,8 @@
+// -Angular-
 import { Component, inject, OnInit } from '@angular/core';
+// -Models-
 import { Photo } from '../../../models/photo';
+// -Service-
 import { AdminService } from '../../../services/admin.service';
 
 @Component({

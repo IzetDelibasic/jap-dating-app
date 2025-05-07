@@ -13,7 +13,6 @@ export class HomePageComponent {
   registerMode = true;
 
   registerToggle() {
-    console.log(this.registerMode);
     this.registerMode = !this.registerMode;
   }
 

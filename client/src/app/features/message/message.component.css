@@ -1,9 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
-
-body {
-  font-family: "Poppins", sans-serif;
-}
-
 .container {
   margin-top: 30px;
 }
@@ -15,9 +9,6 @@ body {
   margin-bottom: 20px;
 }
 
-.btn-group {
-  font-family: "Poppins", sans-serif;
-}
 .btn-primary {
   background-color: #0a66c2;
   border: 0;
@@ -67,7 +58,6 @@ button.active {
   margin-top: 30px;
   width: 100%;
   border-collapse: collapse;
-  font-family: "Poppins", sans-serif;
 }
 
 .table tr {
