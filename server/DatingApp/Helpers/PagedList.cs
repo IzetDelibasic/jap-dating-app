@@ -1,4 +1,3 @@
-using DatingApp.Entities.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Helpers;

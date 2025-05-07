@@ -1,5 +1,4 @@
 using AutoMapper;
-using DatingApp.Data;
 using DatingApp.Entities;
 using DatingApp.Entities.DTO;
 using DatingApp.Extensions;
@@ -13,7 +12,7 @@ namespace DatingApp.Controllers
     [Authorize]
     [Route("api/messages")]
     [ApiController]
-    public class MessagesController(UnitOfWork unitOfWork, IMapper mapper) : BaseApiController
+    public class MessagesController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiController
     {
         [HttpPost]
         public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto)

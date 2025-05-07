@@ -1,4 +1,6 @@
+// -Angular-
 import { inject, Injectable } from '@angular/core';
+// -NgxSpinner-
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
@@ -14,7 +16,7 @@ export class BusyService {
       type: 'ball-spin',
       bdColor: 'rgba(255,255,255,0)',
       color: '#333333',
-      size: 'default'
+      size: 'default',
     });
   }
 

@@ -1,26 +1,30 @@
-<div class="container">
-  @if(registerMode){
-  <div class="text-center">
-    <h1>Find your match</h1>
-    <p class="lead">
-      Come on in to view your matches.. all you need to do is sign up!
-    </p>
-    <div class="text-center">
-      <button class="btn btn-primary btn-lg me-2" (click)="registerToggle()">
-        Register
-      </button>
-      <button class="btn btn-info btn-lg me-2">Learn more</button>
-    </div>
-  </div>
-  }@else {
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-4">
-        <app-register-form
-          (cancelRegister)="cancelRegisterMode($event)"
-        ></app-register-form>
+<div class="hero-video-container">
+  <video autoplay loop muted class="hero-video">
+    <source
+      src="https://cdn.pixabay.com/video/2024/05/29/214409_large.mp4"
+      type="video/mp4"
+    />
+    Your browser does not support video.
+  </video>
+  <div
+    class="hero-overlay text-center text-white d-flex flex-column justify-content-center align-items-center"
+  >
+    @if(registerMode){
+    <h1 class="display-3 fw-bold mb-4 hero-title">Find Your Connection</h1>
+    <p class="lead mb-4">The place where hearts meet.</p>
+    <button class="button" (click)="registerToggle()">
+      Take the First Step
+    </button>
+    } @if(!registerMode){
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <app-register-form
+            (cancelRegister)="cancelRegisterMode($event)"
+          ></app-register-form>
+        </div>
       </div>
     </div>
+    }
   </div>
-  }
 </div>

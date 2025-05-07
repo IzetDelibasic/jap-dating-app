@@ -1,6 +1,13 @@
+// -Angular-
 import { NgIf } from '@angular/common';
 import { Component, input, Self } from '@angular/core';
-import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormControl,
+  NgControl,
+  ReactiveFormsModule,
+} from '@angular/forms';
+// -Ngx-
 import {
   BsDatepickerModule,
   BsDatepickerConfig,
@@ -26,7 +33,9 @@ export class DatePickerComponent implements ControlValueAccessor {
   }
 
   writeValue(obj: any): void {}
+
   registerOnChange(fn: any): void {}
+
   registerOnTouched(fn: any): void {}
 
   get control(): FormControl {

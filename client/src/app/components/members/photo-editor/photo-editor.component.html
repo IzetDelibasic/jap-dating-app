@@ -1,16 +1,16 @@
 <div class="row">
   @for(photo of member().photos; track photo.id) {
-  <div class="col-2">
+  <div class="col-4 col-md-3 col-lg-3">
     <img
       src="{{ photo.url }}"
       alt="{{ photo.url }}"
       class="img-thumbnail p-1"
       [class.not-approved]="!photo.isApproved"
     />
-    <div class="text-center img-text" *ngIf="!photo.isApproved">
+    <div class="text-center img-text my-1" *ngIf="!photo.isApproved">
       <span class="text-danger">Awaiting approval</span>
     </div>
-    <div class="text-center">
+    <div class="text-center mt-2">
       <button
         class="btn btn-sm me-1"
         [disabled]="photo.isMain"
@@ -32,9 +32,8 @@
 </div>
 
 <div class="row mt-5">
-  <div class="col-md-3">
+  <div class="col-md-5">
     <h3>Add Photos</h3>
-
     <div
       ng2FileDrop
       [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver }"
@@ -52,7 +51,7 @@
     style="margin-bottom: 40px"
     *ngIf="uploader?.queue?.length"
   >
-    <h3>Upload queue</h3>
+    <h3 class="mt-4">Upload queue</h3>
     <p>Queue length: {{ uploader?.queue?.length }}</p>
 
     <table class="table">
@@ -65,7 +64,7 @@
       <tbody>
         <tr *ngFor="let item of uploader?.queue">
           <td>
-            <strong>{{ item?.file?.name }}</strong>
+            <p>{{ item?.file?.name }}</p>
           </td>
           <td *ngIf="uploader?.options?.isHTML5" nowrap>
             {{ item?.file?.size / 1024 / 1024 | number : ".2" }} MB
@@ -77,7 +76,7 @@
     <div>
       <div>
         Queue progress:
-        <div class="progress">
+        <div class="progress my-2">
           <div
             class="progress-bar"
             role="progressbar"
@@ -87,19 +86,11 @@
       </div>
       <button
         type="button"
-        class="btn btn-success btn-s"
+        class="btn btn-success btn-s me-2"
         (click)="uploader?.uploadAll()"
         [disabled]="!uploader?.getNotUploadedItems()?.length"
       >
         <span class="fa fa-upload"></span> Upload all
-      </button>
-      <button
-        type="button"
-        class="btn btn-warning btn-s"
-        (click)="uploader?.cancelAll()"
-        [disabled]="!uploader?.isUploading"
-      >
-        <span class="fa fa-ban"></span> Cancel all
       </button>
       <button
         type="button"

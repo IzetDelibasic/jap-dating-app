@@ -1,0 +1,89 @@
+.row {
+  margin-top: 30px;
+}
+
+.col-sm-2 {
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+
+h4 {
+  font-size: 1.2rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.img-thumbnail {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #e0e4e8;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.text-center {
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  font-family: "Poppins", sans-serif;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: 1px solid #28a745;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border: 1px solid #1e7e34;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border: 1px solid #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border: 1px solid #bd2130;
+}
+
+.username {
+  text-transform: capitalize;
+  font-family: "Poppins", sans-serif;
+}
+
+@media (max-width: 768px) {
+  .col-sm-2 {
+    flex: 1 1 45%;
+  }
+}
+
+@media (max-width: 576px) {
+  .col-sm-2 {
+    flex: 1 1 100%;
+  }
+
+  h4 {
+    font-size: small;
+  }
+
+  .btn {
+    width: 40%;
+    font-size: small;
+    margin: 0;
+  }
+
+  .img-thumbnail {
+    max-width: 100%;
+    height: auto;
+  }
+}

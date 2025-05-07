@@ -1,16 +1,21 @@
+// -Angular-
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
+// -Models-
 import { PaginatedResult } from '../models/pagination';
 import { Message } from '../models/message';
+import { Group } from '../models/group';
+import { User } from '../models/user';
+// -PaginationHelper-
 import { setPaginatedResponse, setPaginationHeaders } from './paginationHelper';
+// -Environment-
 import { environment } from '../environments/environment';
+// -SignalR-
 import {
   HubConnection,
   HubConnectionBuilder,
   HubConnectionState,
 } from '@microsoft/signalr';
-import { User } from '../models/user';
-import { Group } from '../models/group';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +23,7 @@ import { Group } from '../models/group';
 export class MessageService {
   private http = inject(HttpClient);
   hubConnection?: HubConnection;
-  messageTrehad = signal<Message[]>([]);
+  messageThread = signal<Message[]>([]);
   paginatedResult = signal<PaginatedResult<Message[]> | null>(null);
 
   createHubConnection(user: User, otherUsername: string) {
@@ -32,16 +37,16 @@ export class MessageService {
     this.hubConnection.start().catch((error) => console.log(error));
 
     this.hubConnection.on('ReceiveMessageThread', (messages) => {
-      this.messageTrehad.set(messages);
+      this.messageThread.set(messages);
     });
 
     this.hubConnection.on('NewMessage', (message) => {
-      this.messageTrehad.update((messages) => [...messages, message]);
+      this.messageThread.update((messages) => [...messages, message]);
     });
 
     this.hubConnection.on('UpdatedGroup', (group: Group) => {
       if (group.connections.some((x) => x.username === otherUsername)) {
-        this.messageTrehad.update((messages) => {
+        this.messageThread.update((messages) => {
           messages.forEach((message) => {
             if (!message.dateRead) {
               message.dateRead = new Date(Date.now());

@@ -1,10 +1,14 @@
-import { Component, inject } from '@angular/core';
+// -Angular-
 import { FormsModule } from '@angular/forms';
-import { AccountService } from '../../services/account.service';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NgClass, TitleCasePipe } from '@angular/common';
+// -Services-
+import { AccountService } from '../../services/account.service';
+// -Ngx-
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrService } from 'ngx-toastr';
-import { TitleCasePipe } from '@angular/common';
+// -Directives-
 import { HasRoleDirective } from '../../directives/has-role.directive';
 
 @Component({
@@ -16,6 +20,7 @@ import { HasRoleDirective } from '../../directives/has-role.directive';
     RouterLinkActive,
     TitleCasePipe,
     HasRoleDirective,
+    NgClass,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
@@ -25,6 +30,11 @@ export class NavbarComponent {
   private router = inject(Router);
   private toastr = inject(ToastrService);
   model: any = {};
+  isNavbarOpen: boolean = false;
+
+  toggleNavbar() {
+    this.isNavbarOpen = !this.isNavbarOpen;
+  }
 
   login() {
     this.accountService.login(this.model).subscribe({

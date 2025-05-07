@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap");
 
+* {
+  font-family: "Montserrat", sans-serif;
+}
+
 .card {
   border: none;
   border-radius: 12px;
@@ -7,7 +11,6 @@
   overflow: hidden;
   margin-bottom: 30px;
   background-color: #fff;
-  font-family: "Montserrat", sans-serif;
 }
 
 .card-body {
@@ -40,6 +43,30 @@
   font-size: 14px;
 }
 
+.tabset .nav-tabs {
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.tabset .nav-item {
+  margin-bottom: 0;
+}
+
+.tabset .nav-link {
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.tabset .nav-link:hover,
+.tabset .nav-link.active {
+  background-color: #0a66c2;
+  color: white;
+  border-color: #0a66c2;
+}
+
 .tab-panel {
   background-color: #fff;
   padding: 20px;
@@ -49,25 +76,33 @@
   margin-top: 20px;
 }
 
-.btn-group .btn {
-  padding: 12px 30px;
+.form-control {
+  border-radius: 5px;
+}
+
+textarea.form-control {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  padding: 12px;
+}
+
+button {
   font-size: 16px;
   font-weight: 600;
   border-radius: 30px;
+  padding: 10px 20px;
   transition: all 0.3s ease;
 }
 
 .btn-primary {
-  background-color: #39a0ca;
-  border-color: #39a0ca;
+  background-color: #0a66c2;
+  border-color: #0a66c2;
   color: white;
   margin-right: 5px;
 }
 
 .btn-primary:hover {
-  background-color: #2980b9;
-  border-color: #2980b9;
-  transform: translateY(-2px);
+  background-color: #0c539b;
 }
 
 .btn-success {
@@ -79,6 +114,63 @@
 .btn-success:hover {
   background-color: #252e39;
   border-color: #252e39;
-  transform: translateY(-2px);
 }
 
+@media (max-width: 768px) {
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .col-md-4,
+  .col-md-8 {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .btn-primary {
+    font-size: 14px;
+  }
+
+  .tabset .nav-link {
+    font-size: 14px;
+  }
+
+  textarea.form-control {
+    font-size: 12px;
+  }
+
+  .form-control {
+    font-size: 14px;
+  }
+
+  .card-img {
+    height: 200px;
+  }
+
+  .card-body p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-img {
+    height: 180px;
+  }
+
+  .tabset .nav-link {
+    font-size: 13px;
+  }
+
+  textarea.form-control {
+    font-size: 12px;
+  }
+
+  .btn-primary {
+    font-size: 14px;
+  }
+}

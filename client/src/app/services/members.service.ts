@@ -1,12 +1,18 @@
-import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
-import { inject, Injectable, model, signal } from '@angular/core';
-import { environment } from '../environments/environment';
+// -Angular -
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable, signal } from '@angular/core';
+// -Models-
 import { Member } from '../models/member';
-import { of, tap } from 'rxjs';
 import { Photo } from '../models/photo';
 import { PaginatedResult } from '../models/pagination';
 import { UserParams } from '../models/userParams';
+// -Rxjs-
+import { of } from 'rxjs';
+// -Environment-
+import { environment } from '../environments/environment';
+// -Service-
 import { AccountService } from './account.service';
+// -PaginationHelper-
 import { setPaginatedResponse, setPaginationHeaders } from './paginationHelper';
 
 @Injectable({
@@ -15,11 +21,10 @@ import { setPaginatedResponse, setPaginationHeaders } from './paginationHelper';
 export class MembersService {
   private http = inject(HttpClient);
   private accountService = inject(AccountService);
-  // members = signal<Member[]>([]);
-  paginatedResult = signal<PaginatedResult<Member[]> | null>(null);
-  user = this.accountService.currentUser();
   memberCache = new Map();
+  user = this.accountService.currentUser();
   userParams = signal<UserParams>(new UserParams(this.user));
+  paginatedResult = signal<PaginatedResult<Member[]> | null>(null);
 
   resetUserParams() {
     this.userParams.set(new UserParams(this.user));
@@ -58,7 +63,6 @@ export class MembersService {
       });
   }
 
-
   getMember(username: string) {
     const member: Member = [...this.memberCache.values()]
       .reduce((arr, elem) => arr.concat(elem.body), [])
@@ -70,48 +74,19 @@ export class MembersService {
   }
 
   updateMember(member: Member) {
-    return this.http
-      .put(environment.apiBaseUrl + 'user', member)
-      .pipe
-      // tap(() => {
-      //   this.members.update((members) =>
-      //     members.map((m) => (m.userName === member.userName ? member : m))
-      //   );
-      // })
-      ();
+    return this.http.put(environment.apiBaseUrl + 'user', member);
   }
 
   setMainPhoto(photo: Photo) {
-    return this.http
-      .put(environment.apiBaseUrl + `user/set-main-photo/${photo.id}`, {})
-      .pipe
-      // tap(() => {
-      //   this.members.update((members) =>
-      //     members.map((m) => {
-      //       if (m.photos.includes(photo)) {
-      //         m.photoUrl = photo.url;
-      //       }
-      //       return m;
-      //     })
-      //   );
-      // })
-      ();
+    return this.http.put(
+      environment.apiBaseUrl + `user/set-main-photo/${photo.id}`,
+      {}
+    );
   }
 
   deletePhoto(photo: Photo) {
-    return this.http
-      .delete(environment.apiBaseUrl + `user/delete-photo/${photo.id}`)
-      .pipe
-      // tap(() => {
-      //   this.members.update((members) =>
-      //     members.map((m) => {
-      //       if (m.photos.includes(photo)) {
-      //         m.photos = m.photos.filter((x) => x.id !== photo.id);
-      //       }
-      //       return m;
-      //     })
-      //   );
-      // })
-      ();
+    return this.http.delete(
+      environment.apiBaseUrl + `user/delete-photo/${photo.id}`
+    );
   }
 }

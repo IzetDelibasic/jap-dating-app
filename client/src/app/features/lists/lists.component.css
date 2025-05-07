@@ -1,0 +1,59 @@
+.btn-primary {
+  background-color: #0a66c2;
+  border: 0;
+}
+
+.btn-primary:hover {
+  background-color: #0a5299;
+}
+
+.btn-info {
+  border: 0;
+}
+
+.btn-active {
+  background-color: white;
+  color: black;
+  border: 1px solid #0a5299;
+  transition: background-color 0.3s ease;
+}
+
+.btn-active:hover {
+  background-color: #0a5299;
+  color: white;
+  border: 1px solid #0a5299;
+}
+
+button.active {
+  background-color: #0a5299;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .filter-button {
+    font-size: 1rem;
+    padding: 12px 15px;
+    text-align: center;
+  }
+
+  .filter-button:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .w-md-auto {
+    width: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .btn-group {
+    display: flex;
+    flex-direction: row;
+  }
+}

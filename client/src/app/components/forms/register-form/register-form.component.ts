@@ -1,3 +1,4 @@
+// -Angular-
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
   AbstractControl,
@@ -7,11 +8,14 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { AccountService } from '../../../services/account.service';
+import { Router } from '@angular/router';
+// -Ngx-
 import { ToastrService } from 'ngx-toastr';
+// -Services-
+import { AccountService } from '../../../services/account.service';
+// -Components-
 import { TextInputComponent } from '../text-input/text-input.component';
 import { DatePickerComponent } from '../date-picker/date-picker.component';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-form',

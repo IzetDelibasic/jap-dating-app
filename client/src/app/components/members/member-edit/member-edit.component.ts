@@ -1,3 +1,4 @@
+// -Angular-
 import {
   Component,
   HostListener,
@@ -5,19 +6,29 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { FormsModule, NgForm } from '@angular/forms';
+// -Models-
 import { Member } from '../../../models/member';
+// -Service-
 import { AccountService } from '../../../services/account.service';
 import { MembersService } from '../../../services/members.service';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { FormsModule, NgForm } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+// -Components-
 import { PhotoEditorComponent } from '../photo-editor/photo-editor.component';
-import { DatePipe } from '@angular/common';
+// -Ngx-
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ToastrService } from 'ngx-toastr';
 import { TimeagoModule } from 'ngx-timeago';
 
 @Component({
   selector: 'app-member-edit',
-  imports: [TabsModule, FormsModule, PhotoEditorComponent, TimeagoModule, DatePipe],
+  imports: [
+    TabsModule,
+    FormsModule,
+    PhotoEditorComponent,
+    TimeagoModule,
+    DatePipe,
+  ],
   templateUrl: './member-edit.component.html',
   styleUrl: './member-edit.component.css',
 })

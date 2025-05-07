@@ -1,0 +1,43 @@
+.member-tabset .nav-tabs {
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.member-tabset .nav-item {
+  margin-bottom: 0;
+}
+
+.member-tabset .nav-link {
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.tab-panel {
+  background-color: #fff;
+  margin-top: 20px;
+}
+
+.tab-heading {
+  font-weight: 600;
+  color: #0a66c2;
+}
+
+.tab-heading:hover,
+.tab-heading.active {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .member-tabset .nav-link {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .member-tabset .nav-link {
+    font-size: 13px;
+  }
+}

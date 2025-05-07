@@ -1,5 +1,5 @@
-<div class="container mt-4 matches-container">
-  <div class="text-center mb-4">
+<div class="container matches-container">
+  <div class="text-center mb-2">
     <h2 class="matches-title">
       Your matches -
       {{ membersService.paginatedResult()?.pagination?.totalItems }}
@@ -7,39 +7,64 @@
   </div>
 
   <div
-    class="mb-4 filter-section d-md-flex align-items-md-center justify-content-md-between flex-column flex-md-row"
+    class="mb-4 filter-section d-flex align-items-center justify-content-between flex-wrap"
   >
     <form
       #form="ngForm"
-      class="row row-cols-auto g-md-3 g-2 align-items-center justify-content-center justify-content-md-start flex-grow-1 mb-3 mb-md-0"
+      class="row row-cols-2 g-md-3 g-2 align-items-center justify-content-center justify-content-md-start w-100 mb-3 mb-md-0"
       (ngSubmit)="loadMembers()"
     >
+      <div class="col-12 col-md-auto mt-3 mt-md-4">
+        <button
+          class="btn btn-active btn-sm filter-button w-100"
+          type="button"
+          name="orderBy"
+          (click)="setActiveButton('lastActive')"
+          btnRadio="lastActive"
+          [(ngModel)]="membersService.userParams().orderBy"
+          [ngClass]="{ active: orderBy === 'lastActive' }"
+        >
+          Last Active
+        </button>
+      </div>
+      <div class="col-12 col-md-auto mt-2 mt-md-4">
+        <button
+          class="btn btn-active btn-sm filter-button w-100"
+          type="button"
+          name="orderBy"
+          (click)="setActiveButton('created')"
+          btnRadio="created"
+          [(ngModel)]="membersService.userParams().orderBy"
+          [ngClass]="{ active: orderBy === 'created' }"
+        >
+          Newest Members
+        </button>
+      </div>
       <div class="col filter-item">
         <label class="col-form-label filter-label">Age from:</label>
         <input
           type="number"
           class="form-control form-control-sm filter-input"
-          style="width: 70px"
           name="minAge"
           [(ngModel)]="membersService.userParams().minAge"
         />
       </div>
+
       <div class="col filter-item">
         <label class="col-form-label filter-label">Age to:</label>
         <input
           type="number"
           class="form-control form-control-sm filter-input"
-          style="width: 70px"
           name="maxAge"
           [(ngModel)]="membersService.userParams().maxAge"
         />
       </div>
+
       <div class="col filter-item">
         <label class="col-form-label filter-label">Show</label>
         <select
           name="gender"
           class="form-select form-select-sm filter-select"
-          style="width: 130px"
           [(ngModel)]="membersService.userParams().gender"
         >
           @for(gender of genderList; track gender.value) {
@@ -50,54 +75,28 @@
         </select>
       </div>
 
-      <div class="col">
-        <button class="btn btn-primary btn-sm filter-button" type="submit">
+      <div class="col-12 col-md-auto mt-3 mt-md-4">
+        <button
+          class="btn btn-primary btn-sm filter-button w-100"
+          type="submit"
+        >
           Apply filters
         </button>
       </div>
-      <div class="col">
+      <div class="col-12 col-md-auto mt-2 mt-md-4">
         <button
           (click)="resetFilters()"
-          class="btn btn-info btn-sm filter-button"
+          class="btn btn-secondary btn-sm filter-button w-100"
           type="button"
         >
           Reset filters
         </button>
       </div>
     </form>
-
-    <div class="sort-buttons mt-3 mt-md-0">
-      <div
-        class="btn-group float-md-end"
-        role="group"
-        aria-label="Sort members"
-      >
-        <button
-          type="button"
-          class="btn btn-outline-primary btn-sm sort-button me-1"
-          name="orderBy"
-          (click)="loadMembers()"
-          btnRadio="lastActive"
-          [(ngModel)]="membersService.userParams().orderBy"
-        >
-          Last Active
-        </button>
-        <button
-          type="button"
-          class="btn btn-outline-primary btn-sm sort-button"
-          name="orderBy"
-          (click)="loadMembers()"
-          btnRadio="created"
-          [(ngModel)]="membersService.userParams().orderBy"
-        >
-          Newest Members
-        </button>
-      </div>
-    </div>
   </div>
 
   <div
-    class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-4 members-grid"
+    class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4 members-grid"
   >
     @for (member of membersService.paginatedResult()?.items; track member.id) {
     <div class="col">
@@ -120,7 +119,7 @@
       previousText="&lsaquo;"
       firstText="&laquo;"
       lastText="&raquo;"
-      class="pagination-sm"
+      class="pagination"
     >
     </pagination>
   </div>

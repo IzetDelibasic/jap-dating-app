@@ -36,7 +36,6 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
-              "node_modules/bootswatch/dist/united/bootstrap.min.css",
               "node_modules/ngx-spinner/animations/ball-spin.css",
               "node_modules/ngx-toastr/toastr.css",
               "src/styles.css"

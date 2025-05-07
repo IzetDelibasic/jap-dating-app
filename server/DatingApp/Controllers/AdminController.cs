@@ -1,4 +1,3 @@
-using DatingApp.Data;
 using DatingApp.Entities;
 using DatingApp.Repository.Interfaces;
 using DatingApp.Services.Interfaces;
@@ -11,18 +10,8 @@ namespace DatingApp.Controllers
 {
     [Route("api/admin")]
     [ApiController]
-    public class AdminController : BaseApiController
+    public class AdminController(UserManager<AppUser> userManager, IUnitOfWork unitOfWork, IPhotoService photoService) : BaseApiController
     {
-        private readonly UserManager<AppUser> userManager;
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IPhotoService photoService;
-        public AdminController(UserManager<AppUser> _userManager, IUnitOfWork _unitOfWork, IPhotoService _photoService)
-        {
-            userManager = _userManager;
-            unitOfWork = _unitOfWork;
-            photoService = _photoService;
-        }
-
         [Authorize(Policy = "RequireAdminRole")]
         [HttpGet("users-with-roles")]
         public async Task<ActionResult> GetUsersWithRoles()

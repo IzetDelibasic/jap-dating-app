@@ -1,7 +1,4 @@
-using System.Security.Cryptography;
-using System.Text;
 using AutoMapper;
-using DatingApp.Data;
 using DatingApp.Entities;
 using DatingApp.Entities.DTO;
 using DatingApp.Intefaces;
@@ -21,7 +18,6 @@ namespace DatingApp.Controllers
         {
             if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
 
-            // Validacija za DateOfBirth
             if (!DateOnly.TryParse(registerDto.DateOfBirth, out var parsedDateOfBirth))
             {
                 return BadRequest("Invalid DateOfBirth format");

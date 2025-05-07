@@ -1,11 +1,15 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { MessageService } from '../../services/message.service';
-import { ButtonsModule } from 'ngx-bootstrap/buttons';
+// -Angular-
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+// -Service-
+import { MessageService } from '../../services/message.service';
+// -Ngx-
 import { TimeagoModule } from 'ngx-timeago';
-import { Message } from '../../models/message';
-import { RouterLink } from '@angular/router';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+// -Models-
+import { Message } from '../../models/message';
 
 @Component({
   selector: 'app-message',
@@ -40,8 +44,8 @@ export class MessageComponent implements OnInit {
 
   getRoute(message: Message) {
     if (this.container === 'Outbox')
-      return `members/${message.recipientUsername}`;
-    else return `members/${message.senderUsername}`;
+      return `/members/${message.recipientUsername}`;
+    else return `/members/${message.senderUsername}`;
   }
 
   pageChanged(event: any) {

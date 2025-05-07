@@ -1,4 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+// -Angular-
+import { Component } from '@angular/core';
+// -Components-
 import { RegisterFormComponent } from '../../components/forms/register-form/register-form.component';
 
 @Component({
@@ -8,10 +10,9 @@ import { RegisterFormComponent } from '../../components/forms/register-form/regi
   styleUrl: './home-page.component.css',
 })
 export class HomePageComponent {
-  registerMode = false;
+  registerMode = true;
 
   registerToggle() {
-    console.log(this.registerMode);
     this.registerMode = !this.registerMode;
   }
 

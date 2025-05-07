@@ -1,13 +1,18 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { LikesService } from '../../services/likes.service';
-import { ButtonsModule } from 'ngx-bootstrap/buttons';
+// -Angular-
+import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+// -Service-
+import { LikesService } from '../../services/likes.service';
+// -Components-
 import { MemberCardComponent } from '../../components/members/member-card/member-card.component';
+// -NgxBootstrap-
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @Component({
   selector: 'app-lists',
-  imports: [ButtonsModule, FormsModule, MemberCardComponent, PaginationModule],
+  imports: [ButtonsModule, FormsModule, MemberCardComponent, PaginationModule, NgClass],
   templateUrl: './lists.component.html',
   styleUrl: './lists.component.css',
 })

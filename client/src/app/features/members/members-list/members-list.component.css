@@ -9,11 +9,11 @@
 }
 
 .filter-section {
-  background-color: #f9f9f9;
+  background-color: #f7f9fc;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 30px;
-  border: 1px solid #eee;
+  border: 1px solid #e0e4e8;
 }
 
 .filter-label {
@@ -34,62 +34,54 @@
   font-size: 0.9rem;
   padding: 8px 15px;
   border-radius: 4px;
+  transition: background-color 0.3s ease;
+  background-color: #0a5299;
 }
 
-.sort-buttons .btn-group .btn {
-  font-size: 0.9rem;
-  border-radius: 4px;
+.filter-button:hover {
+  background-color: #0a4580;
 }
 
-.sort-buttons .btn-group .btn.active,
-.sort-buttons .btn-group .btn:hover {
-  background-color: #39a0ca;
-  border-color: #39a0ca;
-  color: white;
-}
-
-.sort-buttons .btn-group .btn-outline-primary {
-  color: #39a0ca;
-  border-color: #39a0ca;
-}
-
-.sort-buttons .btn-group .btn-outline-primary:hover {
-  background-color: #39a0ca;
-  color: white;
+.filter-item {
+  width: 100%;
 }
 
 .members-grid {
   margin-bottom: 30px;
 }
 
-.pagination-section .pagination-sm .page-link {
-  color: blue !important; 
+.btn-primary {
+  background-color: #0a66c2;
+  border: 0;
 }
 
-.pagination-section .pagination-sm .page-item.active .page-link {
-  background-color: blue !important;
-  border-color: blue !important;
-  color: white !important;
+.btn-primary:hover {
+  background-color: #0a5299;
 }
 
-.pagination-section .pagination-sm .page-link:hover {
-  color: darkblue !important;
+.btn-info {
+  border: 0;
 }
 
-.btn-primary{
-    background-color: #39a0ca;
-    border: 0;
+.btn-active {
+  background-color: white;
+  color: black;
+  border: 1px solid #0a5299;
+  transition: background-color 0.3s ease;
 }
 
-.btn-primary:hover{
-    background-color: darkcyan;
+.btn-active:hover {
+  background-color: #0a5299;
+  color: white;
+  border: 1px solid #0a5299;
 }
 
-.btn-info{
-    border: 0;
+button.active {
+  background-color: #0a5299;
+  color: white;
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
   .filter-section {
     padding: 15px;
   }
@@ -100,7 +92,6 @@
   }
 
   .filter-item {
-    margin-bottom: 10px;
     width: 100%;
   }
 

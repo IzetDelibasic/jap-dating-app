@@ -15,6 +15,8 @@ import { errorInterceptor } from './interceptors/error.interceptor';
 import { loadingInterceptor } from './interceptors/loading.interceptor';
 import { TimeagoModule } from 'ngx-timeago';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,7 +32,9 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       NgxSpinnerModule,
       TimeagoModule.forRoot(),
-      ModalModule.forRoot()
+      ModalModule.forRoot(),
+      TabsModule.forRoot(),
+      NgxPaginationModule
     ),
   ],
 };

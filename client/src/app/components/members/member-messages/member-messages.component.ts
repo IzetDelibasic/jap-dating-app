@@ -1,3 +1,4 @@
+// -Angular-
 import {
   AfterViewChecked,
   Component,
@@ -5,9 +6,11 @@ import {
   input,
   ViewChild,
 } from '@angular/core';
-import { MessageService } from '../../../services/message.service';
-import { TimeagoModule } from 'ngx-timeago';
 import { FormsModule, NgForm } from '@angular/forms';
+// -Service-
+import { MessageService } from '../../../services/message.service';
+// -Ngx-
+import { TimeagoModule } from 'ngx-timeago';
 
 @Component({
   selector: 'app-member-messages',
