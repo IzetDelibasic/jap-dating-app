@@ -1,4 +1,3 @@
-using System;
 using DatingApp.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

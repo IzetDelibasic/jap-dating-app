@@ -1,5 +1,4 @@
 using DatingApp.Data;
-using DatingApp.Entities;
 using DatingApp.Helpers;
 using DatingApp.Intefaces;
 using DatingApp.Repository;

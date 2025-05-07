@@ -1,6 +1,5 @@
 using DatingApp.Entities;
 using DatingApp.Entities.DTO;
-using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.Repository.Interfaces;
 

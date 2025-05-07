@@ -1,4 +1,3 @@
-using System;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using DatingApp.Helpers;

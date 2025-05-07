@@ -1,5 +1,4 @@
 using AutoMapper;
-using DatingApp.Data;
 using DatingApp.Entities;
 using DatingApp.Entities.DTO;
 using DatingApp.Extensions;

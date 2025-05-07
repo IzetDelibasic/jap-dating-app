@@ -1,4 +1,3 @@
-using DatingApp.Data;
 using DatingApp.Entities;
 using DatingApp.Repository.Interfaces;
 using DatingApp.Services.Interfaces;

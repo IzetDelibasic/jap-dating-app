@@ -1,4 +1,3 @@
-using DatingApp.Repository;
 using DatingApp.Repository.Interfaces;
 
 namespace DatingApp.Data;

@@ -1,5 +1,3 @@
-using System;
-
 namespace DatingApp.Helpers;
 
 public class CloudinarySettings

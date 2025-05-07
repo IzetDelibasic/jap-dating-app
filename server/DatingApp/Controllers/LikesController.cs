@@ -3,7 +3,6 @@ using DatingApp.Entities.DTO;
 using DatingApp.Extensions;
 using DatingApp.Helpers;
 using DatingApp.Repository.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.Controllers
