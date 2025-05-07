@@ -17,7 +17,13 @@ import { TimeagoModule } from 'ngx-timeago';
 
 @Component({
   selector: 'app-member-edit',
-  imports: [TabsModule, FormsModule, PhotoEditorComponent, TimeagoModule, DatePipe],
+  imports: [
+    TabsModule,
+    FormsModule,
+    PhotoEditorComponent,
+    TimeagoModule,
+    DatePipe,
+  ],
   templateUrl: './member-edit.component.html',
   styleUrl: './member-edit.component.css',
 })

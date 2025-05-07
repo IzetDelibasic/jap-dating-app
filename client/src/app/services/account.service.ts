@@ -1,8 +1,13 @@
+// -Angular-
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { environment } from '../environments/environment';
-import { User } from '../models/user';
+// -Rxjs-
 import { map } from 'rxjs';
+// -Environment-
+import { environment } from '../environments/environment';
+// -Models-
+import { User } from '../models/user';
+// -Services-
 import { LikesService } from './likes.service';
 import { PresenceService } from './presence.service';
 
@@ -14,6 +19,7 @@ export class AccountService {
   private likeService = inject(LikesService);
   private presenceService = inject(PresenceService);
   currentUser = signal<User | null>(null);
+
   roles = computed(() => {
     const user = this.currentUser();
     if (user && user.token) {

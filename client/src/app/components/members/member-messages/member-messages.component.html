@@ -20,10 +20,11 @@
           </span>
           <div class="chat-body">
             <div class="header">
-              <small class="text-muted">
-                <span class="fa fa-clock-o">{{
-                  message.messageSent | timeago
-                }}</span>
+              <small class="text-muted d-flex flex-column flex-sm-row mb-2 mb-sm-0">
+                <div class="me-1">
+                  <i class="fa fa-clock-o me-1"></i>
+                  <span>{{ message.messageSent | timeago }}</span>
+                </div>
                 @if (!message.dateRead && message.senderUsername !== username())
                 {
                 <span class="text-danger">(unread)</span>
@@ -52,7 +53,7 @@
           required
           [(ngModel)]="messageContent"
           type="text"
-          class="form-control input-sm"
+          class="form-control input-sm me-2"
           placeholder="Send a private message"
         />
         <div class="input-group-append">

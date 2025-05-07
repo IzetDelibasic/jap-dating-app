@@ -4,10 +4,11 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { FormsModule } from '@angular/forms';
 import { MemberCardComponent } from '../../components/members/member-card/member-card.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-lists',
-  imports: [ButtonsModule, FormsModule, MemberCardComponent, PaginationModule],
+  imports: [ButtonsModule, FormsModule, MemberCardComponent, PaginationModule, NgClass],
   templateUrl: './lists.component.html',
   styleUrl: './lists.component.css',
 })

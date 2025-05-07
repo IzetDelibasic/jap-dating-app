@@ -1,5 +1,7 @@
+// -Angular.
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
+// -Environment-
 import { environment } from '../../environments/environment';
 
 @Component({

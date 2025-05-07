@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.container {
+  margin-top: 30px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-family: "Poppins", sans-serif;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Poppins", sans-serif;
+}
+
+.table th {
+  background-color: #f7f9fc;
+  font-weight: 600;
+}
+
+.table td {
+    font-weight: 400;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f7f9fc;
+}
+
+.table .btn {
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  border-radius: 4px;
+  background-color: #0a66c2;
+  color: white;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.table .btn:hover {
+  background-color: #0a5299;
+}
+
+@media (max-width: 768px) {
+  .table th,
+  .table td {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .table th {
+    font-size: 1rem;
+  }
+
+  .table .btn {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .table th,
+  .table td {
+    padding: 8px;
+    font-size: x-small;
+  }
+
+  .table .btn {
+    font-size: smaller;
+    padding: 5px;
+  }
+}

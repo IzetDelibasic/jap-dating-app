@@ -1,3 +1,129 @@
-.rounded-circle{
-    max-height: 45px;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.container {
+  margin-top: 30px;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.btn-group {
+  font-family: "Poppins", sans-serif;
+}
+.btn-primary {
+  background-color: #0a66c2;
+  border: 0;
+}
+
+.btn-primary:hover {
+  background-color: #0a5299;
+}
+
+.btn-info {
+  border: 0;
+}
+
+.btn-active {
+  background-color: white;
+  color: black;
+  border: 1px solid #0a5299;
+  transition: background-color 0.3s ease;
+}
+
+.btn-active:hover {
+  background-color: #0a5299;
+  color: white;
+  border: 1px solid #0a5299;
+}
+
+button.active {
+  background-color: #0a5299;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  padding: 5px 10px;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+  background-color: #a71b29;
+  border-color: #a71b29;
+}
+
+.table {
+  margin-top: 30px;
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Poppins", sans-serif;
+}
+
+.table tr {
+  padding: 15px;
+}
+
+.table th {
+  font-weight: 500;
+  border-top: 1px solid #e0e4e8;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f7f9fc;
+  cursor: pointer;
+}
+
+.table img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.username {
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.message-time {
+  font-weight: 200;
+  color: gray;
+  font-size: smaller;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .btn-group .btn {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .btn-danger {
+    padding: 5px 5px;
+    font-size: 0.9rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 10px;
+  }
+
+  .table td {
+    font-size: small;
+  }
+
+  .message-time {
+    font-size: x-small;
+  }
 }

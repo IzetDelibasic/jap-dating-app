@@ -14,9 +14,11 @@ export class MemberCardComponent {
   private likeService = inject(LikesService);
   private presenceService = inject(PresenceService);
   member = input.required<Member>();
+
   hasLiked = computed(() =>
     this.likeService.likeIds().includes(this.member().id)
   );
+
   isOnline = computed(() =>
     this.presenceService.onlineUsers().includes(this.member().userName)
   );

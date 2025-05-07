@@ -1,16 +1,21 @@
+// -Angular-
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
+// -Models-
 import { PaginatedResult } from '../models/pagination';
 import { Message } from '../models/message';
+import { Group } from '../models/group';
+import { User } from '../models/user';
+// -PaginationHelper-
 import { setPaginatedResponse, setPaginationHeaders } from './paginationHelper';
+// -Environment-
 import { environment } from '../environments/environment';
+// -SignalR-
 import {
   HubConnection,
   HubConnectionBuilder,
   HubConnectionState,
 } from '@microsoft/signalr';
-import { User } from '../models/user';
-import { Group } from '../models/group';
 
 @Injectable({
   providedIn: 'root',

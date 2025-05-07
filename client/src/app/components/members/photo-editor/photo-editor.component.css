@@ -1,3 +1,50 @@
 .nv-file-over {
-  border: dotted 3px red;
+  border: 2px dotted #0a66c2;
+}
+
+.img-thumbnail {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.not-approved {
+  opacity: 0.6;
+  filter: grayscale(100%);
+}
+
+.img-text {
+  font-size: small;
+}
+
+.text-center > button {
+  margin-bottom: 5px;
+  min-width: 65px;
+}
+
+.my-drop-zone {
+  min-height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+@media (max-width: 576px) {
+  .img-thumbnail {
+    border-radius: 6px;
+  }
+
+  .text-center > button {
+    min-width: 100%;
+    margin-bottom: 6px;
+  }
+
+  .text-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }

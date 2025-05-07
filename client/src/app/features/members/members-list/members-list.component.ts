@@ -4,10 +4,11 @@ import { MemberCardComponent } from '../../../components/members/member-card/mem
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormsModule } from '@angular/forms';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-members-list',
-  imports: [MemberCardComponent, PaginationModule, FormsModule, ButtonsModule],
+  imports: [MemberCardComponent, PaginationModule, FormsModule, ButtonsModule, NgClass],
   templateUrl: './members-list.component.html',
   styleUrl: './members-list.component.css',
 })
@@ -36,5 +37,12 @@ export class MembersListComponent implements OnInit {
       this.membersService.userParams().pageNumber = event.page;
       this.loadMembers();
     }
+  }
+
+  orderBy: string = 'lastActive'; 
+
+  setActiveButton(button: string) {
+    this.orderBy = button;
+    this.loadMembers(); 
   }
 }

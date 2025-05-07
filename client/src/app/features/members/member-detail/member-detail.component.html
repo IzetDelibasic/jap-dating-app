@@ -1,78 +1,82 @@
-<div class="row">
-  <div class="col-4">
-    <div class="card">
-      <img
-        src="{{ member.photoUrl }}"
-        alt="{{ member.knownAs }}"
-        class="card-img img-thumbnail"
-      />
-      <div class="card-body">
-        @if(presenceService.onlineUsers().includes(member.userName)){
-        <div class="mb-2">
-          <i class="fa fa-user-circle text-success"></i> Online now
-        </div>
-        }
-        <div>
-          <strong>Location:</strong>
-          <p>{{ member.city }}, {{ member.country }}</p>
-        </div>
-        <div>
-          <strong>Age:</strong>
-          <p>{{ member.age }}</p>
-        </div>
-        <div>
-          <strong>Last active:</strong>
-          <p>{{ member.lastActive | timeago }}</p>
+<div *ngIf="member" class="container mt-4">
+  <div class="row">
+    <!-- Left Column: Profile Information -->
+    <div class="col-md-4">
+      <h3>Your profile</h3>
+      <div class="card">
+        <img
+          src="{{ member.photoUrl || './assets/user.png' }}"
+          alt="{{ member.knownAs }}"
+          class="card-img img-thumbnail"
+        />
+        <div class="card-body">
+          <!-- Online Status -->
+          <div *ngIf="presenceService.onlineUsers().includes(member.userName)" class="mb-2">
+            <i class="fa fa-user-circle text-success"></i> Online now
+          </div>
+
+          <!-- Location Info -->
+          <div>
+            <strong>Location:</strong>
+            <p>{{ member.city }}, {{ member.country }}</p>
+          </div>
+
+          <!-- Age Info -->
+          <div>
+            <strong>Age:</strong>
+            <p>{{ member.age }}</p>
+          </div>
+
+          <!-- Last Active Info -->
+          <div>
+            <strong>Last active:</strong>
+            <p>{{ member.lastActive | timeago }}</p>
+          </div>
+
+          <!-- Member Since Info -->
+          <div>
+            <strong>Member since:</strong>
+            <p>{{ member.created | date : "dd MMM yyyy" }}</p>
+          </div>
         </div>
 
-        <div>
-          <strong>Member since:</strong>
-          <p>{{ member.created | date : "dd MMM yyyy" }}</p>
-        </div>
-      </div>
-      <div class="card-footer">
-        <div class="btn-group d-flex">
-          <button class="btn btn-primary">Like</button>
-          <button (click)="selectTab('Messages')" class="btn btn-success">
-            Message
-          </button>
+        <!-- Action Buttons -->
+        <div class="card-footer">
+          <div class="btn-group d-flex">
+            <button class="btn btn-primary">Like</button>
+            <button (click)="selectTab('Messages')" class="btn btn-success">
+              Message
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-8">
-    <tabset class="member-tabset" #memberTabs>
-      <tab
-        heading="About {{ member.knownAs }}"
-        (selectTab)="onTabActivated($event)"
-      >
-        <h4>Description</h4>
-        <p>{{ member.introduction }}</p>
-        <h4>Looking for:</h4>
-        <p>{{ member.lookingFor }}</p>
-      </tab>
-      <tab heading="Interests" (selectTab)="onTabActivated($event)">
-        <h4>Interests</h4>
-        <p>{{ member.interests }}</p>
-      </tab>
-      <tab
-        heading="Photos"
-        #photoTab="tab"
-        (selectTab)="onTabActivated($event)"
-      >
-        @if(photoTab.active) {
-        <gallery
-          [items]="images"
-          [itemAutosize]="true"
-          class="gallery"
-        ></gallery>
-        }
-      </tab>
-      <tab heading="Messages" (selectTab)="onTabActivated($event)">
-        <app-member-messages
-          [username]="member.userName"
-        ></app-member-messages>
-      </tab>
-    </tabset>
+
+    <div class="col-md-8">
+      <tabset class="member-tabset" #memberTabs>
+        <tab heading="About {{ member.knownAs }}" (selectTab)="onTabActivated($event)" class="m-4">
+          <h4>Description</h4>
+          <p>{{ member.introduction }}</p>
+
+          <h4>Looking for:</h4>
+          <p>{{ member.lookingFor }}</p>
+        </tab>
+
+        <tab heading="Interests" (selectTab)="onTabActivated($event)" class="m-4">
+          <h4>Interests</h4>
+          <p>{{ member.interests }}</p>
+        </tab>
+
+        <tab heading="Photos" #photoTab="tab" (selectTab)="onTabActivated($event)" class="m-4">
+          <div *ngIf="photoTab.active">
+            <gallery [items]="images" [itemAutosize]="true" class="gallery"></gallery>
+          </div>
+        </tab>
+
+        <tab heading="Messages" (selectTab)="onTabActivated($event)" class="my-4">
+          <app-member-messages [username]="member.userName"></app-member-messages>
+        </tab>
+      </tabset>
+    </div>
   </div>
 </div>

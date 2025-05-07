@@ -1,3 +1,4 @@
+// -Angular-
 import {
   Directive,
   inject,
@@ -6,6 +7,7 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
+// -Service-
 import { AccountService } from '../services/account.service';
 
 @Directive({

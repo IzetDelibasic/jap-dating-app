@@ -1,8 +1,12 @@
+// -Angular-
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
+// -Environment-
 import { environment } from '../environments/environment';
+// -Models-
 import { Member } from '../models/member';
 import { PaginatedResult } from '../models/pagination';
+// -PaginationHelper-
 import { setPaginatedResponse, setPaginationHeaders } from './paginationHelper';
 
 @Injectable({

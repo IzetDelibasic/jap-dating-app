@@ -23,6 +23,10 @@
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+.hero-title{
+  width: 90%;
+}
+
 .button {
   align-items: center;
   background-color: #0a66c2;

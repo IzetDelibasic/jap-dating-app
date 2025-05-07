@@ -5,7 +5,6 @@ import { MembersListComponent } from './features/members/members-list/members-li
 import { ListsComponent } from './features/lists/lists.component';
 import { MessageComponent } from './features/message/message.component';
 import { authGuard } from './guards/auth.guard';
-import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { NotFoundComponent } from './features/errors/not-found/not-found.component';
 import { ServerErrorComponent } from './features/errors/server-error/server-error.component';
 import { MemberEditComponent } from './components/members/member-edit/member-edit.component';

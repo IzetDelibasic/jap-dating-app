@@ -1,6 +1,9 @@
+// -Angular-
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+// -Environment-
 import { environment } from '../environments/environment';
+// -Models-
 import { User } from '../models/user';
 import { Photo } from '../models/photo';
 
