@@ -76,7 +76,7 @@ public class MessageHub(IUnitOfWork unitOfWork, IMapper mapper, IHubContext<Pres
             }
         }
 
-        unitOfWork.MessageRepository.AddMessage(message);
+        unitOfWork.MessageRepository.Add(message);
 
         if (await unitOfWork.Complete())
         {

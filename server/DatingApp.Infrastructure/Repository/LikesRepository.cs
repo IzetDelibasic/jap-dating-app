@@ -9,21 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Repository;
 
-public class LikesRepository(DatabaseContext db, IMapper mapper) : ILikesRepository
+public class LikesRepository(DatabaseContext dbContext, IMapper mapper) : BaseRepository<UserLike>(dbContext), ILikesRepository
 {
-    public void AddLike(UserLike like)
-    {
-        db.Likes.Add(like);
-    }
-
-    public void DeleteLike(UserLike like)
-    {
-        db.Likes.Remove(like);
-    }
-
     public async Task<IEnumerable<int>> GetCurrentUserLikeIds(int currentUserId)
     {
-        return await db.Likes
+        return await dbSet
             .Where(x => x.SourceUserId == currentUserId)
             .Select(x => x.TargetUserId)
             .ToListAsync();
@@ -31,12 +21,12 @@ public class LikesRepository(DatabaseContext db, IMapper mapper) : ILikesReposit
 
     public async Task<UserLike?> GetUserLike(int sourceUserId, int targetUserId)
     {
-        return await db.Likes.FindAsync(sourceUserId, targetUserId);
+        return await dbSet.FindAsync(sourceUserId, targetUserId);
     }
 
     public async Task<PagedList<MemberDto>> GetUserLikes(LikesParams likesParams)
     {
-        var likes = db.Likes.AsQueryable();
+        var likes = dbSet.AsQueryable();
         IQueryable<MemberDto> query;
 
         switch (likesParams.Predicate)

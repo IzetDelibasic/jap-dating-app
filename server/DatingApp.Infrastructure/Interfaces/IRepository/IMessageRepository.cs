@@ -4,11 +4,8 @@ using DatingApp.Helpers;
 
 namespace DatingApp.Repository.Interfaces;
 
-public interface IMessageRepository
+public interface IMessageRepository : IBaseRepository<Message>
 {
-    void AddMessage(Message message);
-    void DeleteMessage(Message message);
-    Task<Message?> GetMessage(int id);
     Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams);
     Task<IEnumerable<MessageDto>> GetMessageThread(string currentUsername, string recipientUsername);
     void AddGroup(Group group);

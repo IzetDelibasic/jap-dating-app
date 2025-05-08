@@ -6,28 +6,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Repository;
 
-public class PhotoRepository(DatabaseContext db) : IPhotoRepository
+public class PhotoRepository(DatabaseContext dbContext) : BaseRepository<Photo>(dbContext), IPhotoRepository
 {
-    // 9. Add a PhotoRepository that supports the following methods
     public async Task<Photo?> GetPhotoById(int id)
     {
-        return await db.Photos.IgnoreQueryFilters().SingleOrDefaultAsync(x => x.Id == id);
+        return await dbSet
+            .IgnoreQueryFilters()
+            .SingleOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<IEnumerable<PhotoForApprovalDto>> GetUnapprovedPhotos()
     {
-        return await db.Photos.IgnoreQueryFilters().Where(x => x.IsApproved == false)
+        return await dbSet
+            .IgnoreQueryFilters()
+            .Where(x => x.IsApproved == false)
             .Select(u => new PhotoForApprovalDto
             {
                 Id = u.Id,
                 Username = u.AppUser.UserName,
                 Url = u.Url,
                 IsApproved = u.IsApproved
-            }).ToListAsync();
-    }
-
-    public void RemovePhoto(Photo photo)
-    {
-        db.Photos.Remove(photo);
+            })
+            .ToListAsync();
     }
 }

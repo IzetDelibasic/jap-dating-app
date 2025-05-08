@@ -1,9 +1,7 @@
-using AutoMapper;
-using DatingApp.Entities;
 using DatingApp.Entities.DTO;
 using DatingApp.Extensions;
 using DatingApp.Helpers;
-using DatingApp.Repository.Interfaces;
+using DatingApp.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,83 +10,38 @@ namespace DatingApp.Controllers
     [Authorize]
     [Route("api/messages")]
     [ApiController]
-    public class MessagesController(IUnitOfWork unitOfWork, IMapper mapper) : BaseApiController
+    public class MessagesController(IMessagesService messagesService) : BaseApiController
     {
         [HttpPost]
         public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto)
         {
-            var username = User.GetUsername();
-
-            if (username == createMessageDto.RecipientUsername.ToLower())
-                return BadRequest("You cannot message yourself");
-
-            var sender = await unitOfWork.UserRepository.GetUserByUsernameAsync(username);
-            var recipient = await unitOfWork.UserRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
-
-            if (recipient == null || sender == null || sender.UserName == null || recipient.UserName == null)
-                return BadRequest("Cannot send message at this time");
-
-            var message = new Message
-            {
-                Sender = sender,
-                Recipient = recipient,
-                SenderUsername = sender.UserName,
-                RecipientUsername = recipient.UserName,
-                Content = createMessageDto.Content,
-            };
-
-            unitOfWork.MessageRepository.AddMessage(message);
-
-            if (await unitOfWork.Complete()) return Ok(mapper.Map<MessageDto>(message));
-
-            return BadRequest("Failed to save message");
+            var message = await messagesService.CreateMessage(User.GetUsername(), createMessageDto);
+            if (message == null) return BadRequest("Failed to save message");
+            return Ok(message);
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser(
-            [FromQuery] MessageParams messageParams)
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser([FromQuery] MessageParams messageParams)
         {
             messageParams.Username = User.GetUsername();
-
-            var messages = await unitOfWork.MessageRepository.GetMessagesForUser(messageParams);
-
+            var messages = await messagesService.GetMessagesForUser(messageParams);
             Response.AddPaginationHeader(messages);
-
-            return messages;
+            return Ok(messages);
         }
 
         [HttpGet("thread/{username}")]
         public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessageThread(string username)
         {
-            var currentUsername = User.GetUsername();
-
-            return Ok(await unitOfWork.MessageRepository.GetMessageThread(currentUsername, username));
+            var messages = await messagesService.GetMessageThread(User.GetUsername(), username);
+            return Ok(messages);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteMessage(int id)
         {
-            var username = User.GetUsername();
-
-            var message = await unitOfWork.MessageRepository.GetMessage(id);
-
-            if (message == null) return BadRequest("Cannot delete this message");
-
-            if (message.SenderUsername != username && message.RecipientUsername != username)
-                return Forbid();
-
-            if (message.SenderUsername == username) message.SenderDeleted = true;
-            if (message.RecipientUsername == username) message.RecipientDeleted = true;
-
-            if (message is { SenderDeleted: true, RecipientDeleted: true })
-            {
-                unitOfWork.MessageRepository.DeleteMessage(message);
-            }
-
-            if (await unitOfWork.Complete()) return Ok();
-
+            var result = await messagesService.DeleteMessage(User.GetUsername(), id);
+            if (result) return Ok();
             return BadRequest("Problem deleting the message");
-
         }
     }
 }

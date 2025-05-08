@@ -21,8 +21,12 @@ public static class ApplicationServiceExtensions
         });
         services.AddCors();
         services.AddScoped<ITokenService, TokenService>();
-        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IPhotoService, PhotoService>();
+        services.AddScoped<ILikesService, LikesService>();
+        services.AddScoped<IMessagesService, MessagesService>();
+        services.AddScoped<IUsersService, UsersService>();
+        services.AddScoped<IAccountService, AccountService>();
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ILikesRepository, LikesRepository>();
         services.AddScoped<IMessageRepository, MessageRepository>();
         services.AddScoped<IPhotoRepository, PhotoRepository>();

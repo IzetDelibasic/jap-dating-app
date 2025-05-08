@@ -9,14 +9,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Repository;
 
-public class UserRepository(DatabaseContext db, IMapper mapper) : IUserRepository
+public class UserRepository(DatabaseContext dbContext, IMapper mapper) : BaseRepository<AppUser>(dbContext), IUserRepository
 {
-    // 7. Ignore Query filter for the current user (GetMemberAsync) so the current user still sees their unapproved photos
+    private readonly IMapper _mapper = mapper;
+
     public async Task<MemberDto?> GetMemberAsync(string username, bool isCurrentUser)
     {
-        var query = db.Users
+        var query = dbSet
             .Where(x => x.UserName == username)
-            .ProjectTo<MemberDto>(mapper.ConfigurationProvider)
+            .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
             .AsQueryable();
 
         if (isCurrentUser) query = query.IgnoreQueryFilters();
@@ -26,7 +27,7 @@ public class UserRepository(DatabaseContext db, IMapper mapper) : IUserRepositor
 
     public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
     {
-        var query = db.Users.AsQueryable();
+        var query = dbSet.AsQueryable();
 
         query = query.Where(x => x.UserName != userParams.CurrentUsername);
 
@@ -46,33 +47,30 @@ public class UserRepository(DatabaseContext db, IMapper mapper) : IUserRepositor
             _ => query.OrderByDescending(x => x.LastActive)
         };
 
-        return await PagedList<MemberDto>.CreateAsync(query.ProjectTo<MemberDto>(mapper.ConfigurationProvider),
+        return await PagedList<MemberDto>.CreateAsync(query.ProjectTo<MemberDto>(_mapper.ConfigurationProvider),
             userParams.PageNumber, userParams.PageSize);
     }
 
-    public async Task<AppUser?> GetUserByIdAsync(int id)
-    {
-        return await db.Users.FindAsync(id);
-    }
-
-    // 14. Add the logic in the Admin controller approve photo method to check to see if the user has anyphotos that are set to main, if not then set the photo to main when approving.
     public async Task<AppUser?> GetUserByPhotoId(int photoId)
     {
-        return await db.Users.Include(x => x.Photos).IgnoreQueryFilters().Where(x => x.Photos.Any(x => x.Id == photoId)).FirstOrDefaultAsync();
+        return await dbSet
+            .Include(x => x.Photos)
+            .IgnoreQueryFilters()
+            .Where(x => x.Photos.Any(p => p.Id == photoId))
+            .FirstOrDefaultAsync();
     }
 
     public async Task<AppUser?> GetUserByUsernameAsync(string username)
     {
-        return await db.Users.Include(x => x.Photos).SingleOrDefaultAsync(x => x.UserName == username);
+        return await dbSet
+            .Include(x => x.Photos)
+            .SingleOrDefaultAsync(x => x.UserName == username);
     }
 
     public async Task<IEnumerable<AppUser>> GetUsersAsync()
     {
-        return await db.Users.Include(x => x.Photos).ToListAsync();
-    }
-
-    public void Update(AppUser user)
-    {
-        db.Entry(user).State = EntityState.Modified;
+        return await dbSet
+            .Include(x => x.Photos)
+            .ToListAsync();
     }
 }

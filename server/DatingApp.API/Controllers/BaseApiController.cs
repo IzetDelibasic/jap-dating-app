@@ -8,5 +8,13 @@ namespace DatingApp.Controllers;
 [Route("api/[controller]")]
 public class BaseApiController : ControllerBase
 {
+    protected string GetUsername()
+    {
+        return User?.Identity?.Name ?? string.Empty;
+    }
 
+    protected int GetUserId()
+    {
+        return int.Parse(User.FindFirst("id")?.Value ?? "0");
+    }
 }
