@@ -1,0 +1,16 @@
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Data\bin\Debug\net8.0\DatingApp.Data.deps.json
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Data\bin\Debug\net8.0\DatingApp.Data.dll
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Data\bin\Debug\net8.0\DatingApp.Data.pdb
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Data\bin\Debug\net8.0\DatingApp.Entities.dll
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Data\bin\Debug\net8.0\DatingApp.Entities.pdb
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Data\obj\Debug\net8.0\DatingApp.Data.csproj.AssemblyReference.cache
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Data\obj\Debug\net8.0\DatingApp.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Data\obj\Debug\net8.0\DatingApp.Data.AssemblyInfoInputs.cache
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Data\obj\Debug\net8.0\DatingApp.Data.AssemblyInfo.cs
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Data\obj\Debug\net8.0\DatingApp.Data.csproj.CoreCompileInputs.cache
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Data\obj\Debug\net8.0\DatingApp.Data.sourcelink.json
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Data\obj\Debug\net8.0\DatingAp.0DEBCD47.Up2Date
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Data\obj\Debug\net8.0\DatingApp.Data.dll
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Data\obj\Debug\net8.0\refint\DatingApp.Data.dll
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Data\obj\Debug\net8.0\DatingApp.Data.pdb
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Data\obj\Debug\net8.0\ref\DatingApp.Data.dll

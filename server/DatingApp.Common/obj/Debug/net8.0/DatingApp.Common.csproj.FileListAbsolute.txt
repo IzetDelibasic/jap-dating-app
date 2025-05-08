@@ -1,0 +1,15 @@
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Common\obj\Debug\net8.0\DatingApp.Common.csproj.AssemblyReference.cache
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Common\obj\Debug\net8.0\DatingApp.Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Common\obj\Debug\net8.0\DatingApp.Common.AssemblyInfoInputs.cache
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Common\obj\Debug\net8.0\DatingApp.Common.AssemblyInfo.cs
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Common\obj\Debug\net8.0\DatingApp.Common.csproj.CoreCompileInputs.cache
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Common\obj\Debug\net8.0\DatingApp.Common.sourcelink.json
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Common\bin\Debug\net8.0\DatingApp.Common.deps.json
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Common\bin\Debug\net8.0\DatingApp.Common.runtimeconfig.json
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Common\bin\Debug\net8.0\DatingApp.Common.dll
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Common\bin\Debug\net8.0\DatingApp.Common.pdb
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Common\obj\Debug\net8.0\DatingApp.Common.dll
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Common\obj\Debug\net8.0\refint\DatingApp.Common.dll
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Common\obj\Debug\net8.0\DatingApp.Common.pdb
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Common\obj\Debug\net8.0\DatingApp.Common.genruntimeconfig.cache
+C:\Users\IzetDelibasic\Desktop\jap-dating-app\server\DatingApp.Common\obj\Debug\net8.0\ref\DatingApp.Common.dll
