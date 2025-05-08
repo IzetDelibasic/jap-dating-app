@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tXwrPMT624I=",
+  "dgSpecHash": "SY4nI9eQ5Zw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\IzetDelibasic\\Desktop\\jap-dating-app\\server\\DatingApp.Services\\DatingApp.Services.csproj",
+  "projectFilePath": "C:\\Users\\IzetDelibasic\\Desktop\\ddd\\jap-dating-app\\server\\DatingApp.Services\\DatingApp.Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\IzetDelibasic\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\IzetDelibasic\\.nuget\\packages\\cloudinarydotnet\\1.27.5\\cloudinarydotnet.1.27.5.nupkg.sha512",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\IzetDelibasic\\Desktop\\jap-dating-app\\server\\DatingApp.Common\\DatingApp.Common.csproj": {}
+    "C:\\Users\\IzetDelibasic\\Desktop\\ddd\\jap-dating-app\\server\\DatingApp.Common\\DatingApp.Common.csproj": {}
   },
   "projects": {
-    "C:\\Users\\IzetDelibasic\\Desktop\\jap-dating-app\\server\\DatingApp.Common\\DatingApp.Common.csproj": {
+    "C:\\Users\\IzetDelibasic\\Desktop\\ddd\\jap-dating-app\\server\\DatingApp.Common\\DatingApp.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\IzetDelibasic\\Desktop\\jap-dating-app\\server\\DatingApp.Common\\DatingApp.Common.csproj",
+        "projectUniqueName": "C:\\Users\\IzetDelibasic\\Desktop\\ddd\\jap-dating-app\\server\\DatingApp.Common\\DatingApp.Common.csproj",
         "projectName": "DatingApp.Common",
-        "projectPath": "C:\\Users\\IzetDelibasic\\Desktop\\jap-dating-app\\server\\DatingApp.Common\\DatingApp.Common.csproj",
+        "projectPath": "C:\\Users\\IzetDelibasic\\Desktop\\ddd\\jap-dating-app\\server\\DatingApp.Common\\DatingApp.Common.csproj",
         "packagesPath": "C:\\Users\\IzetDelibasic\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\IzetDelibasic\\Desktop\\jap-dating-app\\server\\DatingApp.Common\\obj\\",
+        "outputPath": "C:\\Users\\IzetDelibasic\\Desktop\\ddd\\jap-dating-app\\server\\DatingApp.Common\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
