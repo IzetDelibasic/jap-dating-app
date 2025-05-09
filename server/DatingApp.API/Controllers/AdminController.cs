@@ -1,4 +1,5 @@
 using DatingApp.Services.Interfaces;
+using DatingApp.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,10 @@ namespace DatingApp.Controllers
         public async Task<ActionResult> GetUsersWithRoles()
         {
             var users = await adminService.GetUsersWithRoles();
+            if (users == null)
+            {
+                throw new NotFoundException("No users with roles found.");
+            }
             return Ok(users);
         }
 
@@ -21,7 +26,10 @@ namespace DatingApp.Controllers
         public async Task<ActionResult> EditRoles(string username, string roles)
         {
             var result = await adminService.EditRoles(username, roles);
-            if (!result) return BadRequest("Failed to update roles");
+            if (!result)
+            {
+                throw new BadRequestException($"Failed to update roles for user '{username}'.");
+            }
             return Ok(await adminService.GetUserRoles(username));
         }
 
@@ -30,6 +38,10 @@ namespace DatingApp.Controllers
         public async Task<ActionResult> GetPhotosForModeration()
         {
             var photos = await adminService.GetPhotosForModeration();
+            if (photos == null)
+            {
+                throw new NotFoundException("No photos to moderate found.");
+            }
             return Ok(photos);
         }
 
@@ -38,7 +50,10 @@ namespace DatingApp.Controllers
         public async Task<ActionResult> ApprovePhoto(int id)
         {
             var result = await adminService.ApprovePhoto(id);
-            if (!result) return BadRequest("Failed to approve photo");
+            if (!result)
+            {
+                throw new BadRequestException($"Failed to approve photo with ID {id}.");
+            }
             return Ok();
         }
 
@@ -47,7 +62,10 @@ namespace DatingApp.Controllers
         public async Task<ActionResult> RejectPhoto(int id)
         {
             var result = await adminService.RejectPhoto(id);
-            if (!result) return BadRequest("Failed to reject photo");
+            if (!result)
+            {
+                throw new BadRequestException($"Failed to reject photo with ID {id}.");
+            }
             return Ok();
         }
     }

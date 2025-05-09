@@ -26,6 +26,7 @@ public static class ApplicationServiceExtensions
         services.AddScoped<IMessagesService, MessagesService>();
         services.AddScoped<IUsersService, UsersService>();
         services.AddScoped<IAccountService, AccountService>();
+        services.AddScoped<IAdminService, AdminService>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ILikesRepository, LikesRepository>();
         services.AddScoped<IMessageRepository, MessageRepository>();

@@ -1,4 +1,4 @@
-namespace DatingApp.Errors;
+namespace DatingApp.Exceptions;
 
 public class ApiException(int statusCode, string message, string? details)
 {

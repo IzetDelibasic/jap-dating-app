@@ -1,6 +1,5 @@
 using DatingApp.Extensions;
 using DatingApp.Middleware;
-using DatingApp.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,8 +23,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapControllers();
-app.MapHub<PresenceHub>("hubs/presence");
-app.MapHub<MessageHub>("hubs/messages");
+app.MapSignalRHubs();
 
 await app.InitializeDatabaseAsync();
 

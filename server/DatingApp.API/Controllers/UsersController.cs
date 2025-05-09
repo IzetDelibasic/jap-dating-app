@@ -2,6 +2,7 @@ using DatingApp.Entities.DTO;
 using DatingApp.Extensions;
 using DatingApp.Helpers;
 using DatingApp.Services.Interfaces;
+using DatingApp.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,10 @@ public class UsersController(IUsersService usersService) : BaseApiController
     public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
     {
         var users = await usersService.GetUsers(userParams, User.GetUsername());
+        if (users == null || !users.Any())
+        {
+            throw new NotFoundException("No users found.");
+        }
         Response.AddPaginationHeader(users);
         return Ok(users);
     }
@@ -24,7 +29,10 @@ public class UsersController(IUsersService usersService) : BaseApiController
     public async Task<ActionResult<MemberDto?>> GetUser(string username)
     {
         var user = await usersService.GetUser(username, User.GetUsername());
-        if (user == null) return NotFound("User not found");
+        if (user == null)
+        {
+            throw new NotFoundException("User not found.");
+        }
         return Ok(user);
     }
 
@@ -32,15 +40,21 @@ public class UsersController(IUsersService usersService) : BaseApiController
     public async Task<IActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
     {
         var success = await usersService.UpdateUser(User.GetUsername(), memberUpdateDto);
-        if (success) return NoContent();
-        return BadRequest("Failed to update the user");
+        if (!success)
+        {
+            throw new BadRequestException("Failed to update the user.");
+        }
+        return NoContent();
     }
 
     [HttpPost("add-photo")]
     public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
     {
         var photoDto = await usersService.AddPhoto(User.GetUsername(), file);
-        if (photoDto == null) return BadRequest("Problem adding photo");
+        if (photoDto == null)
+        {
+            throw new BadRequestException("Problem adding photo.");
+        }
         return CreatedAtAction(nameof(GetUser), new { username = User.GetUsername() }, photoDto);
     }
 
@@ -48,15 +62,21 @@ public class UsersController(IUsersService usersService) : BaseApiController
     public async Task<ActionResult> SetMainPhoto(int photoId)
     {
         var success = await usersService.SetMainPhoto(User.GetUsername(), photoId);
-        if (success) return NoContent();
-        return BadRequest("Problem setting main photo");
+        if (!success)
+        {
+            throw new BadRequestException("Problem setting main photo.");
+        }
+        return NoContent();
     }
 
     [HttpDelete("delete-photo/{photoId:int}")]
     public async Task<IActionResult> DeletePhoto(int photoId)
     {
         var success = await usersService.DeletePhoto(User.GetUsername(), photoId);
-        if (success) return Ok();
-        return BadRequest("Problem deleting photo");
+        if (!success)
+        {
+            throw new BadRequestException("Problem deleting photo.");
+        }
+        return Ok();
     }
 }
