@@ -1,9 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingApp", "DatingApp\DatingApp.csproj", "{18912309-7950-456F-83EE-83FC79B2E21C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingApp.API", "DatingApp.API\DatingApp.API.csproj", "{4D4910F2-95BB-3B42-DBDE-7B10FB15232C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingApp.Common", "DatingApp.Common\DatingApp.Common.csproj", "{DBDE057F-7401-785A-975C-F02F8709ED3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingApp.Core", "DatingApp.Core\DatingApp.Core.csproj", "{7FD411E0-271D-5505-48A6-10E5335990CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingApp.Infrastructure", "DatingApp.Infrastructure\DatingApp.Infrastructure.csproj", "{3B0AC05E-F59C-26EA-857D-C9EB0C2C8194}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingApp.Services", "DatingApp.Services\DatingApp.Services.csproj", "{DA9E3D48-52A7-2BA5-C962-494FFF8DDC9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +19,34 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{18912309-7950-456F-83EE-83FC79B2E21C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{18912309-7950-456F-83EE-83FC79B2E21C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{18912309-7950-456F-83EE-83FC79B2E21C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{18912309-7950-456F-83EE-83FC79B2E21C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D4910F2-95BB-3B42-DBDE-7B10FB15232C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D4910F2-95BB-3B42-DBDE-7B10FB15232C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D4910F2-95BB-3B42-DBDE-7B10FB15232C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D4910F2-95BB-3B42-DBDE-7B10FB15232C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBDE057F-7401-785A-975C-F02F8709ED3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBDE057F-7401-785A-975C-F02F8709ED3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBDE057F-7401-785A-975C-F02F8709ED3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBDE057F-7401-785A-975C-F02F8709ED3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FD411E0-271D-5505-48A6-10E5335990CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FD411E0-271D-5505-48A6-10E5335990CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FD411E0-271D-5505-48A6-10E5335990CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FD411E0-271D-5505-48A6-10E5335990CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35DA81D6-99C5-28E8-4170-49E4C09B2E26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35DA81D6-99C5-28E8-4170-49E4C09B2E26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35DA81D6-99C5-28E8-4170-49E4C09B2E26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35DA81D6-99C5-28E8-4170-49E4C09B2E26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDC26279-45CE-B052-C18F-4FC76898E4D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDC26279-45CE-B052-C18F-4FC76898E4D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDC26279-45CE-B052-C18F-4FC76898E4D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDC26279-45CE-B052-C18F-4FC76898E4D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B0AC05E-F59C-26EA-857D-C9EB0C2C8194}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B0AC05E-F59C-26EA-857D-C9EB0C2C8194}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B0AC05E-F59C-26EA-857D-C9EB0C2C8194}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B0AC05E-F59C-26EA-857D-C9EB0C2C8194}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA9E3D48-52A7-2BA5-C962-494FFF8DDC9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA9E3D48-52A7-2BA5-C962-494FFF8DDC9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA9E3D48-52A7-2BA5-C962-494FFF8DDC9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA9E3D48-52A7-2BA5-C962-494FFF8DDC9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
