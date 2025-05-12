@@ -3,16 +3,23 @@ import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 // -Service-
-import { LikesService } from '../../services/likes.service';
+import { LikesService } from '../../core/services/likes.service';
 // -Components-
-import { MemberCardComponent } from '../../components/members/member-card/member-card.component';
+import { MemberCardComponent } from '../../shared/components/member-card/member-card.component';
 // -NgxBootstrap-
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-lists',
-  imports: [ButtonsModule, FormsModule, MemberCardComponent, PaginationModule, NgClass],
+  imports: [
+    ButtonsModule,
+    FormsModule,
+    MemberCardComponent,
+    PaginationModule,
+    NgClass,
+  ],
   templateUrl: './lists.component.html',
   styleUrl: './lists.component.css',
 })
@@ -21,6 +28,7 @@ export class ListsComponent implements OnInit, OnDestroy {
   predicate = 'liked';
   pageSize = 5;
   pageNumber = 1;
+  private subscriptions: Subscription = new Subscription();
 
   ngOnInit(): void {
     this.loadLikes();
@@ -38,7 +46,16 @@ export class ListsComponent implements OnInit, OnDestroy {
   }
 
   loadLikes() {
-    this.likesService.getLikes(this.predicate, this.pageNumber, this.pageSize);
+    this.likesService
+      .getLikes(this.predicate, this.pageNumber, this.pageSize)
+      .subscribe({
+        next: () => {
+          console.log('Likes loaded successfully');
+        },
+        error: (err) => {
+          console.error('Error fetching likes:', err);
+        },
+      });
   }
 
   pageChanged(event: any) {
@@ -49,6 +66,7 @@ export class ListsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
     this.likesService.paginatedResult.set(null);
   }
 }

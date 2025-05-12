@@ -12,10 +12,10 @@ import { Router } from '@angular/router';
 // -Ngx-
 import { ToastrService } from 'ngx-toastr';
 // -Services-
-import { AccountService } from '../../../services/account.service';
+import { AccountService } from '../../../core/services/account.service';
 // -Components-
-import { TextInputComponent } from '../text-input/text-input.component';
-import { DatePickerComponent } from '../date-picker/date-picker.component';
+import { TextInputComponent } from '../../../shared/components/forms/text-input/text-input.component';
+import { DatePickerComponent } from '../../../shared/components/forms/date-picker/date-picker.component';
 
 @Component({
   selector: 'app-register-form',

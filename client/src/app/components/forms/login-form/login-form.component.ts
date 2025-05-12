@@ -10,9 +10,9 @@ import { Router, RouterLink } from '@angular/router';
 // -Ngx-
 import { ToastrService } from 'ngx-toastr';
 // -Services-
-import { AccountService } from '../../../services/account.service';
+import { AccountService } from '../../../core/services/account.service';
 // -Components-
-import { TextInputComponent } from '../text-input/text-input.component';
+import { TextInputComponent } from '../../../shared/components/forms/text-input/text-input.component';
 
 @Component({
   selector: 'app-login-form',
