@@ -7,7 +7,7 @@ import { Message } from '../../shared/models/message';
 import { Group } from '../../shared/models/group';
 import { User } from '../../shared/models/user';
 // -PaginationHelper-
-import { setPaginationHeaders } from './paginationHelper';
+import { setPaginatedResponse, setPaginationHeaders } from './paginationHelper';
 // -Environment-
 import { environment } from '../../../environments/environment';
 // -SignalR-
@@ -34,19 +34,28 @@ export class MessageService {
       .withAutomaticReconnect()
       .build();
 
-    this.hubConnection.start().catch((error) => this.handleError(error));
+    this.hubConnection.start().catch((error) => console.log(error));
 
-    this.hubConnection.on('ReceiveMessageThread', (messages) =>
-      this.onReceiveMessageThread(messages)
-    );
+    this.hubConnection.on('ReceiveMessageThread', (messages) => {
+      this.messageThread.set(messages);
+    });
 
-    this.hubConnection.on('NewMessage', (message) =>
-      this.onNewMessage(message)
-    );
+    this.hubConnection.on('NewMessage', (message) => {
+      this.messageThread.update((messages) => [...messages, message]);
+    });
 
-    this.hubConnection.on('UpdatedGroup', (group) =>
-      this.onUpdatedGroup(group, otherUsername)
-    );
+    this.hubConnection.on('UpdatedGroup', (group: Group) => {
+      if (group.connections.some((x) => x.username === otherUsername)) {
+        this.messageThread.update((messages) => {
+          messages.forEach((message) => {
+            if (!message.dateRead) {
+              message.dateRead = new Date(Date.now());
+            }
+          });
+          return messages;
+        });
+      }
+    });
   }
 
   stopHubConnection() {
@@ -57,12 +66,18 @@ export class MessageService {
 
   getMessages(pageNumber: number, pageSize: number, container: string) {
     let params = setPaginationHeaders(pageNumber, pageSize);
+
     params = params.append('Container', container);
 
-    return this.http.get<PaginatedResult<Message[]>>(
-      environment.apiBaseUrl + 'messages',
-      { observe: 'response', params }
-    );
+    return this.http
+      .get<Message[]>(environment.apiBaseUrl + 'messages', {
+        observe: 'response',
+        params,
+      })
+      .subscribe({
+        next: (response) =>
+          setPaginatedResponse(response, this.paginatedResult),
+      });
   }
 
   getMessageThread(username: string) {
@@ -80,30 +95,5 @@ export class MessageService {
 
   deleteMessage(id: number) {
     return this.http.delete(environment.apiBaseUrl + `messages/${id}`);
-  }
-
-  private handleError(error: any): void {
-    console.error('MessageService Error:', error);
-  }
-
-  private onReceiveMessageThread(messages: Message[]): void {
-    this.messageThread.set(messages);
-  }
-
-  private onNewMessage(message: Message): void {
-    this.messageThread.update((messages) => [...messages, message]);
-  }
-
-  private onUpdatedGroup(group: Group, otherUsername: string): void {
-    if (group.connections.some((x) => x.username === otherUsername)) {
-      this.messageThread.update((messages) => {
-        messages.forEach((message) => {
-          if (!message.dateRead) {
-            message.dateRead = new Date(Date.now());
-          }
-        });
-        return messages;
-      });
-    }
   }
 }

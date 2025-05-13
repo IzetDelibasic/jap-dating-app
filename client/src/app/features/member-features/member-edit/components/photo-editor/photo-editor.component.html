@@ -13,7 +13,7 @@
     <div class="text-center mt-2">
       <button
         class="btn btn-sm me-1"
-        [disabled]="photo.isMain"
+        [disabled]="photo.isMain || !photo.isApproved"
         (click)="setMainPhoto(photo)"
         [ngClass]="photo.isMain ? 'btn-success active' : 'btn-outline-success'"
       >
@@ -21,7 +21,7 @@
       </button>
       <button
         class="btn btn-sm btn-danger"
-        [disabled]="photo.isMain"
+        [disabled]="photo.isMain || !photo.isApproved"
         (click)="deletePhoto(photo)"
       >
         <i class="fa fa-trash"></i>

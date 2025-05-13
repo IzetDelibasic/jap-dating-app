@@ -1,7 +1,7 @@
 // -Angular-
 import { Component } from '@angular/core';
 // -Components-
-import { RegisterFormComponent } from '../../components/forms/register-form/register-form.component';
+import { RegisterFormComponent } from '../../auth/components/register-form/register-form.component';
 
 @Component({
   selector: 'app-home-page',

@@ -38,10 +38,7 @@ export class MembersService {
       Object.values(this.userParams()).join('-')
     );
 
-    if (response) {
-      setPaginatedResponse(response, this.paginatedResult);
-      return;
-    }
+    if (response) return setPaginatedResponse(response, this.paginatedResult);
 
     let params = setPaginationHeaders(
       this.userParams().pageNumber,
@@ -53,48 +50,26 @@ export class MembersService {
     params = params.append('gender', this.userParams().gender);
     params = params.append('orderBy', this.userParams().orderBy);
 
-    this.http
+    return this.http
       .get<Member[]>(environment.apiBaseUrl + 'user', {
         observe: 'response',
         params,
       })
       .subscribe({
         next: (response) => {
-          const paginationHeader = response.headers.get('Pagination');
-          const pagination = paginationHeader
-            ? JSON.parse(paginationHeader)
-            : null;
-
-          if (response.body && pagination) {
-            const paginatedResult: PaginatedResult<Member[]> = {
-              items: response.body,
-              pagination: pagination,
-            };
-
-            setPaginatedResponse(paginatedResult, this.paginatedResult);
-            this.memberCache.set(
-              Object.values(this.userParams()).join('-'),
-              paginatedResult
-            );
-          } else {
-            console.error('Response body or pagination is missing.');
-          }
-        },
-        error: (err) => {
-          console.error('Error fetching members:', err);
+          setPaginatedResponse(response, this.paginatedResult);
+          this.memberCache.set(
+            Object.values(this.userParams()).join('-'),
+            response
+          );
         },
       });
   }
 
   getMember(username: string) {
-    const members = [...this.memberCache.values()].reduce((arr, elem) => {
-      if (elem && elem.body) {
-        return arr.concat(elem.body);
-      }
-      return arr;
-    }, []);
-
-    const member = members.find((m: Member) => m.userName === username);
+    const member: Member = [...this.memberCache.values()]
+      .reduce((arr, elem) => arr.concat(elem.body), [])
+      .find((m: Member) => m.userName === username);
 
     if (member) return of(member);
 

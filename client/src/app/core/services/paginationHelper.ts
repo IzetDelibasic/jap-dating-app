@@ -5,10 +5,13 @@ import { signal } from '@angular/core';
 import { PaginatedResult } from '../../shared/models/pagination';
 
 export function setPaginatedResponse<T>(
-  paginatedResult: PaginatedResult<T>,
+  response: HttpResponse<T>,
   paginatedResultSignal: ReturnType<typeof signal<PaginatedResult<T> | null>>
 ) {
-  paginatedResultSignal.set(paginatedResult);
+  paginatedResultSignal.set({
+    items: response.body as T,
+    pagination: JSON.parse(response.headers.get('Pagination')!),
+  });
 }
 
 export function setPaginationHeaders(pageNumber: number, pageSize: number) {

@@ -14,7 +14,7 @@ import { Member } from '../../../../shared/models/member';
 import { AccountService } from '../../../../core/services/account.service';
 import { MembersService } from '../../members.service';
 // -Components-
-import { PhotoEditorComponent } from '../../../../components/members/photo-editor/photo-editor.component';
+import { PhotoEditorComponent } from '../components/photo-editor/photo-editor.component';
 // -Ngx-
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ToastrService } from 'ngx-toastr';

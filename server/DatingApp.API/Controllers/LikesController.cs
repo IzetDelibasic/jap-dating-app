@@ -26,10 +26,6 @@ namespace DatingApp.Controllers
         public async Task<ActionResult<IEnumerable<int>>> GetCurrentUserLikeIds()
         {
             var likeIds = await likesService.GetCurrentUserLikeIds(User.GetUserId());
-            if (likeIds == null || !likeIds.Any())
-            {
-                throw new NotFoundException("No likes found for the current user.");
-            }
             return Ok(likeIds);
         }
 
@@ -38,10 +34,6 @@ namespace DatingApp.Controllers
         {
             likesParams.UserId = User.GetUserId();
             var users = await likesService.GetUserLikes(likesParams);
-            if (users == null || !users.Any())
-            {
-                throw new NotFoundException("No users found for the given like parameters.");
-            }
             Response.AddPaginationHeader(users);
             return Ok(users);
         }

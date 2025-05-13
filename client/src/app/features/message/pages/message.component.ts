@@ -10,8 +10,6 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 // -Models-
 import { Message } from '../../../shared/models/message';
-// -Core-
-import { setPaginatedResponse } from '../../../core/services/paginationHelper';
 
 @Component({
   selector: 'app-message',
@@ -37,23 +35,11 @@ export class MessageComponent implements OnInit {
   }
 
   loadMessages() {
-    this.messageService
-      .getMessages(this.pageNumber, this.pageSize, this.container)
-      .subscribe({
-        next: (response) => {
-          if (response.body) {
-            setPaginatedResponse(
-              response.body,
-              this.messageService.paginatedResult
-            );
-          } else {
-            console.error('Response body is missing.');
-          }
-        },
-        error: (err) => {
-          console.error('Error loading messages:', err);
-        },
-      });
+    this.messageService.getMessages(
+      this.pageNumber,
+      this.pageSize,
+      this.container
+    );
   }
 
   getRoute(message: Message) {
@@ -74,14 +60,14 @@ export class MessageComponent implements OnInit {
       next: () => {
         this.messageService.paginatedResult.update((prev) => {
           if (prev && prev.items) {
-            prev.items = prev.items.filter((m) => m.id !== id);
+            prev.items.splice(
+              prev.items.findIndex((m) => m.id === id),
+              1
+            );
             return prev;
           }
           return prev;
         });
-      },
-      error: (err) => {
-        console.error('Error deleting message:', err);
       },
     });
   }

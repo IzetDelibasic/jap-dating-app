@@ -12,7 +12,7 @@ import { memberDetailResolver } from './features/member-features/member-detail/m
 import { AdminPanelComponent } from './features/admin-features/admin-panel/pages/admin-panel.component';
 import { adminGuard } from './core/guards/admin.guard';
 import { preventUnsavedChangesGuard } from './core/guards/prevent-unsaved-changes.guard';
-import { LoginFormComponent } from './components/forms/login-form/login-form.component';
+import { LoginFormComponent } from './auth/components/login-form/login-form.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
