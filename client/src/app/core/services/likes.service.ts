@@ -1,0 +1,70 @@
+// -Angular-
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable, signal } from '@angular/core';
+// -Environment-
+import { environment } from '../../../environments/environment';
+// -Models-
+import { Member } from '../../shared/models/member';
+import { PaginatedResult } from '../../shared/models/pagination';
+// -PaginationHelper-
+import { setPaginatedResponse, setPaginationHeaders } from './paginationHelper';
+import { map, Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class LikesService {
+  private http = inject(HttpClient);
+  likeIds = signal<number[]>([]);
+  paginatedResult = signal<PaginatedResult<Member[]> | null>(null);
+
+  toggleLike(targetId: number) {
+    return this.http.post(`${environment.apiBaseUrl}likes/${targetId}`, {});
+  }
+
+  getLikes(
+    predicate: string,
+    pageNumber: number,
+    pageSize: number
+  ): Observable<void> {
+    let params = setPaginationHeaders(pageNumber, pageSize);
+    params = params.append('predicate', predicate);
+
+    return this.http
+      .get<Member[]>(`${environment.apiBaseUrl}likes`, {
+        observe: 'response',
+        params,
+      })
+      .pipe(
+        map((response) => {
+          const paginationHeader = response.headers.get('Pagination');
+          const pagination = paginationHeader
+            ? JSON.parse(paginationHeader)
+            : null;
+
+          if (response.body && pagination) {
+            const paginatedResult: PaginatedResult<Member[]> = {
+              items: response.body,
+              pagination: pagination,
+            };
+
+            this.paginatedResult.set(paginatedResult);
+          } else {
+            console.error('Response body or pagination is missing.');
+          }
+        })
+      );
+  }
+
+  updateLikeIds(memberId: number, hasLiked: boolean): void {
+    if (hasLiked) {
+      this.likeIds.update((ids) => ids.filter((id) => id !== memberId));
+    } else {
+      this.likeIds.update((ids) => [...ids, memberId]);
+    }
+  }
+
+  getLikeIds(): Observable<number[]> {
+    return this.http.get<number[]>(`${environment.apiBaseUrl}likes/list`);
+  }
+}

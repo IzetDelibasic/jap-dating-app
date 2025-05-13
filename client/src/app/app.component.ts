@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { AccountService } from './services/account.service';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { AccountService } from './core/services/account.service';
 import { NgxSpinnerComponent } from 'ngx-spinner';
 
 @Component({
