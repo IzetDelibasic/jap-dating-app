@@ -1,11 +1,8 @@
-// -Angular-
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-// -Environment-
 import { environment } from '../../../../environments/environment';
-// -Models-
-import { User } from '../../../shared/models/user';
-import { Photo } from '../../../shared/models/photo';
+import { User } from '../../../core/models/user';
+import { Photo } from '../../../core/models/photo';
 
 @Injectable({
   providedIn: 'root',

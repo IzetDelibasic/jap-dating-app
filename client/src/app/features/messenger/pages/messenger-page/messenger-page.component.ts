@@ -1,18 +1,14 @@
-// -Angular-
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Component, inject, OnInit } from '@angular/core';
-// -Service-
-import { MessageService } from '../../../core/services/message.service';
-// -Ngx-
+import { MessageService } from '../../../../core/services/message.service';
 import { TimeagoModule } from 'ngx-timeago';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-// -Models-
-import { Message } from '../../../shared/models/message';
+import { Message } from '../../../../core/models/message';
 
 @Component({
-  selector: 'app-message',
+  selector: 'app-messenger-page',
   imports: [
     ButtonsModule,
     FormsModule,
@@ -20,10 +16,10 @@ import { Message } from '../../../shared/models/message';
     RouterLink,
     PaginationModule,
   ],
-  templateUrl: './message.component.html',
-  styleUrl: './message.component.css',
+  templateUrl: './messenger-page.component.html',
+  styleUrl: './messenger-page.component.css',
 })
-export class MessageComponent implements OnInit {
+export class MessengerPageComponent implements OnInit {
   messageService = inject(MessageService);
   container = 'Unread';
   pageNumber = 1;
@@ -44,8 +40,8 @@ export class MessageComponent implements OnInit {
 
   getRoute(message: Message) {
     if (this.container === 'Outbox')
-      return `/members/${message.recipientUsername}`;
-    else return `/members/${message.senderUsername}`;
+      return `/member-details/${message.recipientUsername}`;
+    else return `/member-details/${message.senderUsername}`;
   }
 
   pageChanged(event: any) {

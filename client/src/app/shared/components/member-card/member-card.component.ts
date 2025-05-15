@@ -1,12 +1,8 @@
-// -Angular-
 import { RouterLink } from '@angular/router';
 import { Component, computed, inject, input } from '@angular/core';
-// -Models-
-import { Member } from '../../../shared/models/member';
-// -Service-
+import { Member } from '../../../core/models/member';
 import { LikesService } from '../../../core/services/likes.service';
 import { PresenceService } from '../../../core/services/presence.service';
-// -NgxToastr-
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

@@ -1,12 +1,8 @@
-// -Angular-
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-// -Environment-
 import { environment } from '../../../environments/environment';
-// -Models-
-import { Member } from '../../shared/models/member';
-import { PaginatedResult } from '../../shared/models/pagination';
-// -PaginationHelper-
+import { Member } from '../models/member';
+import { PaginatedResult } from '../models/pagination';
 import { setPaginatedResponse, setPaginationHeaders } from './paginationHelper';
 import { map, Observable } from 'rxjs';
 

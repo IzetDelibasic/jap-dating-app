@@ -1,21 +1,16 @@
-// -Angular-
 import { Component, inject, OnInit } from '@angular/core';
-// -Service-
 import { AdminService } from '../../admin.service';
-// -Models-
-import { User } from '../../../../../shared/models/user';
-// -Modals-
+import { User } from '../../../../../core/models/user';
 import { RolesModalComponent } from '../../../../../shared/components/modals/roles-modal/roles-modal.component';
-// -NgxBootstrap-
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 
 @Component({
-  selector: 'app-user-management',
+  selector: 'app-manage-user',
   imports: [],
-  templateUrl: './user-management.component.html',
-  styleUrl: './user-management.component.css',
+  templateUrl: './manage-user.component.html',
+  styleUrl: './manage-user.component.css',
 })
-export class UserManagementComponent implements OnInit {
+export class ManageUserComponent implements OnInit {
   private adminService = inject(AdminService);
   private modalService = inject(BsModalService);
   users: User[] = [];

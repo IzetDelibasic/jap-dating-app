@@ -1,17 +1,14 @@
-// -Angular-
 import { Component, inject, OnInit } from '@angular/core';
-// -Models-
-import { Photo } from '../../../../../shared/models/photo';
-// -Service-
+import { Photo } from '../../../../../core/models/photo';
 import { AdminService } from '../../admin.service';
 
 @Component({
-  selector: 'app-photo-managemet',
+  selector: 'app-manage-photo',
   imports: [],
-  templateUrl: './photo-managemet.component.html',
-  styleUrl: './photo-managemet.component.css',
+  templateUrl: './manage-photo.component.html',
+  styleUrl: './manage-photo.component.css',
 })
-export class PhotoManagemetComponent implements OnInit {
+export class ManagePhotoComponent implements OnInit {
   photos: Photo[] = [];
   private adminService = inject(AdminService);
 

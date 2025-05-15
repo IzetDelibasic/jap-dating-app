@@ -1,4 +1,3 @@
-// -Angular-
 import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
@@ -7,11 +6,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-// -Ngx-
 import { ToastrService } from 'ngx-toastr';
-// -Services-
 import { AccountService } from '../../../core/services/account.service';
-// -Components-
 import { TextInputComponent } from '../../../shared/components/forms/text-input/text-input.component';
 
 @Component({

@@ -1,4 +1,3 @@
-// -Angular-
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
   AbstractControl,
@@ -9,11 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-// -Ngx-
 import { ToastrService } from 'ngx-toastr';
-// -Services-
 import { AccountService } from '../../../core/services/account.service';
-// -Components-
 import { TextInputComponent } from '../../../shared/components/forms/text-input/text-input.component';
 import { DatePickerComponent } from '../../../shared/components/forms/date-picker/date-picker.component';
 

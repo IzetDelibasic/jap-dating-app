@@ -1,10 +1,7 @@
-// -Angular-
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-// -Ngx-
 import { ToastrService } from 'ngx-toastr';
-// -Rxjs-
 import { catchError } from 'rxjs';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {

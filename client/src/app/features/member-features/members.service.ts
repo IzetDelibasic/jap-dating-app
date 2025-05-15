@@ -1,18 +1,12 @@
-// -Angular -
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-// -Models-
-import { Member } from '../../shared/models/member';
-import { Photo } from '../../shared/models/photo';
-import { PaginatedResult } from '../../shared/models/pagination';
-import { UserParams } from '../../shared/models/userParams';
-// -Rxjs-
+import { Member } from '../../core/models/member';
+import { Photo } from '../../core/models/photo';
+import { PaginatedResult } from '../../core/models/pagination';
+import { UserParams } from '../../core/models/userParams';
 import { of } from 'rxjs';
-// -Environment-
 import { environment } from '../../../environments/environment';
-// -Service-
 import { AccountService } from '../../core/services/account.service';
-// -PaginationHelper-
 import {
   setPaginatedResponse,
   setPaginationHeaders,

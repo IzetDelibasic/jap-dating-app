@@ -1,12 +1,8 @@
-// -Angular-
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Component, inject, OnInit } from '@angular/core';
-// -Service-
-import { MembersService } from '../../members.service';
-// -Component-
-import { MemberCardComponent } from '../../../../shared/components/member-card/member-card.component';
-// -NgxBootstrap-
+import { MembersService } from '../../../members.service';
+import { MemberCardComponent } from '../../../../../shared/components/member-card/member-card.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
@@ -19,10 +15,10 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
     ButtonsModule,
     NgClass,
   ],
-  templateUrl: './members-list.component.html',
-  styleUrl: './members-list.component.css',
+  templateUrl: './members-board-page.component.html',
+  styleUrl: './members-board-page.component.css',
 })
-export class MembersListComponent implements OnInit {
+export class MembersBoardComponent implements OnInit {
   membersService = inject(MembersService);
   genderList = [
     { value: 'male', display: 'Males' },

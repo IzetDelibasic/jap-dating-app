@@ -1,13 +1,8 @@
-// -Angular-
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-// -Rxjs-
 import { map } from 'rxjs';
-// -Environment-
 import { environment } from '../../../environments/environment';
-// -Models-
-import { User } from '../../shared/models/user';
-// -Services-
+import { User } from '../models/user';
 import { LikesService } from './likes.service';
 import { PresenceService } from './presence.service';
 

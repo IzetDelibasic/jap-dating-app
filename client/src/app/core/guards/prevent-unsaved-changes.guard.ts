@@ -1,13 +1,10 @@
-// -Angular-
 import { inject } from '@angular/core';
 import { CanDeactivateFn } from '@angular/router';
-// -Components-
-import { MemberEditComponent } from '../../features/member-features/member-edit/pages/member-edit.component';
-// -Service-
+import { MemberEditPageComponent } from '../../features/member-features/member-edit/pages/member-edit-page/member-edit-page.component';
 import { ConfirmService } from '../services/confirm.service';
 
 export const preventUnsavedChangesGuard: CanDeactivateFn<
-  MemberEditComponent
+  MemberEditPageComponent
 > = (component) => {
   const confirmService = inject(ConfirmService);
 

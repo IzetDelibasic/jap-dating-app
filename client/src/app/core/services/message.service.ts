@@ -1,16 +1,11 @@
-// -Angular-
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-// -Models-
-import { PaginatedResult } from '../../shared/models/pagination';
-import { Message } from '../../shared/models/message';
-import { Group } from '../../shared/models/group';
-import { User } from '../../shared/models/user';
-// -PaginationHelper-
+import { PaginatedResult } from '../models/pagination';
+import { Message } from '../models/message';
+import { Group } from '../models/group';
+import { User } from '../models/user';
 import { setPaginatedResponse, setPaginationHeaders } from './paginationHelper';
-// -Environment-
 import { environment } from '../../../environments/environment';
-// -SignalR-
 import {
   HubConnection,
   HubConnectionBuilder,

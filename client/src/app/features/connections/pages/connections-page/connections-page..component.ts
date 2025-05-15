@@ -1,12 +1,8 @@
-// -Angular-
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-// -Service-
-import { LikesService } from '../../core/services/likes.service';
-// -Components-
-import { MemberCardComponent } from '../../shared/components/member-card/member-card.component';
-// -NgxBootstrap-
+import { LikesService } from '../../../../core/services/likes.service';
+import { MemberCardComponent } from './../../../../shared/components/member-card/member-card.component';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { Subscription } from 'rxjs';
@@ -20,10 +16,10 @@ import { Subscription } from 'rxjs';
     PaginationModule,
     NgClass,
   ],
-  templateUrl: './lists.component.html',
-  styleUrl: './lists.component.css',
+  templateUrl: './connections-page.component.html',
+  styleUrl: './connections-page.component.css',
 })
-export class ListsComponent implements OnInit, OnDestroy {
+export class ConnectionsPage implements OnInit, OnDestroy {
   likesService = inject(LikesService);
   predicate = 'liked';
   pageSize = 5;

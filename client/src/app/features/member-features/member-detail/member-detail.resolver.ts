@@ -1,9 +1,6 @@
-// -Angular-
 import { ResolveFn } from '@angular/router';
 import { inject } from '@angular/core';
-// -Models-
-import { Member } from '../../../shared/models/member';
-// -Services-
+import { Member } from '../../../core/models/member';
 import { MembersService } from '../members.service';
 
 export const memberDetailResolver: ResolveFn<Member | null> = (route) => {

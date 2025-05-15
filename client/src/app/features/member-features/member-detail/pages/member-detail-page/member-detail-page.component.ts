@@ -1,23 +1,16 @@
-// -Angular-
 import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-// -SignalR-
 import { HubConnectionState } from '@microsoft/signalr';
-// -Models-
-import { Member } from '../../../../shared/models/member';
-// -Ngx-
+import { Member } from '../../../../../core/models/member';
 import { TabDirective, TabsetComponent, TabsModule } from 'ngx-bootstrap/tabs';
 import { TimeagoModule } from 'ngx-timeago';
-// -Ng-
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
-// -Components-
-import { MemberMessagesComponent } from '../components/member-messages/member-messages.component';
-// -Service-
-import { MessageService } from '../../../../core/services/message.service';
-import { PresenceService } from '../../../../core/services/presence.service';
-import { AccountService } from '../../../../core/services/account.service';
-import { LikesService } from '../../../../core/services/likes.service';
+import { MemberMessagesComponent } from '../../components/member-messages/member-messages.component';
+import { MessageService } from '../../../../../core/services/message.service';
+import { PresenceService } from '../../../../../core/services/presence.service';
+import { AccountService } from '../../../../../core/services/account.service';
+import { LikesService } from '../../../../../core/services/likes.service';
 
 @Component({
   selector: 'app-member-detail',
@@ -29,10 +22,10 @@ import { LikesService } from '../../../../core/services/likes.service';
     DatePipe,
     MemberMessagesComponent,
   ],
-  templateUrl: './member-detail.component.html',
-  styleUrl: './member-detail.component.css',
+  templateUrl: './member-detail-page.component.html',
+  styleUrl: './member-detail-page.component.css',
 })
-export class MemberDetailComponent implements OnInit, OnDestroy {
+export class MemberDetailPageComponent implements OnInit, OnDestroy {
   @ViewChild('memberTabs', { static: true }) memberTabs?: TabsetComponent;
   presenceService = inject(PresenceService);
   private messageService = inject(MessageService);

@@ -1,4 +1,3 @@
-// -Angular-
 import {
   Component,
   HostListener,
@@ -8,14 +7,10 @@ import {
 } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-// -Models-
-import { Member } from '../../../../shared/models/member';
-// -Service-
-import { AccountService } from '../../../../core/services/account.service';
-import { MembersService } from '../../members.service';
-// -Components-
-import { PhotoEditorComponent } from '../components/photo-editor/photo-editor.component';
-// -Ngx-
+import { Member } from '../../../../../core/models/member';
+import { AccountService } from '../../../../../core/services/account.service';
+import { MembersService } from '../../../members.service';
+import { PhotoEditorComponent } from '../../components/photo-editor/photo-editor.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ToastrService } from 'ngx-toastr';
 import { TimeagoModule } from 'ngx-timeago';
@@ -29,10 +24,10 @@ import { TimeagoModule } from 'ngx-timeago';
     TimeagoModule,
     DatePipe,
   ],
-  templateUrl: './member-edit.component.html',
-  styleUrl: './member-edit.component.css',
+  templateUrl: './member-edit-page.component.html',
+  styleUrl: './member-edit-page.component.css',
 })
-export class MemberEditComponent implements OnInit {
+export class MemberEditPageComponent implements OnInit {
   @ViewChild('editForm') editForm?: NgForm;
   @HostListener('window:beforeunload', ['$event']) notify($event: any) {
     if (this.editForm?.dirty) {

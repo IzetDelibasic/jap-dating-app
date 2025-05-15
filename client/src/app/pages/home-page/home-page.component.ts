@@ -1,6 +1,4 @@
-// -Angular-
 import { Component } from '@angular/core';
-// -Components-
 import { RegisterFormComponent } from '../../auth/components/register-form/register-form.component';
 
 @Component({
