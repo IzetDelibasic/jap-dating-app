@@ -11,6 +11,7 @@ import {
   setPaginatedResponse,
   setPaginationHeaders,
 } from '../../core/services/paginationHelper';
+import { MEMBERS_API } from '../../core/constants/membersServiceConstant';
 
 @Injectable({
   providedIn: 'root',
@@ -45,7 +46,7 @@ export class MembersService {
     params = params.append('orderBy', this.userParams().orderBy);
 
     return this.http
-      .get<Member[]>(environment.apiBaseUrl + 'user', {
+      .get<Member[]>(environment.apiBaseUrl + MEMBERS_API.BASE, {
         observe: 'response',
         params,
       })
@@ -67,23 +68,25 @@ export class MembersService {
 
     if (member) return of(member);
 
-    return this.http.get<Member>(environment.apiBaseUrl + `user/${username}`);
+    return this.http.get<Member>(
+      environment.apiBaseUrl + MEMBERS_API.BY_USERNAME(username)
+    );
   }
 
   updateMember(member: Member) {
-    return this.http.put(environment.apiBaseUrl + 'user', member);
+    return this.http.put(environment.apiBaseUrl + MEMBERS_API.UPDATE, member);
   }
 
   setMainPhoto(photo: Photo) {
     return this.http.put(
-      environment.apiBaseUrl + `user/set-main-photo/${photo.id}`,
+      environment.apiBaseUrl + MEMBERS_API.SET_MAIN_PHOTO(photo.id),
       {}
     );
   }
 
   deletePhoto(photo: Photo) {
     return this.http.delete(
-      environment.apiBaseUrl + `user/delete-photo/${photo.id}`
+      environment.apiBaseUrl + MEMBERS_API.DELETE_PHOTO(photo.id)
     );
   }
 }

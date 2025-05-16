@@ -5,6 +5,7 @@ import { Member } from '../models/member';
 import { PaginatedResult } from '../models/pagination';
 import { setPaginatedResponse, setPaginationHeaders } from './paginationHelper';
 import { map, Observable } from 'rxjs';
+import { LIKES_API } from '../constants/likesServiceConstant';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,10 @@ export class LikesService {
   paginatedResult = signal<PaginatedResult<Member[]> | null>(null);
 
   toggleLike(targetId: number) {
-    return this.http.post(`${environment.apiBaseUrl}likes/${targetId}`, {});
+    return this.http.post(
+      `${environment.apiBaseUrl}${LIKES_API.TOGGLE(targetId)}`,
+      {}
+    );
   }
 
   getLikes(
@@ -27,7 +31,7 @@ export class LikesService {
     params = params.append('predicate', predicate);
 
     return this.http
-      .get<Member[]>(`${environment.apiBaseUrl}likes`, {
+      .get<Member[]>(`${environment.apiBaseUrl}${LIKES_API.BASE}`, {
         observe: 'response',
         params,
       })
@@ -61,6 +65,8 @@ export class LikesService {
   }
 
   getLikeIds(): Observable<number[]> {
-    return this.http.get<number[]>(`${environment.apiBaseUrl}likes/list`);
+    return this.http.get<number[]>(
+      `${environment.apiBaseUrl}${LIKES_API.LIST}`
+    );
   }
 }
