@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RegisterFormComponent } from '../../features/auth/components/register-form/register-form.component';
+import { HERO_VIDEO_URL } from '../../core/constants/contentConstants/videosConstant';
 
 @Component({
   selector: 'app-home-page',
@@ -9,6 +10,7 @@ import { RegisterFormComponent } from '../../features/auth/components/register-f
 })
 export class HomePageComponent {
   registerMode = true;
+  heroVideo = HERO_VIDEO_URL;
 
   registerToggle() {
     this.registerMode = !this.registerMode;

@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { User } from '../../../core/models/user';
 import { Photo } from '../../../core/models/photo';
-import { ADMIN_API } from '../../../core/constants/adminServiceConstant';
+import { ADMIN_API } from '../../../core/constants/servicesConstants/adminServiceConstant';
 
 @Injectable({
   providedIn: 'root',

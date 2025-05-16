@@ -11,7 +11,7 @@ import {
   setPaginatedResponse,
   setPaginationHeaders,
 } from '../../core/services/paginationHelper';
-import { MEMBERS_API } from '../../core/constants/membersServiceConstant';
+import { MEMBERS_API } from '../../core/constants/servicesConstants/membersServiceConstant';
 
 @Injectable({
   providedIn: 'root',

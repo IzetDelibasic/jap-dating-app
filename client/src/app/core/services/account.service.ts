@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 import { User } from '../models/user';
 import { LikesService } from './likes.service';
 import { PresenceService } from './presence.service';
-import { ACCOUNT_API } from '../constants/accountServiceConstant';
+import { ACCOUNT_API } from '../constants/servicesConstants/accountServiceConstant';
 
 @Injectable({
   providedIn: 'root',

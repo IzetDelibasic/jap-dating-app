@@ -1,4 +1,4 @@
-import { MESSAGES_API } from './../constants/messagesServiceConstant';
+import { MESSAGES_API } from '../constants/servicesConstants/messagesServiceConstant';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { PaginatedResult } from '../models/pagination';

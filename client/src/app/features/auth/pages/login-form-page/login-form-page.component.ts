@@ -9,6 +9,7 @@ import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../../../../core/services/account.service';
 import { TextInputComponent } from '../../../../shared/components/forms/text-input/text-input.component';
+import { HERO_VIDEO_URL } from '../../../../core/constants/contentConstants/videosConstant';
 
 @Component({
   selector: 'app-login-form',
@@ -16,11 +17,12 @@ import { TextInputComponent } from '../../../../shared/components/forms/text-inp
   templateUrl: './login-form-page.component.html',
   styleUrls: ['./login-form-page.component.css'],
 })
-export class LoginFormComponent {
+export class LoginFormPageComponent {
   accountService = inject(AccountService);
   private router = inject(Router);
   private toastr = inject(ToastrService);
   loginForm: FormGroup;
+  heroVideo = HERO_VIDEO_URL;
 
   constructor(private fb: FormBuilder) {
     this.loginForm = this.fb.group({

@@ -5,7 +5,7 @@ import { Member } from '../models/member';
 import { PaginatedResult } from '../models/pagination';
 import { setPaginatedResponse, setPaginationHeaders } from './paginationHelper';
 import { map, Observable } from 'rxjs';
-import { LIKES_API } from '../constants/likesServiceConstant';
+import { LIKES_API } from '../constants/servicesConstants/likesServiceConstant';
 
 @Injectable({
   providedIn: 'root',
