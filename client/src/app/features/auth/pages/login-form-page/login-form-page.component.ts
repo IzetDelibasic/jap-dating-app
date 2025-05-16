@@ -35,7 +35,7 @@ export class LoginFormPageComponent {
     if (this.loginForm.valid) {
       this.accountService.login(this.loginForm.value).subscribe({
         next: () => {
-          this.router.navigateByUrl('/members');
+          this.router.navigateByUrl('/board');
         },
         error: (error) => this.toastr.error(error.error),
       });

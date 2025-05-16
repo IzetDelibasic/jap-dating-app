@@ -28,7 +28,7 @@ export class AccountService {
 
   login(model: any) {
     return this.http
-      .post<User>(environment.apiBaseUrl + + ACCOUNT_API.LOGIN, model)
+      .post<User>(environment.apiBaseUrl + ACCOUNT_API.LOGIN, model)
       .pipe(
         map((user) => {
           if (user) {

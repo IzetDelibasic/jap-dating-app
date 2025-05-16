@@ -7,7 +7,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 @Component({
-  selector: 'app-members-list',
+  selector: 'app-members-board-page',
   imports: [
     MemberCardComponent,
     PaginationModule,

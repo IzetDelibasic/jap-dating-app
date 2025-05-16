@@ -2,13 +2,13 @@ import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { LikesService } from '../../../../core/services/likes.service';
-import { MemberCardComponent } from './../../../../shared/components/member-card/member-card.component';
+import { MemberCardComponent } from '../../../../shared/components/member-card/member-card.component';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-lists',
+  selector: 'app-connections-page',
   imports: [
     ButtonsModule,
     FormsModule,

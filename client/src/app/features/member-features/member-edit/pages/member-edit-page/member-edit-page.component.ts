@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TimeagoModule } from 'ngx-timeago';
 
 @Component({
-  selector: 'app-member-edit',
+  selector: 'app-member-edit-page',
   imports: [
     TabsModule,
     FormsModule,
