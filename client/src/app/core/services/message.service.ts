@@ -1,16 +1,12 @@
-// -Angular-
+import { MESSAGES_API } from '../constants/servicesConstants/messagesServiceConstant';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-// -Models-
-import { PaginatedResult } from '../../shared/models/pagination';
-import { Message } from '../../shared/models/message';
-import { Group } from '../../shared/models/group';
-import { User } from '../../shared/models/user';
-// -PaginationHelper-
+import { PaginatedResult } from '../models/pagination';
+import { Message } from '../models/message';
+import { Group } from '../models/group';
+import { User } from '../models/user';
 import { setPaginatedResponse, setPaginationHeaders } from './paginationHelper';
-// -Environment-
 import { environment } from '../../../environments/environment';
-// -SignalR-
 import {
   HubConnection,
   HubConnectionBuilder,
@@ -70,7 +66,7 @@ export class MessageService {
     params = params.append('Container', container);
 
     return this.http
-      .get<Message[]>(environment.apiBaseUrl + 'messages', {
+      .get<Message[]>(environment.apiBaseUrl + MESSAGES_API.BASE, {
         observe: 'response',
         params,
       })
@@ -82,7 +78,7 @@ export class MessageService {
 
   getMessageThread(username: string) {
     return this.http.get<Message[]>(
-      environment.apiBaseUrl + `messages/thread/${username}`
+      environment.apiBaseUrl + MESSAGES_API.THREAD(username)
     );
   }
 
@@ -94,6 +90,6 @@ export class MessageService {
   }
 
   deleteMessage(id: number) {
-    return this.http.delete(environment.apiBaseUrl + `messages/${id}`);
+    return this.http.delete(environment.apiBaseUrl + MESSAGES_API.DELETE(id));
   }
 }

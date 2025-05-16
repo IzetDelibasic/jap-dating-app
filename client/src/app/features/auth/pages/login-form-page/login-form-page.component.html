@@ -1,0 +1,37 @@
+<div class="hero-video-container">
+  <video autoplay loop muted class="hero-video">
+    <source
+      [src]="heroVideo"
+      type="video/mp4"
+    />
+    Your browser does not support video.
+  </video>
+  <div
+    class="hero-overlay text-white d-flex flex-column justify-content-center align-items-center"
+  >
+    <form [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off">
+      <h2 class="text-center">Login</h2>
+      <div class="custom-divider"></div>
+
+      <app-text-input
+        [formControl]="$any(loginForm.controls['username'])"
+        [label]="'Username'"
+      ></app-text-input>
+
+      <app-text-input
+        [formControl]="$any(loginForm.controls['password'])"
+        [label]="'Password'"
+        [type]="'password'"
+      ></app-text-input>
+
+      <div class="form-group text-center">
+        <button [disabled]="!loginForm.valid" class="button me-2" type="submit">
+          Login
+        </button>
+        <button class="button button-cancel me-2" routerLink="/" type="button">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

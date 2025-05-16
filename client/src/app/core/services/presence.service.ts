@@ -1,19 +1,12 @@
-// -Angular-
 import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-// -Signalr-
 import {
   HubConnection,
   HubConnectionBuilder,
   HubConnectionState,
 } from '@microsoft/signalr';
-// -Ngx-
 import { ToastrService } from 'ngx-toastr';
-// -Models-
-import { User } from '../../shared/models/user';
-// -Environment-
 import { environment } from '../../../environments/environment';
-// -Rxjs-
 import { take } from 'rxjs';
 
 @Injectable({

@@ -1,15 +1,11 @@
-// -Angular-
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-// -Rxjs-
 import { map } from 'rxjs';
-// -Environment-
 import { environment } from '../../../environments/environment';
-// -Models-
-import { User } from '../../shared/models/user';
-// -Services-
+import { User } from '../models/user';
 import { LikesService } from './likes.service';
 import { PresenceService } from './presence.service';
+import { ACCOUNT_API } from '../constants/servicesConstants/accountServiceConstant';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +28,7 @@ export class AccountService {
 
   login(model: any) {
     return this.http
-      .post<User>(environment.apiBaseUrl + 'account/login', model)
+      .post<User>(environment.apiBaseUrl + ACCOUNT_API.LOGIN, model)
       .pipe(
         map((user) => {
           if (user) {
@@ -44,7 +40,7 @@ export class AccountService {
 
   register(model: any) {
     return this.http
-      .post<User>(environment.apiBaseUrl + 'account/register', model)
+      .post<User>(environment.apiBaseUrl + ACCOUNT_API.REGISTER, model)
       .pipe(
         map((user) => {
           if (user) {

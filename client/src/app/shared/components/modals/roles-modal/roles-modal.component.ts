@@ -1,6 +1,4 @@
-// -Angular-
 import { Component, inject } from '@angular/core';
-// -NgxBootstrap-
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({

@@ -1,10 +1,6 @@
-// -Angular-
 import { inject, Injectable } from '@angular/core';
-// -Ngx-
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-// -Components-
 import { ConfirmDialogComponent } from '../../shared/components/modals/confirm-dialog/confirm-dialog.component';
-// -Rxjs-
 import { map } from 'rxjs';
 
 @Injectable({

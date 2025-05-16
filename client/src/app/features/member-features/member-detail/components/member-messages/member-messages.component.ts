@@ -1,4 +1,3 @@
-// -Angular-
 import {
   AfterViewChecked,
   Component,
@@ -7,9 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-// -Service-
 import { MessageService } from '../../../../../core/services/message.service';
-// -Ngx-
 import { TimeagoModule } from 'ngx-timeago';
 
 @Component({

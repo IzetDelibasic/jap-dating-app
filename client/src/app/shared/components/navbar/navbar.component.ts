@@ -1,14 +1,10 @@
-// -Angular-
 import { FormsModule } from '@angular/forms';
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgClass, TitleCasePipe } from '@angular/common';
-// -Services-
 import { AccountService } from '../../../core/services/account.service';
-// -Ngx-
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrService } from 'ngx-toastr';
-// -Directives-
 import { HasRoleDirective } from '../../directives/has-role.directive';
 
 @Component({

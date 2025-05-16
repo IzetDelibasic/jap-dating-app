@@ -1,4 +1,3 @@
-// -Angular-
 import { NgIf } from '@angular/common';
 import { Component, input, Self } from '@angular/core';
 import {

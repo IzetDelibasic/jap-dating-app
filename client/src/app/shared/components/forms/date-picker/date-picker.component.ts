@@ -1,4 +1,3 @@
-// -Angular-
 import { NgIf } from '@angular/common';
 import { Component, input, Self } from '@angular/core';
 import {
@@ -7,7 +6,6 @@ import {
   NgControl,
   ReactiveFormsModule,
 } from '@angular/forms';
-// -Ngx-
 import {
   BsDatepickerModule,
   BsDatepickerConfig,

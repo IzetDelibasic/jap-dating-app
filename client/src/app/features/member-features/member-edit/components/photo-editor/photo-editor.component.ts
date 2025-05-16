@@ -1,15 +1,10 @@
-// -Angular-
 import { Component, inject, input, OnInit, output } from '@angular/core';
 import { DecimalPipe, NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
-// -Models-
-import { Member } from '../../../../../shared/models/member';
-import { Photo } from '../../../../../shared/models/photo';
-// -Ng2-
+import { Member } from '../../../../../core/models/member';
+import { Photo } from '../../../../../core/models/photo';
 import { FileUploadModule, FileUploader } from 'ng2-file-upload';
-// -Service-
 import { AccountService } from '../../../../../core/services/account.service';
 import { MembersService } from '../../../members.service';
-// -Environment-
 import { environment } from '../../../../../../environments/environment';
 
 @Component({

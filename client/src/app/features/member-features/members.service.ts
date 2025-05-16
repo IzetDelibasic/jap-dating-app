@@ -1,22 +1,17 @@
-// -Angular -
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-// -Models-
-import { Member } from '../../shared/models/member';
-import { Photo } from '../../shared/models/photo';
-import { PaginatedResult } from '../../shared/models/pagination';
-import { UserParams } from '../../shared/models/userParams';
-// -Rxjs-
+import { Member } from '../../core/models/member';
+import { Photo } from '../../core/models/photo';
+import { PaginatedResult } from '../../core/models/pagination';
+import { UserParams } from '../../core/models/userParams';
 import { of } from 'rxjs';
-// -Environment-
 import { environment } from '../../../environments/environment';
-// -Service-
 import { AccountService } from '../../core/services/account.service';
-// -PaginationHelper-
 import {
   setPaginatedResponse,
   setPaginationHeaders,
 } from '../../core/services/paginationHelper';
+import { MEMBERS_API } from '../../core/constants/servicesConstants/membersServiceConstant';
 
 @Injectable({
   providedIn: 'root',
@@ -51,7 +46,7 @@ export class MembersService {
     params = params.append('orderBy', this.userParams().orderBy);
 
     return this.http
-      .get<Member[]>(environment.apiBaseUrl + 'user', {
+      .get<Member[]>(environment.apiBaseUrl + MEMBERS_API.BASE, {
         observe: 'response',
         params,
       })
@@ -73,23 +68,25 @@ export class MembersService {
 
     if (member) return of(member);
 
-    return this.http.get<Member>(environment.apiBaseUrl + `user/${username}`);
+    return this.http.get<Member>(
+      environment.apiBaseUrl + MEMBERS_API.BY_USERNAME(username)
+    );
   }
 
   updateMember(member: Member) {
-    return this.http.put(environment.apiBaseUrl + 'user', member);
+    return this.http.put(environment.apiBaseUrl + MEMBERS_API.UPDATE, member);
   }
 
   setMainPhoto(photo: Photo) {
     return this.http.put(
-      environment.apiBaseUrl + `user/set-main-photo/${photo.id}`,
+      environment.apiBaseUrl + MEMBERS_API.SET_MAIN_PHOTO(photo.id),
       {}
     );
   }
 
   deletePhoto(photo: Photo) {
     return this.http.delete(
-      environment.apiBaseUrl + `user/delete-photo/${photo.id}`
+      environment.apiBaseUrl + MEMBERS_API.DELETE_PHOTO(photo.id)
     );
   }
 }
