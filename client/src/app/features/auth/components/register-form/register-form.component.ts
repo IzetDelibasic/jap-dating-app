@@ -9,9 +9,9 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AccountService } from '../../../core/services/account.service';
-import { TextInputComponent } from '../../../shared/components/forms/text-input/text-input.component';
-import { DatePickerComponent } from '../../../shared/components/forms/date-picker/date-picker.component';
+import { AccountService } from '../../../../core/services/account.service';
+import { TextInputComponent } from '../../../../shared/components/forms/text-input/text-input.component';
+import { DatePickerComponent } from '../../../../shared/components/forms/date-picker/date-picker.component';
 
 @Component({
   selector: 'app-register-form',

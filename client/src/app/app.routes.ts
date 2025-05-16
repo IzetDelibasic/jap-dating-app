@@ -3,7 +3,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { authGuard } from './core/guards/auth.guard';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ServerErrorComponent } from './pages/server-error/server-error.component';
-import { LoginFormComponent } from './auth/components/login-form/login-form.component';
+import { LoginFormComponent } from './features/auth/pages/login-form-page/login-form-page.component';
 import { adminRoutes } from './features/admin-features/admin.routing';
 import { memberRoutes } from './features/member-features/members.routing';
 import { connectionsRoutes } from './features/connections/connections.routing';
