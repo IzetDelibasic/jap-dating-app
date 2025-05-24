@@ -3,6 +3,7 @@ using System;
 using DatingApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatingApp.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250523080947_PhotoTagAdding")]
+    partial class PhotoTagAdding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.15");
@@ -396,13 +399,13 @@ namespace DatingApp.Data.Migrations
             modelBuilder.Entity("DatingApp.Core.Entities.PhotoTag", b =>
                 {
                     b.HasOne("DatingApp.Entities.Photo", "Photo")
-                        .WithMany()
+                        .WithMany("PhotoTags")
                         .HasForeignKey("PhotoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DatingApp.Core.Entities.Tag", "Tag")
-                        .WithMany()
+                        .WithMany("PhotoTags")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -523,6 +526,11 @@ namespace DatingApp.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("DatingApp.Core.Entities.Tag", b =>
+                {
+                    b.Navigation("PhotoTags");
+                });
+
             modelBuilder.Entity("DatingApp.Entities.AppRole", b =>
                 {
                     b.Navigation("UserRoles");
@@ -546,6 +554,11 @@ namespace DatingApp.Data.Migrations
             modelBuilder.Entity("DatingApp.Entities.Group", b =>
                 {
                     b.Navigation("Connections");
+                });
+
+            modelBuilder.Entity("DatingApp.Entities.Photo", b =>
+                {
+                    b.Navigation("PhotoTags");
                 });
 #pragma warning restore 612, 618
         }

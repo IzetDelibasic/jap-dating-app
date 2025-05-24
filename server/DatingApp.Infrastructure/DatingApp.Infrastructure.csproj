@@ -22,4 +22,10 @@
     <ProjectReference Include="..\DatingApp.Core\DatingApp.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Data\UserSeedData.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

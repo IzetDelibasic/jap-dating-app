@@ -33,9 +33,9 @@ namespace DatingApp.Controllers
             return Ok(await adminService.GetUserRoles(username));
         }
 
-        [Authorize(Policy = "ModeratePhotoRole")]
+        [Authorize(Policy = "ModerateRole")]
         [HttpGet("photos-to-moderate")]
-        public async Task<ActionResult> GetPhotosForModeration()
+        public async Task<ActionResult> GetPendingPhotos()
         {
             var photos = await adminService.GetPhotosForModeration();
             if (photos == null)
@@ -45,9 +45,9 @@ namespace DatingApp.Controllers
             return Ok(photos);
         }
 
-        [Authorize(Policy = "ModeratePhotoRole")]
+        [Authorize(Policy = "ModerateRole")]
         [HttpPost("approve-photo/{id}")]
-        public async Task<ActionResult> ApprovePhoto(int id)
+        public async Task<ActionResult> ApprovePhotoById(int id)
         {
             var result = await adminService.ApprovePhoto(id);
             if (!result)
@@ -57,9 +57,9 @@ namespace DatingApp.Controllers
             return Ok();
         }
 
-        [Authorize(Policy = "ModeratePhotoRole")]
+        [Authorize(Policy = "ModerateRole")]
         [HttpPost("reject-photo/{id}")]
-        public async Task<ActionResult> RejectPhoto(int id)
+        public async Task<ActionResult> RejectPhotoById(int id)
         {
             var result = await adminService.RejectPhoto(id);
             if (!result)

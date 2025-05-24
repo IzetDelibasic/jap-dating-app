@@ -20,7 +20,9 @@ public static class DatabaseExtensions
 
             await context.Database.MigrateAsync();
             await context.Database.ExecuteSqlRawAsync("DELETE FROM [Connections]");
-            await Seed.SeedUsers(userManager, roleManager);
+            
+            var env = services.GetRequiredService<IWebHostEnvironment>();
+            await Seed.SeedUsers(userManager, roleManager, env, context);
         }
         catch (Exception ex)
         {
