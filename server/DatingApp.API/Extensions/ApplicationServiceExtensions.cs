@@ -21,7 +21,7 @@ public static class ApplicationServiceExtensions
         services.AddControllers();
         services.AddDbContext<DatabaseContext>(options =>
         {
-            options.UseSqlite(config.GetConnectionString("DefaultConnection"));
+            options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
         });
         services.AddCors();
         services.AddScoped<ITokenService, TokenService>();
@@ -33,6 +33,7 @@ public static class ApplicationServiceExtensions
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IAdminService, AdminService>();
         services.AddScoped<ITagService, TagService>();
+        services.AddScoped<IProcedureService, ProcedureService>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ILikesRepository, LikesRepository>();
         services.AddScoped<IMessageRepository, MessageRepository>();

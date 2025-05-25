@@ -13,11 +13,11 @@ namespace DatingApp.Data
             var config = new ConfigurationBuilder()
                 .SetBasePath(basePath)
                 .AddJsonFile("appsettings.json", optional: false)
-                .AddJsonFile("appsettings.Development.json", optional: true) 
+                .AddJsonFile("appsettings.Development.json", optional: true)
                 .Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
-            optionsBuilder.UseSqlite(config.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection")); 
 
             return new DatabaseContext(optionsBuilder.Options);
         }

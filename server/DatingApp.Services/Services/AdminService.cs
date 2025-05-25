@@ -82,5 +82,7 @@ namespace DatingApp.Services
             var user = await userManager.FindByNameAsync(username);
             return user != null ? await userManager.GetRolesAsync(user) : Enumerable.Empty<string>();
         }
+
+        
     }
 }

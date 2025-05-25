@@ -20,6 +20,7 @@ TestResults/
 # Config & secrets
 ##################################
 appsettings.json
+appsettings.Development.json
 secrets.json
 *.key
 *.pem
