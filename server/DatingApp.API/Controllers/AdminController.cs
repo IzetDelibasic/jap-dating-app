@@ -2,12 +2,13 @@ using DatingApp.Services.Interfaces;
 using DatingApp.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using DatingApp.Infrastructure.Interfaces.IServices;
 
 namespace DatingApp.Controllers
 {
     [Route("api/admin")]
     [ApiController]
-    public class AdminController(IAdminService adminService) : BaseApiController
+    public class AdminController(IAdminService adminService, IProcedureService procedureService) : BaseApiController
     {
         [Authorize(Policy = "RequireAdminRole")]
         [HttpGet("users-with-roles")]
@@ -67,6 +68,22 @@ namespace DatingApp.Controllers
                 throw new BadRequestException($"Failed to reject photo with ID {id}.");
             }
             return Ok();
+        }
+
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpGet("photo-approval-stats")]
+        public async Task<IActionResult> GetPhotoApprovalStats()
+        {
+            var stats = await procedureService.GetPhotoApprovalStatsAsync();
+            return Ok(stats);
+        }
+
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpGet("without-main-photo")]
+        public async Task<IActionResult> GetUsersWithoutMainPhoto()
+        {
+            var users = await procedureService.GetUsersWithoutMainPhotoAsync();
+            return Ok(users);
         }
     }
 }

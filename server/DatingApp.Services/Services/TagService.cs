@@ -1,5 +1,7 @@
 using DatingApp.Common.DTO;
 using DatingApp.Core.Entities;
+using DatingApp.Entities;
+using DatingApp.Entities.DTO;
 using DatingApp.Infrastructure.Interfaces.IServices;
 using DatingApp.Repository.Interfaces;
 
@@ -32,5 +34,18 @@ public class TagService(ITagRepository tagRepository) : ITagService
             return false;
         }
         return await tagRepository.DeleteTagAsync(tag);
+    }
+
+    public async Task<IEnumerable<PhotoDto>> GetPhotosByTagForUserAsync(string username, string tagName)
+    {
+        var photos = await tagRepository.GetPhotosByTagForUserAsync(username, tagName);
+
+        return photos.Select(photo => new PhotoDto
+        {
+            Id = photo.Id,
+            Url = photo.Url,
+            IsMain = photo.IsMain,
+            IsApproved = photo.IsApproved
+        });
     }
 }

@@ -21,7 +21,7 @@ namespace DatingApp.Services
             user.DateOfBirth = parsedDateOfBirth;
             user.UserName = registerDto.Username.ToLower();
 
-            var result = await userManager.CreateAsync(user, registerDto.Password);
+            var result = await userManager.CreateAsync(user, registerDto.Password!);
 
             if (!result.Succeeded) return null;
 

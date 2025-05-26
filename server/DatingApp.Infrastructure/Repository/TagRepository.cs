@@ -1,5 +1,6 @@
 using DatingApp.Core.Entities;
 using DatingApp.Data;
+using DatingApp.Entities;
 using DatingApp.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,5 +24,19 @@ public class TagRepository(DatabaseContext dbContext)
     {
         dbSet.Remove(tag);
         return await dbContext.SaveChangesAsync() > 0;
+    }
+
+    public async Task<IEnumerable<Photo>> GetPhotosByTagForUserAsync(string username, string tagName)
+    {
+        var photos = await dbContext.PhotoTags
+            .Where(pt => pt.Tag != null
+                && pt.Tag.Name == tagName
+                && pt.Photo != null
+                && pt.Photo.AppUser != null
+                && pt.Photo.AppUser.UserName == username)
+            .Select(pt => pt.Photo!)
+            .ToListAsync();
+
+        return photos ?? Enumerable.Empty<Photo>();
     }
 }
