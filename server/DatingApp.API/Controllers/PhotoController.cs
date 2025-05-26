@@ -27,6 +27,7 @@ namespace DatingApp.API.Controllers
             {
                 throw new BadRequestException("Problem adding photo.");
             }
+
             return CreatedAtAction("GetUser", "Users", new { username = User.GetUsername() }, photoDto);
         }
 
@@ -61,6 +62,19 @@ namespace DatingApp.API.Controllers
                 throw new NotFoundException("No photos found for the specified tag.");
             }
             return Ok(photos);
+        }
+
+        [HttpGet("{photoId}/tags")]
+        public async Task<ActionResult<List<string>>> GetTagsForPhoto(int photoId)
+        {
+            var tags = await photoService.GetTagsForPhotoAsync(photoId);
+            if (tags == null || !tags.Any())
+            {
+                tags = new List<string>();
+                //throw new NotFoundException("No tags found for this photo.");
+            }
+
+            return Ok(tags);
         }
     }
 }

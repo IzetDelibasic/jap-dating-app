@@ -9,4 +9,5 @@ public interface IPhotoService
     Task<bool> SetMainPhoto(string username, int photoId);
     Task<bool> DeletePhoto(string username, int photoId);
     Task<IEnumerable<PhotoDto>> GetPhotosByTagAsync(int tagId);
+    Task<List<string>> GetTagsForPhotoAsync(int photoId);
 }

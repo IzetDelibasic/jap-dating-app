@@ -44,21 +44,21 @@ namespace DatingApp.API.Controllers
             return Ok("Tag deleted successfully.");
         }
 
-        [HttpGet("photos/by-tag/{tagName}")]
+        [HttpGet("photos/{tagName}")]
         public async Task<IActionResult> GetPhotosByTagForUser(string tagName)
         {
             var username = User.Identity?.Name;
 
             if (string.IsNullOrEmpty(username))
             {
-                return Unauthorized("User is not authenticated.");
+                throw new UnauthorizedException("User is not authenticated.");
             }
 
             var photos = await tagService.GetPhotosByTagForUserAsync(username, tagName);
 
             if (!photos.Any())
             {
-                return NotFound("No photos found for the given tag and user.");
+                throw new NotFoundException("No photos found for the given tag and user.");
             }
 
             return Ok(photos);

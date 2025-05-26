@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.Common.DTO;
 
@@ -9,5 +10,6 @@ public class PhotoUploadDto
     public IFormFile File { get; set; } = null!;
 
     [Required]
+    [FromForm]
     public List<string> Tags { get; set; } = new List<string>();
 }

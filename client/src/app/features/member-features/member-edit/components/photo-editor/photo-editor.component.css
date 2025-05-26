@@ -32,6 +32,138 @@
   transition: background-color 0.3s ease;
 }
 
+.ng-select {
+  margin-top: 10px;
+  border-radius: 8px;
+  padding: 2px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  position: relative;
+  width: 90%;
+}
+
+::ng-deep .ng-dropdown-panel {
+  background-color: white;
+  color: black;
+  z-index: 1050;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+}
+
+::ng-deep .ng-dropdown-panel .ng-option {
+  padding: 10px;
+  font-size: 14px;
+}
+
+::ng-deep .ng-dropdown-panel .ng-option:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+::ng-deep .ng-value {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+::ng-deep .ng-value-label {
+  padding: 2px 5px;
+  margin:1px 3px;
+  border-radius: 10%;
+  background-color: #0a66c2;
+  color: white;
+  position: relative;
+}
+
+::ng-deep .ng-value-label::after {
+  content: ",";
+  position: absolute;
+  right: 0;
+}
+
+::ng-deep .ng-value-label:last-child::after {
+  content: "";
+}
+
+::ng-deep .ng-value-icon {
+  display: none;
+}
+
+.btn-primary {
+  background-color: #0a66c2;
+  border-color: #0a66c2;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #084a9c;
+  border-color: #084a9c;
+}
+
+.btn-danger {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-danger:hover {
+  background-color: #c20a0a;
+  border-color: #a00808;
+}
+
+.list-inline-item {
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin: 2px;
+  font-weight: 100;
+}
+
+.selected-tags {
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.selected-tags h5 {
+  font-weight: bold;
+  color: #333;
+}
+
+.table {
+  margin-top: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+  background-color: #0a66c2;
+  color: white;
+  text-align: center;
+}
+
+.table td {
+  text-align: center;
+}
+
+.progress-bar {
+  background-color: #0a66c2;
+  transition: width 0.4s ease;
+}
+
+.my-drop-zone {
+  border: 2px dashed #0a66c2;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.my-drop-zone:hover {
+  background-color: #e9ecef;
+  border-color: #084a9c;
+}
+
 @media (max-width: 576px) {
   .img-thumbnail {
     border-radius: 6px;
@@ -46,5 +178,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .list-inline-item {
+    font-size: 0.7rem;
   }
 }

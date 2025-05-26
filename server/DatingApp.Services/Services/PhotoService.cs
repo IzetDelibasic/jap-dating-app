@@ -98,4 +98,9 @@ public class PhotoService(IUnitOfWork unitOfWork, IMapper mapper, ICloudinarySer
             IsApproved = photo.IsApproved
         });
     }
+
+    public async Task<List<string>> GetTagsForPhotoAsync(int photoId)
+    {
+        return await unitOfWork.PhotoTagRepository.GetTagsForPhotoAsync(photoId);
+    }
 }

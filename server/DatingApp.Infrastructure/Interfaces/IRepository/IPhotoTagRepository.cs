@@ -7,4 +7,5 @@ namespace DatingApp.Infrastructure.Interfaces.IRepository;
 public interface IPhotoTagRepository : IBaseRepository<PhotoTag>
 {
     Task<IEnumerable<Photo>> GetPhotosByTagIdAsync(int tagId);
+    Task<List<string>> GetTagsForPhotoAsync(int photoId);
 }

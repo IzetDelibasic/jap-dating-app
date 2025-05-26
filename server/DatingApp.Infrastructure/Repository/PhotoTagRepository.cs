@@ -18,5 +18,13 @@ public class PhotoTagRepository : BaseRepository<PhotoTag>, IPhotoTagRepository
             .Select(pt => pt.Photo!)
             .ToListAsync();
     }
+
+    public async Task<List<string>> GetTagsForPhotoAsync(int photoId)
+    {
+        return await dbSet
+            .Where(pt => pt.PhotoId == photoId)
+            .Select(pt => pt.Tag!.Name)
+            .ToListAsync();
+    }
 }
 
