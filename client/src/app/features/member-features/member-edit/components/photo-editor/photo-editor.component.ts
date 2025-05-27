@@ -106,12 +106,12 @@ export class PhotoEditorComponent implements OnInit {
 
   searchPhotosByTag(): void {
     if (!this.searchTags || this.searchTags.length === 0) {
-      alert('Please select at least one tag to search.');
+      this.filteredPhotos = [...this.member.photos];
       return;
     }
 
     this.filteredPhotos = this.member.photos.filter((photo) =>
-      this.searchTags.some((tag) => this.photoTags[photo.id]?.includes(tag))
+      this.searchTags.every((tag) => this.photoTags[photo.id]?.includes(tag))
     );
   }
 

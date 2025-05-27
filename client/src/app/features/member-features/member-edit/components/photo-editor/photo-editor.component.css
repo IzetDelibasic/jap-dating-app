@@ -33,7 +33,6 @@
 }
 
 .ng-select {
-  margin-top: 10px;
   border-radius: 8px;
   padding: 2px;
   background-color: #ffffff;
@@ -69,7 +68,7 @@
 
 ::ng-deep .ng-value-label {
   padding: 2px 5px;
-  margin:1px 3px;
+  margin: 1px 3px;
   border-radius: 10%;
   background-color: #0a66c2;
   color: white;
@@ -94,6 +93,7 @@
   background-color: #0a66c2;
   border-color: #0a66c2;
   transition: background-color 0.3s ease, border-color 0.3s ease;
+  font-size: x-small;
 }
 
 .btn-primary:hover {
@@ -116,6 +116,16 @@
   border-radius: 20px;
   margin: 2px;
   font-weight: 100;
+  color: #0a66c2;
+  border: 1px solid #0a66c2;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.list-inline-item:hover {
+  color: white;
+  background-color: #084a9c;
+  border-color: #084a9c;
+  cursor: default;
 }
 
 .selected-tags {
