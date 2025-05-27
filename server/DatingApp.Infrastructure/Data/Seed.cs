@@ -1,5 +1,7 @@
 using System.Text.Json;
+using DatingApp.Core.Entities;
 using DatingApp.Entities;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,11 +9,30 @@ namespace DatingApp.Data;
 
 public class Seed
 {
-    public static async Task SeedUsers(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
+    public static async Task SeedUsers(UserManager<AppUser> userManager,
+     RoleManager<AppRole> roleManager, IWebHostEnvironment env, DatabaseContext databaseContext)
     {
         if (await userManager.Users.AnyAsync()) return;
 
-        var userData = await File.ReadAllTextAsync("Data/UserSeedData.json");
+        if (!await databaseContext.Tags.AnyAsync())
+        {
+            var tags = new List<Tag>
+        {
+            new Tag { Name = "Travel" },
+            new Tag { Name = "Music" },
+            new Tag { Name = "Sports" },
+            new Tag { Name = "Movies" },
+            new Tag { Name = "Food" }
+        };
+
+            await databaseContext.Tags.AddRangeAsync(tags);
+            await databaseContext.SaveChangesAsync();
+        }
+
+        // Question
+        var userDataPath = Path.Combine(Directory.GetCurrentDirectory(), "../DatingApp.Infrastructure/Data/UserSeedData.json");
+
+        var userData = await File.ReadAllTextAsync(userDataPath);
 
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
@@ -33,7 +54,6 @@ public class Seed
 
         foreach (var user in users)
         {
-            // 4. Update the Seed Users so the initial photo is approved for seeded users
             user.Photos.First().IsApproved = true;
 
             user.UserName = user.UserName!.ToLower();

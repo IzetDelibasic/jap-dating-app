@@ -1,18 +1,67 @@
 <div class="row">
-  @for(photo of member().photos; track photo.id) {
-  <div class="col-4 col-md-3 col-lg-3">
+  <div class="row my-2 mx-auto mx-md-0">
+    <div class="col-md-6">
+      <div class="d-flex align-items-center">
+        <ng-select
+          class="ng-select me-1"
+          [items]="tags"
+          bindLabel="name"
+          bindValue="name"
+          [multiple]="true"
+          [(ngModel)]="searchTags"
+          placeholder="Select tags"
+        >
+        </ng-select>
+        <button class="btn btn-primary" (click)="searchPhotosByTag()">
+          <div class="d-flex align-items-center">
+            <i class="fa fa-search me-1"></i>
+            <span>Search</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  @for(photo of filteredPhotos; track photo.id) { @if (searchedPhotos.length >
+  0) {
+
+  <div class="row mt-3">
+    @for (photo of searchedPhotos; track $index) {
+
+    <div class="col-4 col-md-3 col-lg-3">
+      <img
+        src="{{ photo.url }}"
+        alt="{{ photo.url }}"
+        class="img-thumbnail p-1"
+      />
+    </div>
+    }
+  </div>
+  }
+  <div class="col-8 col-md-4 col-lg-3 mx-auto mx-md-0">
     <img
       src="{{ photo.url }}"
       alt="{{ photo.url }}"
       class="img-thumbnail p-1"
       [class.not-approved]="!photo.isApproved"
     />
-    <div class="text-center img-text my-1" *ngIf="!photo.isApproved">
+    <div class="text-center mt-2">
+      <ul class="list-inline">
+        @for (tag of photoTags[photo.id]; track $index) {
+
+        <li class="list-inline-item badge">
+          {{ tag }}
+        </li>
+        }
+      </ul>
+    </div>
+    @if (!photo.isApproved) {
+    <div class="text-center img-text my-1">
       <span class="text-danger">Awaiting approval</span>
     </div>
+    }
     <div class="text-center mt-2">
       <button
-        class="btn btn-sm me-1"
+        class="btn btn-sm me-sm-1"
         [disabled]="photo.isMain || !photo.isApproved"
         (click)="setMainPhoto(photo)"
         [ngClass]="photo.isMain ? 'btn-success active' : 'btn-outline-success'"
@@ -28,29 +77,37 @@
       </button>
     </div>
   </div>
+
   }
 </div>
 
-<div class="row mt-5">
-  <div class="col-md-5">
-    <h3>Add Photos</h3>
-    <div
-      ng2FileDrop
-      [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver }"
-      (fileOver)="fileOverBase($event)"
-      [uploader]="uploader"
-      class="card bg-faded p-5 text-center my-drop-zone"
-    >
-      <i class="fa fa-upload fa-3x"></i>
-      Drop photos here
-    </div>
+<div class="my-5">
+  <h3 class="mb-2 mb-md-0 text-center text-md-start">Upload</h3>
+    <div class="col-md-6 mt-md-3 mb-2 mx-auto mx-md-0">
+      <ng-select
+        class="ng-select"
+        [items]="tags"
+        bindLabel="name"
+        bindValue="name"
+        [multiple]="true"
+        [(ngModel)]="selectedTags"
+        placeholder="Select tags"
+      >
+      </ng-select>
+  </div>
+  <div
+    ng2FileDrop
+    [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver }"
+    (fileOver)="fileOverBase($event)"
+    [uploader]="uploader"
+    class="card bg-faded p-5 text-center my-drop-zone"
+  >
+    <i class="fa fa-upload fa-3x"></i>
+    Drop photos here
   </div>
 
-  <div
-    class="col-md-9"
-    style="margin-bottom: 40px"
-    *ngIf="uploader?.queue?.length"
-  >
+  @if (uploader?.queue?.length) {
+  <div class="col-md-9" style="margin-bottom: 40px">
     <h3 class="mt-4">Upload queue</h3>
     <p>Queue length: {{ uploader?.queue?.length }}</p>
 
@@ -62,14 +119,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of uploader?.queue">
+        @for (item of uploader?.queue; track $index) {
+        <tr>
           <td>
             <p>{{ item?.file?.name }}</p>
           </td>
-          <td *ngIf="uploader?.options?.isHTML5" nowrap>
+          @if (uploader?.options?.isHTML5) {
+          <td nowrap>
             {{ item?.file?.size / 1024 / 1024 | number : ".2" }} MB
           </td>
+          }
         </tr>
+        }
       </tbody>
     </table>
 
@@ -102,4 +163,5 @@
       </button>
     </div>
   </div>
+  }
 </div>

@@ -4,7 +4,7 @@ import { Member } from '../../core/models/member';
 import { Photo } from '../../core/models/photo';
 import { PaginatedResult } from '../../core/models/pagination';
 import { UserParams } from '../../core/models/userParams';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AccountService } from '../../core/services/account.service';
 import {
@@ -75,6 +75,24 @@ export class MembersService {
 
   updateMember(member: Member) {
     return this.http.put(environment.apiBaseUrl + MEMBERS_API.UPDATE, member);
+  }
+
+  getTags() {
+    return this.http.get<{ id: number; name: string }[]>(
+      environment.apiBaseUrl + MEMBERS_API.GET_TAGS
+    );
+  }
+
+  getTagsForPhoto(photoId: number): Observable<string[]> {
+    return this.http.get<string[]>(
+      environment.apiBaseUrl + MEMBERS_API.GET_TAGS_FOR_PHOTO(photoId)
+    );
+  }
+
+  getPhotosByTag(tag: string): Observable<Photo[]> {
+    return this.http.get<Photo[]>(
+      environment.apiBaseUrl + MEMBERS_API.GET_PHOTOS_BY_TAG(tag)
+    );
   }
 
   setMainPhoto(photo: Photo) {

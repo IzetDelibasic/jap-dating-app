@@ -1,26 +1,15 @@
 using DatingApp.Extensions;
-using DatingApp.Middleware;
+using DatingApp.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddApplicationServices(builder.Configuration);
-builder.Services.AddIdentityServices(builder.Configuration);
-builder.Services.AddSwaggerDocumentation();
-builder.Services.AddCorsPolicy();
+builder.Services.AddCustomServices(builder.Configuration);
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-app.UseMiddleware<ExceptionMiddleware>();
-app.UseCorsPolicy();
-app.UseAuthentication();
-app.UseAuthorization();
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwaggerDocumentation();
-}
+app.UseCustomMiddlewares(app.Environment);
 
 app.MapControllers();
 app.MapSignalRHubs();

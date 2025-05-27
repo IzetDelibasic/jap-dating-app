@@ -47,36 +47,4 @@ public class UsersController(IUsersService usersService) : BaseApiController
         return NoContent();
     }
 
-    [HttpPost("add-photo")]
-    public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
-    {
-        var photoDto = await usersService.AddPhoto(User.GetUsername(), file);
-        if (photoDto == null)
-        {
-            throw new BadRequestException("Problem adding photo.");
-        }
-        return CreatedAtAction(nameof(GetUser), new { username = User.GetUsername() }, photoDto);
-    }
-
-    [HttpPut("set-main-photo/{photoId:int}")]
-    public async Task<ActionResult> SetMainPhoto(int photoId)
-    {
-        var success = await usersService.SetMainPhoto(User.GetUsername(), photoId);
-        if (!success)
-        {
-            throw new BadRequestException("Problem setting main photo.");
-        }
-        return NoContent();
-    }
-
-    [HttpDelete("delete-photo/{photoId:int}")]
-    public async Task<IActionResult> DeletePhoto(int photoId)
-    {
-        var success = await usersService.DeletePhoto(User.GetUsername(), photoId);
-        if (!success)
-        {
-            throw new BadRequestException("Problem deleting photo.");
-        }
-        return Ok();
-    }
 }

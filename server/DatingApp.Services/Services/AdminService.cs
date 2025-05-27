@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Services
 {
-    public class AdminService(UserManager<AppUser> userManager, IUnitOfWork unitOfWork, IPhotoService photoService) : IAdminService
+    public class AdminService(UserManager<AppUser> userManager, IUnitOfWork unitOfWork, ICloudinaryService cloudinaryService) : IAdminService
     {
         public async Task<IEnumerable<object>> GetUsersWithRoles()
         {
@@ -67,7 +67,7 @@ namespace DatingApp.Services
 
             if (photo.PublicId != null)
             {
-                var result = await photoService.DeletePhotoAsync(photo.PublicId);
+                var result = await cloudinaryService.DeletePhotoAsync(photo.PublicId);
                 if (result.Result == "ok")
                 {
                     unitOfWork.PhotoRepository.Delete(photo);
@@ -82,5 +82,7 @@ namespace DatingApp.Services
             var user = await userManager.FindByNameAsync(username);
             return user != null ? await userManager.GetRolesAsync(user) : Enumerable.Empty<string>();
         }
+
+        
     }
 }

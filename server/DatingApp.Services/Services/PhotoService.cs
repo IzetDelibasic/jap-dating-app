@@ -1,45 +1,106 @@
-using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
-using DatingApp.Helpers;
+using AutoMapper;
+using DatingApp.Core.Entities;
+using DatingApp.Entities;
+using DatingApp.Entities.DTO;
+using DatingApp.Infrastructure.Interfaces.IServices;
+using DatingApp.Repository.Interfaces;
 using DatingApp.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
 
-namespace DatingApp.Services;
+namespace DatingApp.Services.Services;
 
-public class PhotoService : IPhotoService
+public class PhotoService(IUnitOfWork unitOfWork, IMapper mapper, ICloudinaryService cloudinaryService) : IPhotoService
 {
-    private readonly Cloudinary _cloudinary;
-    public PhotoService(IOptions<CloudinarySettings> config)
+    public async Task<PhotoDto?> AddPhoto(string username, IFormFile file, List<string> tagNames)
     {
-        var acc = new Account(config.Value.CloudName, config.Value.ApiKey, config.Value.ApiSecret);
-
-        _cloudinary = new Cloudinary(acc);
-    }
-
-    public async Task<ImageUploadResult> AddPhotoAsync(IFormFile file)
-    {
-        var uploadResult = new ImageUploadResult();
-
-        if (file.Length > 0)
+        if (tagNames == null || !tagNames.Any())
         {
-            using var stream = file.OpenReadStream();
-            var uploadParams = new ImageUploadParams
-            {
-                File = new FileDescription(file.FileName, stream),
-                Transformation = new Transformation().Height(500).Width(500).Crop("fill").Gravity("face"),
-                Folder = "Connectly"
-            };
-
-            uploadResult = await _cloudinary.UploadAsync(uploadParams);
+            throw new Exception("Tags cannot be null or empty.");
         }
-        return uploadResult;
+
+        var user = await unitOfWork.UserRepository.GetUserByUsernameAsync(username);
+        if (user == null) return null;
+
+        var result = await cloudinaryService.AddPhotoAsync(file);
+        if (result.Error != null) throw new Exception(result.Error.Message);
+
+        var photo = new Photo
+        {
+            Url = result.SecureUrl.AbsoluteUri,
+            PublicId = result.PublicId,
+            AppUserId = user.Id,
+        };
+
+        unitOfWork.PhotoRepository.Add(photo);
+
+        foreach (var tagName in tagNames)
+        {
+            var tag = await unitOfWork.TagRepository.GetByNameAsync(tagName);
+            if (tag == null)
+            {
+                throw new Exception($"Tag '{tagName}' does not exist.");
+            }
+
+            unitOfWork.PhotoTagRepository.Add(new PhotoTag { Photo = photo, Tag = tag });
+        }
+
+        user.Photos.Add(photo);
+        if (await unitOfWork.Complete())
+        {
+            return mapper.Map<PhotoDto>(photo);
+        }
+
+        throw new Exception("Problem adding photo with tags");
     }
 
-    public async Task<DeletionResult> DeletePhotoAsync(string publicId)
+    public async Task<bool> SetMainPhoto(string username, int photoId)
     {
-        var deleteParams = new DeletionParams(publicId);
+        var user = await unitOfWork.UserRepository.GetUserByUsernameAsync(username);
+        if (user == null) return false;
 
-        return await _cloudinary.DestroyAsync(deleteParams);
+        var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
+        if (photo == null || photo.IsMain) return false;
+
+        var currentMain = user.Photos.FirstOrDefault(x => x.IsMain);
+        if (currentMain != null) currentMain.IsMain = false;
+        photo.IsMain = true;
+
+        return await unitOfWork.Complete();
+    }
+
+    public async Task<bool> DeletePhoto(string username, int photoId)
+    {
+        var user = await unitOfWork.UserRepository.GetUserByUsernameAsync(username);
+        if (user == null) return false;
+
+        var photo = await unitOfWork.PhotoRepository.GetPhotoById(photoId);
+        if (photo == null || photo.IsMain) return false;
+
+        if (photo.PublicId != null)
+        {
+            var result = await cloudinaryService.DeletePhotoAsync(photo.PublicId);
+            if (result.Error != null) throw new Exception(result.Error.Message);
+        }
+
+        user.Photos.Remove(photo);
+        return await unitOfWork.Complete();
+    }
+
+    public async Task<IEnumerable<PhotoDto>> GetPhotosByTagAsync(int tagId)
+    {
+        var photos = await unitOfWork.PhotoTagRepository.GetPhotosByTagIdAsync(tagId);
+
+        return photos.Select(photo => new PhotoDto
+        {
+            Id = photo.Id,
+            Url = photo.Url,
+            IsMain = photo.IsMain,
+            IsApproved = photo.IsApproved
+        });
+    }
+
+    public async Task<List<string>> GetTagsForPhotoAsync(int photoId)
+    {
+        return await unitOfWork.PhotoTagRepository.GetTagsForPhotoAsync(photoId);
     }
 }

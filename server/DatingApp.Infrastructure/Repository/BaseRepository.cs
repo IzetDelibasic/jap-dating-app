@@ -1,13 +1,14 @@
+using DatingApp.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Repository
 {
     public class BaseRepository<TEntity> where TEntity : class
     {
-        protected readonly DbContext dbContext;
+        protected readonly DatabaseContext dbContext;
         protected readonly DbSet<TEntity> dbSet;
 
-        public BaseRepository(DbContext dbContext)
+        public BaseRepository(DatabaseContext dbContext)
         {
             this.dbContext = dbContext;
             dbSet = dbContext.Set<TEntity>();
