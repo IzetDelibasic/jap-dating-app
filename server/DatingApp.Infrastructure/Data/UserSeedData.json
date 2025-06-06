@@ -169,5 +169,195 @@
         "IsMain": true
       }
     ]
+  },
+  {
+    "UserName": "Elijah",
+    "Gender": "male",
+    "DateOfBirth": "1986-03-15",
+    "KnownAs": "Eli",
+    "Created": "2020-01-20",
+    "LastActive": "2020-06-03",
+    "Introduction": "Quiet thinker who enjoys deep conversations and good coffee.",
+    "LookingFor": "Someone honest, open-minded and kind-hearted.",
+    "Interests": "Reading, hiking, board games.",
+    "City": "Denver",
+    "Country": "USA",
+    "Photos": [
+      {
+        "Url": "https://randomuser.me/api/portraits/men/12.jpg",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "UserName": "Sophia",
+    "Gender": "female",
+    "DateOfBirth": "1990-09-12",
+    "KnownAs": "Sophie",
+    "Created": "2020-03-10",
+    "LastActive": "2020-05-29",
+    "Introduction": "Lover of travel, photography, and spontaneous adventures.",
+    "LookingFor": "Someone who can make me laugh and challenge me intellectually.",
+    "Interests": "Photography, food, traveling.",
+    "City": "Lisbon",
+    "Country": "Portugal",
+    "Photos": [
+      {
+        "Url": "https://randomuser.me/api/portraits/women/42.jpg",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "UserName": "Derek",
+    "Gender": "male",
+    "DateOfBirth": "1983-04-10",
+    "KnownAs": "Derek",
+    "Created": "2019-10-12",
+    "LastActive": "2020-05-20",
+    "Introduction": "I'm a software engineer who loves dogs and coding for fun.",
+    "LookingFor": "A partner in crime who enjoys quiet nights and loud music.",
+    "Interests": "Coding, gaming, dogs, concerts.",
+    "City": "Oslo",
+    "Country": "Norway",
+    "Photos": [
+      {
+        "Url": "https://randomuser.me/api/portraits/men/84.jpg",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "UserName": "Hannah",
+    "Gender": "female",
+    "DateOfBirth": "1995-06-17",
+    "KnownAs": "Hannah",
+    "Created": "2020-02-08",
+    "LastActive": "2020-06-02",
+    "Introduction": "Artist and dreamer who enjoys painting and poetry.",
+    "LookingFor": "Someone creative and open to new experiences.",
+    "Interests": "Art, museums, poetry slams.",
+    "City": "Melbourne",
+    "Country": "Australia",
+    "Photos": [
+      {
+        "Url": "https://randomuser.me/api/portraits/women/33.jpg",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "UserName": "Jasper",
+    "Gender": "male",
+    "DateOfBirth": "1992-11-03",
+    "KnownAs": "Jazz",
+    "Created": "2020-03-25",
+    "LastActive": "2020-05-27",
+    "Introduction": "Music producer with a love for jazz and good conversation.",
+    "LookingFor": "Someone who can groove with life’s rhythm.",
+    "Interests": "Music, travel, city nightlife.",
+    "City": "Berlin",
+    "Country": "Germany",
+    "Photos": [
+      {
+        "Url": "https://randomuser.me/api/portraits/men/76.jpg",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "UserName": "Maya",
+    "Gender": "female",
+    "DateOfBirth": "1988-01-29",
+    "KnownAs": "Maya",
+    "Created": "2019-12-01",
+    "LastActive": "2020-05-18",
+    "Introduction": "Nature enthusiast and avid camper. Let’s go hike!",
+    "LookingFor": "Someone to share campfires and sunrise views.",
+    "Interests": "Camping, hiking, nature photography.",
+    "City": "Reykjavik",
+    "Country": "Iceland",
+    "Photos": [
+      {
+        "Url": "https://randomuser.me/api/portraits/women/66.jpg",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "UserName": "Noah",
+    "Gender": "male",
+    "DateOfBirth": "1991-08-14",
+    "KnownAs": "Noah",
+    "Created": "2020-01-15",
+    "LastActive": "2020-06-01",
+    "Introduction": "Entrepreneur and foodie, always on the lookout for a new dish to try.",
+    "LookingFor": "A best friend and partner to explore life with.",
+    "Interests": "Cooking, startups, traveling.",
+    "City": "Toronto",
+    "Country": "Canada",
+    "Photos": [
+      {
+        "Url": "https://randomuser.me/api/portraits/men/38.jpg",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "UserName": "Isabella",
+    "Gender": "female",
+    "DateOfBirth": "1985-07-09",
+    "KnownAs": "Bella",
+    "Created": "2020-01-27",
+    "LastActive": "2020-06-03",
+    "Introduction": "Dancer, writer, and tea lover. Life is a performance!",
+    "LookingFor": "Someone thoughtful and passionate.",
+    "Interests": "Dance, writing, classic literature.",
+    "City": "Florence",
+    "Country": "Italy",
+    "Photos": [
+      {
+        "Url": "https://randomuser.me/api/portraits/women/25.jpg",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "UserName": "Aiden",
+    "Gender": "male",
+    "DateOfBirth": "1993-12-22",
+    "KnownAs": "Aiden",
+    "Created": "2020-02-14",
+    "LastActive": "2020-05-30",
+    "Introduction": "I build things with code and break them with curiosity.",
+    "LookingFor": "Someone as curious and nerdy as I am.",
+    "Interests": "Tech, podcasts, DIY projects.",
+    "City": "Tallinn",
+    "Country": "Estonia",
+    "Photos": [
+      {
+        "Url": "https://randomuser.me/api/portraits/men/31.jpg",
+        "IsMain": true
+      }
+    ]
+  },
+  {
+    "UserName": "Zoe",
+    "Gender": "female",
+    "DateOfBirth": "1999-02-10",
+    "KnownAs": "Zoe",
+    "Created": "2020-04-05",
+    "LastActive": "2020-05-25",
+    "Introduction": "Student of life and psychology. Let's talk about the mind.",
+    "LookingFor": "A deep connection and good energy.",
+    "Interests": "Psychology, meditation, animals.",
+    "City": "Cape Town",
+    "Country": "South Africa",
+    "Photos": [
+      {
+        "Url": "https://randomuser.me/api/portraits/women/61.jpg",
+        "IsMain": true
+      }
+    ]
   }
 ]

@@ -57,7 +57,7 @@ public class PhotoServiceTests
     }
 
     [Fact]
-    public async Task DeletePhoto_WhenPhotoBelongsToUser_DeletePhoto()
+    public async Task Given_PhotoBelongsToUser_When_DeletePhoto_Then_DeletePhotoSuccessfully()
     {
         var username = "testinguser";
         var photo = CreatePhoto(1, isMain: false, publicId: "publicId");
@@ -78,7 +78,7 @@ public class PhotoServiceTests
     }
 
     [Fact]
-    public async Task DeletePhoto_WhenPhotoIsMain_ReturnFalse()
+    public async Task Given_PhotoIsMain_When_DeletePhoto_Then_ReturnFalse()
     {
         var username = "testinguser";
         var photo = CreatePhoto(1, isMain: true);
@@ -96,7 +96,7 @@ public class PhotoServiceTests
     }
 
     [Fact]
-    public async Task DeletePhoto_WhenPhotoDoesNotExist_ReturnFalse()
+    public async Task Given_PhotoDoesNotExist_When_DeletePhoto_Then_ReturnFalse()
     {
         var username = "testinguser";
         var photoId = 1;
@@ -110,7 +110,7 @@ public class PhotoServiceTests
     }
 
     [Fact]
-    public async Task DeletePhoto_WhenUserDoesNotExist_ReturnFalse()
+    public async Task Given_UserDoesNotExist_When_DeletePhoto_Then_ReturnFalse()
     {
         var username = "testinguser";
         var photoId = 1;

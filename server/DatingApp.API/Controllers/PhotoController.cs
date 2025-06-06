@@ -12,7 +12,7 @@ namespace DatingApp.API.Controllers
     [Authorize]
     [ApiController]
     [Route("api/photo")]
-    public class PhotoController(IPhotoService photoService) : BaseApiController
+    public class PhotoController(IPhotoService photoService, IProcedureService procedureService) : BaseApiController
     {
         [HttpPost("add-photo")]
         public async Task<ActionResult<PhotoDto>> AddPhoto([FromForm] PhotoUploadDto photoUploadDto)
@@ -51,6 +51,58 @@ namespace DatingApp.API.Controllers
                 throw new BadRequestException("Problem deleting photo.");
             }
             return Ok();
+        }
+
+        [Authorize(Policy = "ModerateRole")]
+        [HttpGet("photos-to-moderate")]
+        public async Task<ActionResult> GetPendingPhotos()
+        {
+            var photos = await photoService.GetPhotosForModeration();
+            if (photos == null)
+            {
+                throw new NotFoundException("No photos to moderate found.");
+            }
+            return Ok(photos);
+        }
+
+        [Authorize(Policy = "ModerateRole")]
+        [HttpPost("approve-photo/{id}")]
+        public async Task<ActionResult> ApprovePhotoById(int id)
+        {
+            var result = await photoService.ApprovePhoto(id);
+            if (!result)
+            {
+                throw new BadRequestException($"Failed to approve photo with ID {id}.");
+            }
+            return Ok();
+        }
+
+        [Authorize(Policy = "ModerateRole")]
+        [HttpPost("reject-photo/{id}")]
+        public async Task<ActionResult> RejectPhotoById(int id)
+        {
+            var result = await photoService.RejectPhoto(id);
+            if (!result)
+            {
+                throw new BadRequestException($"Failed to reject photo with ID {id}.");
+            }
+            return Ok();
+        }
+
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpGet("photo-approval-stats")]
+        public async Task<IActionResult> GetPhotoApprovalStats()
+        {
+            var stats = await procedureService.GetPhotoApprovalStatsAsync();
+            return Ok(stats);
+        }
+
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpGet("without-main-photo")]
+        public async Task<IActionResult> GetUsersWithoutMainPhoto()
+        {
+            var users = await procedureService.GetUsersWithoutMainPhotoAsync();
+            return Ok(users);
         }
 
         [HttpGet("by-tag/{tagId}")]

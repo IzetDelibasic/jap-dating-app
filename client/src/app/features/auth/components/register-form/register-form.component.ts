@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../../../../core/services/account.service';
 import { TextInputComponent } from '../../../../shared/components/forms/text-input/text-input.component';
 import { DatePickerComponent } from '../../../../shared/components/forms/date-picker/date-picker.component';
+import { catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-register-form',
@@ -69,10 +70,19 @@ export class RegisterFormComponent implements OnInit {
   register() {
     const dob = this.getDateOnly(this.registerForm.get('dateOfBirth')?.value);
     this.registerForm.patchValue({ dateOfBirth: dob });
-    this.accountService.register(this.registerForm.value).subscribe({
-      next: () => this.router.navigateByUrl('/members'),
-      error: (error) => this.toastr.error(error.error),
-    });
+
+    this.accountService
+      .register(this.registerForm.value)
+      .pipe(
+        tap(() => {
+          this.router.navigateByUrl('/members');
+        }),
+        catchError((error) => {
+          this.toastr.error(error.error);
+          return of(null);
+        })
+      )
+      .subscribe();
   }
 
   cancel() {

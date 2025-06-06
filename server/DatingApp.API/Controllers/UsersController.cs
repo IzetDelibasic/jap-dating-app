@@ -36,6 +36,30 @@ public class UsersController(IUsersService usersService) : BaseApiController
         return Ok(user);
     }
 
+    [Authorize(Policy = "RequireAdminRole")]
+    [HttpGet("users-with-roles")]
+    public async Task<ActionResult> GetUsersWithRoles()
+    {
+        var users = await usersService.GetUsersWithRoles();
+        if (users == null)
+        {
+            throw new NotFoundException("No users with roles found.");
+        }
+        return Ok(users);
+    }
+
+    [Authorize(Policy = "RequireAdminRole")]
+    [HttpPost("edit-roles/{username}")]
+    public async Task<ActionResult> EditRoles(string username, string roles)
+    {
+        var result = await usersService.EditRoles(username, roles);
+        if (!result)
+        {
+            throw new BadRequestException($"Failed to update roles for user '{username}'.");
+        }
+        return Ok(await usersService.GetUserRoles(username));
+    }
+
     [HttpPut]
     public async Task<IActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
     {

@@ -5,7 +5,7 @@ import { LikesService } from '../../../../core/services/likes.service';
 import { MemberCardComponent } from '../../../../shared/components/member-card/member-card.component';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { Subscription } from 'rxjs';
+import { catchError, of, Subscription, tap } from 'rxjs';
 
 @Component({
   selector: 'app-connections-page',
@@ -27,7 +27,7 @@ export class ConnectionsPage implements OnInit, OnDestroy {
   private subscriptions: Subscription = new Subscription();
 
   ngOnInit(): void {
-    this.loadLikes();
+    this.loadLikes().subscribe();
   }
 
   getTitle() {
@@ -42,22 +42,23 @@ export class ConnectionsPage implements OnInit, OnDestroy {
   }
 
   loadLikes() {
-    this.likesService
+    return this.likesService
       .getLikes(this.predicate, this.pageNumber, this.pageSize)
-      .subscribe({
-        next: () => {
+      .pipe(
+        tap(() => {
           console.log('Likes loaded successfully');
-        },
-        error: (err) => {
+        }),
+        catchError((err) => {
           console.error('Error fetching likes:', err);
-        },
-      });
+          return of(null);
+        })
+      );
   }
 
   pageChanged(event: any) {
     if (this.pageNumber !== event.page) {
       this.pageNumber = event.page;
-      this.loadLikes();
+      this.loadLikes().subscribe();
     }
   }
 

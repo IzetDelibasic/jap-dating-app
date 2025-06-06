@@ -59,10 +59,6 @@
   background-color: #0a5299;
 }
 
-.btn-info {
-  border: 0;
-}
-
 .btn-active {
   background-color: white;
   color: black;
@@ -100,26 +96,6 @@ button.active {
   .filter-button {
     width: 100%;
   }
-
-  .sort-buttons {
-    margin-top: 20px;
-    width: 100%;
-  }
-
-  .sort-buttons .btn-group {
-    display: flex;
-    width: 100%;
-  }
-
-  .sort-buttons .btn-group .btn {
-    flex-grow: 1;
-    margin-left: 0 !important;
-    margin-right: 5px;
-  }
-
-  .sort-buttons .btn-group .btn:last-child {
-    margin-right: 0;
-  }
 }
 
 @media (min-width: 768px) {
@@ -141,10 +117,6 @@ button.active {
     flex-wrap: wrap;
     justify-content: flex-start;
   }
-
-  .sort-buttons {
-    margin-top: 0;
-  }
 }
 
 @media (min-width: 992px) {
@@ -159,7 +131,7 @@ button.active {
   .filter-input,
   .filter-select,
   .filter-button,
-  .sort-buttons .btn-group .btn {
+  .btn-group .btn {
     font-size: 1rem;
   }
 }

@@ -1,3 +1,4 @@
+import { catchError, of, tap } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
@@ -6,6 +7,7 @@ import { AccountService } from '../../../core/services/account.service';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrService } from 'ngx-toastr';
 import { HasRoleDirective } from '../../directives/has-role.directive';
+import { DEFAULT_PHOTO_URL } from '../../../core/constants/contentConstants/imagesConstant';
 
 @Component({
   selector: 'app-navbar',
@@ -22,11 +24,13 @@ import { HasRoleDirective } from '../../directives/has-role.directive';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  accountService = inject(AccountService);
+  public accountService = inject(AccountService);
   private router = inject(Router);
   private toastr = inject(ToastrService);
   model: any = {};
   isNavbarOpen: boolean = false;
+
+  defaultPhoto = DEFAULT_PHOTO_URL;
 
   toggleNavbar() {
     this.isNavbarOpen = !this.isNavbarOpen;
@@ -38,10 +42,13 @@ export class NavbarComponent {
       return;
     }
 
-    this.accountService.login(this.model).subscribe({
-      next: () => this.router.navigateByUrl('/members'),
-      error: (error) => this.handleError(error),
-    });
+    this.accountService.login(this.model).pipe(
+      tap(() => {this.router.navigateByUrl('/members'); }),
+      catchError((error) =>{
+        this.handleError(error);
+        return of(null);
+      })
+    ).subscribe();
   }
 
   logout() {

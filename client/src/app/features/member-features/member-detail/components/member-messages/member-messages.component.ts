@@ -8,6 +8,7 @@ import {
 import { FormsModule, NgForm } from '@angular/forms';
 import { MessageService } from '../../../../../core/services/message.service';
 import { TimeagoModule } from 'ngx-timeago';
+import { DEFAULT_PHOTO_URL } from '../../../../../core/constants/contentConstants/imagesConstant';
 
 @Component({
   selector: 'app-member-messages',
@@ -21,6 +22,8 @@ export class MemberMessagesComponent implements AfterViewChecked {
   messageService = inject(MessageService);
   username = input.required<string>();
   messageContent = '';
+
+  defaultPhoto = DEFAULT_PHOTO_URL;
 
   sendMessage() {
     this.messageService

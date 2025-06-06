@@ -11,6 +11,7 @@ import { MessageService } from '../../../../../core/services/message.service';
 import { PresenceService } from '../../../../../core/services/presence.service';
 import { AccountService } from '../../../../../core/services/account.service';
 import { LikesService } from '../../../../../core/services/likes.service';
+import { catchError, combineLatest, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-member-detail',
@@ -38,24 +39,32 @@ export class MemberDetailPageComponent implements OnInit, OnDestroy {
   activeTab?: TabDirective;
 
   ngOnInit(): void {
-    this.route.data.subscribe({
-      next: (data) => {
-        console.log(data);
-        this.member = data['member'];
-        this.member &&
-          this.member.photos.map((p) => {
-            this.images.push(new ImageItem({ src: p.url, thumb: p.url }));
-          });
+    combineLatest([
+      this.route.data.pipe(
+        tap((data) => {
+          this.member = data['member'];
+          this.member &&
+            this.member.photos.map((p) => {
+              this.images.push(new ImageItem({ src: p.url, thumb: p.url }));
+            });
+        }),
+        catchError((err) => {
+          console.error('Failed to load route data:', err);
+          return of(null);
+        })
+      ),
+      this.route.paramMap.pipe(tap(() => this.onRouteParamsChange())),
+      this.route.queryParams.pipe(
+        tap((params) => {
+          params['tab'] && this.selectTab(params['tab']);
+        })
+      ),
+    ]).subscribe({
+      next: () => {
+        console.log('All route observables processed successfully.');
       },
-    });
-
-    this.route.paramMap.subscribe({
-      next: () => this.onRouteParamsChange(),
-    });
-
-    this.route.queryParams.subscribe({
-      next: (params) => {
-        params['tab'] && this.selectTab(params['tab']);
+      error: (err) => {
+        console.error('Error processing route observables:', err);
       },
     });
   }
