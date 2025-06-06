@@ -15,7 +15,6 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ToastrService } from 'ngx-toastr';
 import { TimeagoModule } from 'ngx-timeago';
 import { DEFAULT_PHOTO_URL } from '../../../../../core/constants/contentConstants/imagesConstant';
-import { BehaviorSubject, catchError, of, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-member-edit-page',
@@ -37,13 +36,12 @@ export class MemberEditPageComponent implements OnInit {
     }
   }
 
+  member?: Member;
   defaultPhoto = DEFAULT_PHOTO_URL;
+
   private accountService = inject(AccountService);
   private memberService = inject(MembersService);
   private toastrService = inject(ToastrService);
-
-  private memberSubject = new BehaviorSubject<Member | null>(null);
-  member$ = this.memberSubject.asObservable();
 
   ngOnInit(): void {
     this.loadMember();
@@ -52,41 +50,21 @@ export class MemberEditPageComponent implements OnInit {
   loadMember() {
     const user = this.accountService.currentUser();
     if (!user || !user.username) return;
-
-    this.memberService
-      .getMember(user.username)
-      .pipe(
-        tap((member) => this.memberSubject.next(member)),
-        catchError((err) => {
-          console.error('Failed to load member:', err);
-          return of(null);
-        })
-      )
-      .subscribe();
+    this.memberService.getMember(user.username).subscribe({
+      next: (member) => (this.member = member),
+    });
   }
 
   updateMember() {
-    this.member$
-      .pipe(
-        switchMap((member) => {
-          if (!member || !this.editForm?.value) return of(null);
-          return this.memberService.updateMember(this.editForm.value).pipe(
-            tap(() => {
-              this.toastrService.success('Profile updated successfully');
-              this.editForm?.reset(member);
-            }),
-            catchError((err) => {
-              console.error('Failed to update member:', err);
-              this.toastrService.error('Failed to update profile');
-              return of(null);
-            })
-          );
-        })
-      )
-      .subscribe();
+    this.memberService.updateMember(this.editForm?.value).subscribe({
+      next: () => {
+        this.toastrService.success('Profile updated successfuly');
+        this.editForm?.reset(this.member);
+      },
+    });
   }
 
   onMemberChange(event: Member) {
-    this.memberSubject.next(event);
+    this.member = event;
   }
 }

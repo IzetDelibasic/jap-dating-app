@@ -6,6 +6,7 @@ import { TimeagoModule } from 'ngx-timeago';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { Message } from '../../../../core/models/message';
+import { catchError, EMPTY, tap } from 'rxjs';
 
 @Component({
   selector: 'app-messenger-page',
@@ -31,12 +32,17 @@ export class MessengerPageComponent implements OnInit {
   }
 
   loadMessages() {
-    this.messageService.getMessages(
-      this.pageNumber,
-      this.pageSize,
-      this.container
-    );
-  }
+  this.messageService
+    .getMessages(this.pageNumber, this.pageSize, this.container)
+    .pipe(
+      tap((response) => console.log('Messages loaded:', response)),
+      catchError((err) => {
+        console.error('Error loading messages:', err);
+        return EMPTY;
+      })
+    )
+    .subscribe();
+}
 
   getRoute(message: Message) {
     if (this.container === 'Outbox')

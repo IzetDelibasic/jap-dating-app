@@ -75,7 +75,7 @@ export class RegisterFormComponent implements OnInit {
       .register(this.registerForm.value)
       .pipe(
         tap(() => {
-          this.router.navigateByUrl('/members');
+          this.router.navigateByUrl('/board');
         }),
         catchError((error) => {
           this.toastr.error(error.error);
