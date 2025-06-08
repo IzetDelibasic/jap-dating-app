@@ -32,6 +32,7 @@ public static class ApplicationServiceExtensions
         services.AddScoped<IUsersService, UsersService>();
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<ITagService, TagService>();
+        services.AddScoped<IIntelligentAssistantService, IntelligentAssistantService>();
         services.AddScoped<IProcedureService, ProcedureService>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ILikesRepository, LikesRepository>();

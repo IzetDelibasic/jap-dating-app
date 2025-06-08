@@ -12,7 +12,7 @@ import {
   HubConnectionBuilder,
   HubConnectionState,
 } from '@microsoft/signalr';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -73,6 +73,19 @@ export class MessageService {
       .pipe(
         tap((response) => setPaginatedResponse(response, this.paginatedResult))
       );
+  }
+
+  generateMessage(
+    interests: string,
+    lookingFor: string
+  ): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      environment.apiBaseUrl + MESSAGES_API.GENERATE_MESSAGE,
+      {
+        interests,
+        lookingFor,
+      }
+    );
   }
 
   getMessageThread(username: string) {
