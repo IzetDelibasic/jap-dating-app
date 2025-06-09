@@ -53,6 +53,43 @@ public class PhotoService(IUnitOfWork unitOfWork, IMapper mapper, ICloudinarySer
         throw new Exception("Problem adding photo with tags");
     }
 
+    public async Task<IEnumerable<object>> GetPhotosForModeration()
+    {
+        return await unitOfWork.PhotoRepository.GetUnapprovedPhotos();
+    }
+
+    public async Task<bool> ApprovePhoto(int id)
+    {
+        var photo = await unitOfWork.PhotoRepository.GetPhotoById(id);
+        if (photo == null) return false;
+
+        photo.IsApproved = true;
+
+        var user = await unitOfWork.UserRepository.GetUserByPhotoId(id);
+        if (user == null) return false;
+
+        if (!user.Photos.Any(x => x.IsMain)) photo.IsMain = true;
+
+        return await unitOfWork.Complete();
+    }
+
+    public async Task<bool> RejectPhoto(int id)
+    {
+        var photo = await unitOfWork.PhotoRepository.GetPhotoById(id);
+        if (photo == null) return false;
+
+        if (photo.PublicId != null)
+        {
+            var result = await cloudinaryService.DeletePhotoAsync(photo.PublicId);
+            if (result.Result == "ok")
+            {
+                unitOfWork.PhotoRepository.Delete(photo);
+            }
+        }
+
+        return await unitOfWork.Complete();
+    }
+
     public async Task<bool> SetMainPhoto(string username, int photoId)
     {
         var user = await unitOfWork.UserRepository.GetUserByUsernameAsync(username);

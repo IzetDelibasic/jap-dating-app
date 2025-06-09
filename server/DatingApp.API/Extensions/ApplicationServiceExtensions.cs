@@ -31,8 +31,8 @@ public static class ApplicationServiceExtensions
         services.AddScoped<ICloudinaryService, CloudinaryService>();
         services.AddScoped<IUsersService, UsersService>();
         services.AddScoped<IAccountService, AccountService>();
-        services.AddScoped<IAdminService, AdminService>();
         services.AddScoped<ITagService, TagService>();
+        services.AddScoped<IIntelligentAssistantService, IntelligentAssistantService>();
         services.AddScoped<IProcedureService, ProcedureService>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ILikesRepository, LikesRepository>();

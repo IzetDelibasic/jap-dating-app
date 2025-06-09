@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { map } from 'rxjs';
+import { catchError, forkJoin, map, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { User } from '../models/user';
 import { LikesService } from './likes.service';
@@ -29,40 +29,30 @@ export class AccountService {
   login(model: any) {
     return this.http
       .post<User>(environment.apiBaseUrl + ACCOUNT_API.LOGIN, model)
-      .pipe(
-        map((user) => {
-          if (user) {
-            this.setCurrentUser(user);
-          }
-        })
-      );
+      .pipe(map((user) => this.handleUser(user)));
   }
 
   register(model: any) {
     return this.http
       .post<User>(environment.apiBaseUrl + ACCOUNT_API.REGISTER, model)
-      .pipe(
-        map((user) => {
-          if (user) {
-            this.setCurrentUser(user);
-          }
-          return user;
-        })
-      );
+      .pipe(map((user) => this.handleUser(user)));
   }
 
   setCurrentUser(user: User) {
     this.saveUserToLocalStorage(user);
     this.currentUser.set(user);
-    this.likeService.getLikeIds().subscribe({
-      next: (ids) => {
-        this.likeService.likeIds.set(ids);
-      },
-      error: (error) => {
-        console.error('Error fetching like IDs:', error);
-      },
-    });
     this.presenceService.createHubConnection(user);
+
+    forkJoin({
+      likeIds: this.likeService.getLikeIds().pipe(
+        catchError((error) => {
+          console.error('Error fetching like IDs:', error);
+          return of([]);
+        })
+      ),
+    }).subscribe(({ likeIds }) => {
+      this.likeService.likeIds.set(likeIds);
+    });
   }
 
   hasRole(roles: string[]): boolean {
@@ -97,5 +87,12 @@ export class AccountService {
     const decodedToken = this.decodeToken(token);
     const expiration = decodedToken.exp * 1000;
     return Date.now() > expiration;
+  }
+
+  private handleUser(user: User | null): User | null {
+    if (user) {
+      this.setCurrentUser(user);
+    }
+    return user;
   }
 }

@@ -14,6 +14,7 @@ import { PhotoEditorComponent } from '../../components/photo-editor/photo-editor
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ToastrService } from 'ngx-toastr';
 import { TimeagoModule } from 'ngx-timeago';
+import { DEFAULT_PHOTO_URL } from '../../../../../core/constants/contentConstants/imagesConstant';
 
 @Component({
   selector: 'app-member-edit-page',
@@ -36,6 +37,8 @@ export class MemberEditPageComponent implements OnInit {
   }
 
   member?: Member;
+  defaultPhoto = DEFAULT_PHOTO_URL;
+
   private accountService = inject(AccountService);
   private memberService = inject(MembersService);
   private toastrService = inject(ToastrService);

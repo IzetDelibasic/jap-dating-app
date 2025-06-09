@@ -4,6 +4,8 @@ import { Member } from '../../../core/models/member';
 import { LikesService } from '../../../core/services/likes.service';
 import { PresenceService } from '../../../core/services/presence.service';
 import { ToastrService } from 'ngx-toastr';
+import { DEFAULT_PHOTO_URL } from '../../../core/constants/contentConstants/imagesConstant';
+import { catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-member-card',
@@ -15,7 +17,9 @@ export class MemberCardComponent {
   private likeService = inject(LikesService);
   private presenceService = inject(PresenceService);
   private toastr = inject(ToastrService);
+
   member = input.required<Member>();
+  defaultPhoto = DEFAULT_PHOTO_URL;
 
   hasLiked = computed(
     () => this.member() && this.likeService.likeIds().includes(this.member().id)
@@ -28,13 +32,17 @@ export class MemberCardComponent {
   );
 
   toggleLike() {
-    this.likeService.toggleLike(this.member().id).subscribe({
-      next: () => {
-        this.likeService.updateLikeIds(this.member().id, this.hasLiked());
-      },
-      error: () => {
-        this.toastr.error('Failed to toggle like');
-      },
-    });
+    this.likeService
+      .toggleLike(this.member().id)
+      .pipe(
+        tap(() => {
+          this.likeService.updateLikeIds(this.member().id, this.hasLiked());
+        }),
+        catchError(() => {
+          this.toastr.error('Failed to toggle like');
+          return of(null);
+        })
+      )
+      .subscribe();
   }
 }

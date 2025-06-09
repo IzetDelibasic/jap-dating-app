@@ -14,7 +14,7 @@
           <span class="chat-img float-end">
             <img
               class="rounded-circle"
-              src="{{ message.senderPhotoUrl || './assets/user.png' }}"
+              src="{{ message.senderPhotoUrl || defaultPhoto }}"
               alt="Image of message sender"
             />
           </span>
@@ -65,6 +65,13 @@
             type="submit"
           >
             Send
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary ms-2"
+            (click)="generateMessage()"
+          >
+            Generate Message
           </button>
         </div>
       </div>

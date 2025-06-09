@@ -61,7 +61,7 @@
         @if(accountService.currentUser()) {
         <div dropdown class="dropdown">
           <img
-            src="{{ accountService.currentUser()?.photoUrl }}"
+            src="{{ accountService.currentUser()?.photoUrl || defaultPhoto }}"
             alt="User Main Image"
             class="rounded-circle me-2"
           />

@@ -1,25 +1,30 @@
+using AutoMapper;
 using DatingApp.Entities;
+using DatingApp.Infrastructure.Interfaces.IServices;
 using DatingApp.Repository.Interfaces;
 using DatingApp.Services;
 using DatingApp.Services.Interfaces;
+using DatingApp.Services.Services;
 using Microsoft.AspNetCore.Identity;
 using Moq;
 
 namespace DatingApp.XUnitTests.ServicesTests;
 
-public class AdminServiceTests
+public class PhotoApprovalTests
 {
     private readonly Mock<IUnitOfWork> _unitOfWorkMock;
+    private readonly Mock<IMapper> _mapperMock;
     private readonly Mock<IPhotoRepository> _photoRepositoryMock;
     private readonly Mock<IUserRepository> _userRepositoryMock;
     private readonly Mock<ICloudinaryService> _cloudinaryServiceMock;
     private readonly Mock<UserManager<AppUser>> _userManagerMock;
-    private readonly IAdminService _adminService;
+    private readonly IPhotoService _photoService;
 
-    public AdminServiceTests()
+    public PhotoApprovalTests()
     {
         _unitOfWorkMock = new Mock<IUnitOfWork>();
         _photoRepositoryMock = new Mock<IPhotoRepository>();
+        _mapperMock = new Mock<IMapper>();
         _userRepositoryMock = new Mock<IUserRepository>();
         _cloudinaryServiceMock = new Mock<ICloudinaryService>();
 
@@ -30,7 +35,7 @@ public class AdminServiceTests
             Mock.Of<IUserStore<AppUser>>(),
             null!, null!, null!, null!, null!, null!, null!, null!);
 
-        _adminService = new AdminService(_userManagerMock.Object, _unitOfWorkMock.Object, _cloudinaryServiceMock.Object);
+        _photoService = new PhotoService(_unitOfWorkMock.Object, _mapperMock.Object, _cloudinaryServiceMock.Object);
     }
 
     private Photo CreatePhoto(int id, bool isApproved = false, bool isMain = false, int appUserId = 1)
@@ -59,7 +64,7 @@ public class AdminServiceTests
     }
 
     [Fact]
-    public async Task ApprovePhoto_WhenPhotoExists_SetIsApproved()
+    public async Task Given_PhotoExists_When_ApprovePhoto_Then_SetIsApproved()
     {
         var photo = CreatePhoto(1);
         var user = CreateUser(1, new List<Photo> { photo });
@@ -68,14 +73,14 @@ public class AdminServiceTests
         _userRepositoryMock.Setup(r => r.GetUserByPhotoId(photo.Id)).ReturnsAsync(user);
         _unitOfWorkMock.Setup(u => u.Complete()).ReturnsAsync(true);
 
-        var result = await _adminService.ApprovePhoto(photo.Id);
+        var result = await _photoService.ApprovePhoto(photo.Id);
 
         Assert.True(result);
         Assert.True(photo.IsApproved);
     }
 
     [Fact]
-    public async Task ApprovePhoto_WhenUserHasNoMainPhoto_SetPhotoAsMain()
+    public async Task Given_UserHasNoMainPhoto_When_ApprovePhoto_Then_SetPhotoAsMain()
     {
         var photo = CreatePhoto(1);
         var user = CreateUser(1, new List<Photo> { photo });
@@ -84,7 +89,7 @@ public class AdminServiceTests
         _userRepositoryMock.Setup(r => r.GetUserByPhotoId(photo.Id)).ReturnsAsync(user);
         _unitOfWorkMock.Setup(u => u.Complete()).ReturnsAsync(true);
 
-        var result = await _adminService.ApprovePhoto(photo.Id);
+        var result = await _photoService.ApprovePhoto(photo.Id);
 
         Assert.True(result);
         Assert.True(photo.IsApproved);
@@ -92,7 +97,7 @@ public class AdminServiceTests
     }
 
     [Fact]
-    public async Task ApprovePhoto_WhenUserAlreadyHasMainPhoto_NotChangeMainPhoto()
+    public async Task Given_UserAlreadyHasMainPhoto_When_ApprovePhoto_Then_DoNotChangeMainPhoto()
     {
         var photoToApprove = CreatePhoto(1);
         var mainPhoto = CreatePhoto(2, isApproved: true, isMain: true);
@@ -102,7 +107,7 @@ public class AdminServiceTests
         _userRepositoryMock.Setup(r => r.GetUserByPhotoId(photoToApprove.Id)).ReturnsAsync(user);
         _unitOfWorkMock.Setup(u => u.Complete()).ReturnsAsync(true);
 
-        var result = await _adminService.ApprovePhoto(photoToApprove.Id);
+        var result = await _photoService.ApprovePhoto(photoToApprove.Id);
 
         Assert.True(result);
         Assert.True(photoToApprove.IsApproved);
@@ -110,17 +115,17 @@ public class AdminServiceTests
     }
 
     [Fact]
-    public async Task ApprovePhoto_WhenPhotoDoesNotExist_ReturnFalse()
+    public async Task Given_PhotoDoesNotExist_When_ApprovePhoto_Then_ReturnFalse()
     {
         _photoRepositoryMock.Setup(r => r.GetPhotoById(It.IsAny<int>())).ReturnsAsync((Photo?)null);
 
-        var result = await _adminService.ApprovePhoto(999);
+        var result = await _photoService.ApprovePhoto(999);
 
         Assert.False(result);
     }
 
     [Fact]
-    public async Task ApprovePhoto_WhenSaveFails_ReturnFalse()
+    public async Task Given_PhotoExists_When_SaveFails_Then_ReturnFalse()
     {
         var photo = CreatePhoto(1);
         var user = CreateUser(1, new List<Photo> { photo });
@@ -129,7 +134,7 @@ public class AdminServiceTests
         _userRepositoryMock.Setup(r => r.GetUserByPhotoId(photo.Id)).ReturnsAsync(user);
         _unitOfWorkMock.Setup(u => u.Complete()).ReturnsAsync(false);
 
-        var result = await _adminService.ApprovePhoto(photo.Id);
+        var result = await _photoService.ApprovePhoto(photo.Id);
 
         Assert.False(result);
         Assert.True(photo.IsApproved);

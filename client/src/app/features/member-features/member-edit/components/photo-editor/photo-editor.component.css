@@ -42,6 +42,10 @@
   width: 90%;
 }
 
+.ng-select-search{
+  z-index: 1001;
+}
+
 ::ng-deep .ng-dropdown-panel {
   background-color: white;
   color: black;

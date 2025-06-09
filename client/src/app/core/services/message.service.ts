@@ -12,6 +12,7 @@ import {
   HubConnectionBuilder,
   HubConnectionState,
 } from '@microsoft/signalr';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -62,7 +63,6 @@ export class MessageService {
 
   getMessages(pageNumber: number, pageSize: number, container: string) {
     let params = setPaginationHeaders(pageNumber, pageSize);
-
     params = params.append('Container', container);
 
     return this.http
@@ -70,20 +70,36 @@ export class MessageService {
         observe: 'response',
         params,
       })
-      .subscribe({
-        next: (response) =>
-          setPaginatedResponse(response, this.paginatedResult),
-      });
+      .pipe(
+        tap((response) => setPaginatedResponse(response, this.paginatedResult))
+      );
   }
 
-  getMessageThread(username: string) {
-    return this.http.get<Message[]>(
-      environment.apiBaseUrl + MESSAGES_API.THREAD(username)
+  generateMessage(
+    interests: string,
+    lookingFor: string
+  ): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      environment.apiBaseUrl + MESSAGES_API.GENERATE_MESSAGE,
+      {
+        interests,
+        lookingFor,
+      }
     );
   }
 
+  getMessageThread(username: string) {
+    return this.http
+      .get<Message[]>(environment.apiBaseUrl + MESSAGES_API.THREAD(username))
+      .pipe(tap((messages) => this.messageThread.set(messages)));
+  }
+
   async sendMessage(username: string, content: string) {
-    return this.hubConnection?.invoke('SendMessage', {
+    if (!this.hubConnection) {
+      throw new Error('Hub connection not initialized');
+    }
+
+    return this.hubConnection.invoke('SendMessage', {
       recipientUsername: username,
       content,
     });

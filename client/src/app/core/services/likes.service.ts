@@ -3,8 +3,8 @@ import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Member } from '../models/member';
 import { PaginatedResult } from '../models/pagination';
-import { setPaginatedResponse, setPaginationHeaders } from './paginationHelper';
-import { map, Observable } from 'rxjs';
+import { setPaginationHeaders } from './paginationHelper';
+import { map, Observable, tap } from 'rxjs';
 import { LIKES_API } from '../constants/servicesConstants/likesServiceConstant';
 
 @Injectable({
@@ -26,7 +26,7 @@ export class LikesService {
     predicate: string,
     pageNumber: number,
     pageSize: number
-  ): Observable<void> {
+  ): Observable<PaginatedResult<Member[]>> {
     let params = setPaginationHeaders(pageNumber, pageSize);
     params = params.append('predicate', predicate);
 
@@ -42,17 +42,16 @@ export class LikesService {
             ? JSON.parse(paginationHeader)
             : null;
 
-          if (response.body && pagination) {
-            const paginatedResult: PaginatedResult<Member[]> = {
-              items: response.body,
-              pagination: pagination,
-            };
-
-            this.paginatedResult.set(paginatedResult);
-          } else {
-            console.error('Response body or pagination is missing.');
+          if (!response.body || !pagination) {
+            throw new Error('Missing pagination or response body');
           }
-        })
+
+          return {
+            items: response.body,
+            pagination: pagination,
+          } as PaginatedResult<Member[]>;
+        }),
+        tap((result) => this.paginatedResult.set(result))
       );
   }
 
