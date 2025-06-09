@@ -17,7 +17,7 @@
       id="navbarMenu"
     >
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        @if(accountService.currentUser()) {
+        @if(isLoggedIn$ | async){
         <li class="nav-item">
           <a
             class="nav-link"
@@ -45,7 +45,7 @@
             >Messages</a
           >
         </li>
-        <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
+        <li class="nav-item" *appHasRole="['Admin', 'Moderator']">
           <a
             class="nav-link"
             routerLink="/admin"
@@ -58,17 +58,17 @@
       </ul>
 
       <ul class="navbar-nav ms-auto">
-        @if(accountService.currentUser()) {
+        @if(isLoggedIn$ | async){
         <div dropdown class="dropdown">
           <img
-            src="{{ accountService.currentUser()?.photoUrl || defaultPhoto }}"
+            [src]="(currentUser$ | async)?.photoUrl || defaultPhoto"
             alt="User Main Image"
             class="rounded-circle me-2"
           />
           <a
             dropdownToggle
             class="dropdown-toggle text-light text-decoration-none"
-            >Welcome {{ accountService.currentUser()?.username | titlecase }}</a
+            >Welcome {{ (currentUser$ | async)?.username | titlecase }}</a
           >
           <div *dropdownMenu="" class="dropdown-menu">
             <a
@@ -84,7 +84,7 @@
           </div>
         </div>
 
-        } @if(!accountService.currentUser()) {
+        } @if(!(isLoggedIn$ | async)){
         <li class="nav-item">
           <a class="nav-link" routerLink="/auth/login" (click)="toggleNavbar()"
             >Already User?</a

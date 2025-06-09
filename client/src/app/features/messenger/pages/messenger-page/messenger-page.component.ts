@@ -35,7 +35,6 @@ export class MessengerPageComponent implements OnInit {
   this.messageService
     .getMessages(this.pageNumber, this.pageSize, this.container)
     .pipe(
-      tap((response) => console.log('Messages loaded:', response)),
       catchError((err) => {
         console.error('Error loading messages:', err);
         return EMPTY;

@@ -26,6 +26,10 @@ export class AccountService {
     return [];
   });
 
+  constructor() {
+    this.rehydrateUser();
+  }
+
   login(model: any) {
     return this.http
       .post<User>(environment.apiBaseUrl + ACCOUNT_API.LOGIN, model)
@@ -94,5 +98,13 @@ export class AccountService {
       this.setCurrentUser(user);
     }
     return user;
+  }
+
+  private rehydrateUser(): void {
+    const userJson = localStorage.getItem('user');
+    if (userJson) {
+      const user = JSON.parse(userJson);
+      this.currentUser.set(user);
+    }
   }
 }
