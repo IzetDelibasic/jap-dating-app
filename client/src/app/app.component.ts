@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
-import { AccountService } from './core/services/account.service';
 import { NgxSpinnerComponent } from 'ngx-spinner';
+import { LikesService } from './core/services/likes.service';
 
 @Component({
   selector: 'app-root',
@@ -10,17 +10,10 @@ import { NgxSpinnerComponent } from 'ngx-spinner';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit {
-  private accountService = inject(AccountService);
+export class AppComponent implements OnInit{
+  private likesService = inject(LikesService);
 
   ngOnInit(): void {
-    this.setCurrentUser();
-  }
-
-  setCurrentUser() {
-    const userString = localStorage.getItem('user');
-    if (!userString) return;
-    const user = JSON.parse(userString);
-    this.accountService.setCurrentUser(user);
+    this.likesService.initializeLikeIds();
   }
 }

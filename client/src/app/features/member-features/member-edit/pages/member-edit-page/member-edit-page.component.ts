@@ -8,13 +8,13 @@ import {
 import { DatePipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Member } from '../../../../../core/models/member';
-import { AccountService } from '../../../../../core/services/account.service';
 import { MembersService } from '../../../members.service';
 import { PhotoEditorComponent } from '../../components/photo-editor/photo-editor.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ToastrService } from 'ngx-toastr';
 import { TimeagoModule } from 'ngx-timeago';
 import { DEFAULT_PHOTO_URL } from '../../../../../core/constants/contentConstants/imagesConstant';
+import { AuthStoreService } from '../../../../../core/services/auth-store.service';
 
 @Component({
   selector: 'app-member-edit-page',
@@ -39,7 +39,7 @@ export class MemberEditPageComponent implements OnInit {
   member?: Member;
   defaultPhoto = DEFAULT_PHOTO_URL;
 
-  private accountService = inject(AccountService);
+  private authStore = inject(AuthStoreService);
   private memberService = inject(MembersService);
   private toastrService = inject(ToastrService);
 
@@ -48,7 +48,7 @@ export class MemberEditPageComponent implements OnInit {
   }
 
   loadMember() {
-    const user = this.accountService.currentUser();
+    const user = this.authStore.getCurrentUser();
     if (!user || !user.username) return;
     this.memberService.getMember(user.username).subscribe({
       next: (member) => (this.member = member),

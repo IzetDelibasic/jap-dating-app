@@ -6,14 +6,14 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { AccountService } from '../../core/services/account.service';
+import { AuthStoreService } from '../../core/services/auth-store.service';
 
 @Directive({
   selector: '[appHasRole]',
 })
 export class HasRoleDirective implements OnInit {
   @Input() appHasRole: string[] = [];
-  private accountService = inject(AccountService);
+  private authStore = inject(AuthStoreService);
   private viewContainerRef = inject(ViewContainerRef);
   private templateRef = inject(TemplateRef);
 
@@ -31,7 +31,6 @@ export class HasRoleDirective implements OnInit {
   }
 
   private hasRequiredRole(): boolean {
-    const roles = this.accountService.roles();
-    return roles?.some((r: string) => this.appHasRole.includes(r)) ?? false;
+    return this.authStore.hasRole(this.appHasRole);
   }
 }

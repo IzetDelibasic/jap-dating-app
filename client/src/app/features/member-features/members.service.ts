@@ -6,23 +6,23 @@ import { PaginatedResult } from '../../core/models/pagination';
 import { UserParams } from '../../core/models/userParams';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { AccountService } from '../../core/services/account.service';
 import {
   setPaginatedResponse,
   setPaginationHeaders,
 } from '../../core/services/paginationHelper';
 import { USER_API } from '../../core/constants/servicesConstants/userServiceConstant';
 import { PHOTOS_API } from '../../core/constants/servicesConstants/photoServiceConstant';
+import { AuthStoreService } from '../../core/services/auth-store.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MembersService {
   private http = inject(HttpClient);
-  private accountService = inject(AccountService);
+  private authStore = inject(AuthStoreService);
 
   memberCache = new Map();
-  user = this.accountService.currentUser();
+  user = this.authStore.getCurrentUser();
   userParams = signal<UserParams>(new UserParams(this.user));
   paginatedResult = signal<PaginatedResult<Member[]> | null>(null);
 

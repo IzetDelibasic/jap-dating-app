@@ -4,7 +4,7 @@ import { environment } from '../../../environments/environment';
 import { Member } from '../models/member';
 import { PaginatedResult } from '../models/pagination';
 import { setPaginationHeaders } from './paginationHelper';
-import { map, Observable, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { LIKES_API } from '../constants/servicesConstants/likesServiceConstant';
 
 @Injectable({
@@ -46,6 +46,11 @@ export class LikesService {
             throw new Error('Missing pagination or response body');
           }
 
+          if (predicate === 'liked') {
+            const likeIds = response.body.map((member) => member.id);
+            this.likeIds.set(likeIds);
+          }
+
           return {
             items: response.body,
             pagination: pagination,
@@ -53,6 +58,16 @@ export class LikesService {
         }),
         tap((result) => this.paginatedResult.set(result))
       );
+  }
+
+  initializeLikeIds(): void {
+    this.getLikes('liked', 1, 100)
+      .pipe(
+        catchError((error) => {
+          return of(null);
+        })
+      )
+      .subscribe();
   }
 
   updateLikeIds(memberId: number, hasLiked: boolean): void {

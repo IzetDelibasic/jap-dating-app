@@ -7,15 +7,15 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { DecimalPipe, NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
+import { DecimalPipe, NgClass, NgStyle } from '@angular/common';
 import { Member } from '../../../../../core/models/member';
 import { Photo } from '../../../../../core/models/photo';
 import { FileUploadModule, FileUploader } from 'ng2-file-upload';
-import { AccountService } from '../../../../../core/services/account.service';
 import { MembersService } from '../../../members.service';
 import { environment } from '../../../../../../environments/environment';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
+import { AuthStoreService } from '../../../../../core/services/auth-store.service';
 
 @Component({
   selector: 'app-photo-editor',
@@ -31,7 +31,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './photo-editor.component.css',
 })
 export class PhotoEditorComponent implements OnInit {
-  private accountService = inject(AccountService);
+  private authStore = inject(AuthStoreService);
   private memberService = inject(MembersService);
   private cdr = inject(ChangeDetectorRef);
 
@@ -63,7 +63,7 @@ export class PhotoEditorComponent implements OnInit {
   initializeUploader(): void {
     this.uploader = new FileUploader({
       url: `${environment.apiBaseUrl}photo/add-photo`,
-      authToken: `Bearer ${this.accountService.currentUser()?.token}`,
+      authToken: `Bearer ${this.authStore.getCurrentUser()?.token}`,
       isHTML5: true,
       allowedFileType: ['image'],
       removeAfterUpload: true,
@@ -134,10 +134,10 @@ export class PhotoEditorComponent implements OnInit {
   setMainPhoto(photo: Photo): void {
     this.memberService.setMainPhoto(photo).subscribe({
       next: () => {
-        const user = this.accountService.currentUser();
+        const user = this.authStore.getCurrentUser();
         if (user) {
           user.photoUrl = photo.url;
-          this.accountService.setCurrentUser(user);
+          this.authStore.updateCurrentUser(user);
         }
         this.member.photos.forEach((p) => (p.isMain = p.id === photo.id));
         this.memberChange.emit(this.member);

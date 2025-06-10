@@ -1,14 +1,14 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { AccountService } from '../services/account.service';
+import { AuthStoreService } from '../services/auth-store.service';
 
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
-  const accountService = inject(AccountService);
+  const authStore = inject(AuthStoreService);
 
-  if (accountService.currentUser()) {
+  if (authStore.getCurrentUser()) {
     req = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${accountService.currentUser()?.token}`,
+        Authorization: `Bearer ${authStore.getCurrentUser()?.token}`,
       },
     });
   }
