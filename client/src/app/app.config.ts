@@ -4,7 +4,6 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -30,7 +29,6 @@ export const appConfig: ApplicationConfig = {
       positionClass: 'toast-top-left',
     }),
     importProvidersFrom(
-      NgxSpinnerModule,
       TimeagoModule.forRoot(),
       ModalModule.forRoot(),
       TabsModule.forRoot(),

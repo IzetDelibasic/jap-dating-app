@@ -1,11 +1,8 @@
-<ngx-spinner
-  bdColor="rgba(255,255,255,0)"
-  size="default"
-  color="#333333"
-  type="ball-spin"
->
-  <p class="text-center">Loading...</p>
-</ngx-spinner>
+@if(loadingService.loading$ | async) {
+<div class="global-spinner">
+  <i class="fa fa-spinner fa-spin fa-2x"></i>
+</div>
+}
 
 <app-navbar></app-navbar>
 <router-outlet></router-outlet>
