@@ -15,6 +15,21 @@ public class PhotoRepository(DatabaseContext dbContext) : BaseRepository<Photo>(
             .SingleOrDefaultAsync(x => x.Id == id);
     }
 
+    public async Task<IEnumerable<PhotoDto>> GetPhotosByUserId(int userId)
+    {
+        return await dbSet
+            .IgnoreQueryFilters()
+            .Where(x => x.AppUserId == userId)
+            .Select(u => new PhotoDto
+            {
+                Id = u.Id,
+                Url = u.Url,
+                IsApproved = u.IsApproved,
+                IsMain = u.IsMain,
+            })
+            .ToListAsync();
+    }
+
     public async Task<IEnumerable<PhotoForApprovalDto>> GetUnapprovedPhotos()
     {
         return await dbSet

@@ -1,0 +1,28 @@
+<div class="feed-chart-container">
+  <div class="chart-wrapper">
+    <ngx-charts-pie-chart
+      [results]="pieChartData"
+      [labels]="true"
+      [doughnut]="true"
+      [explodeSlices]="false"
+      [gradient]="true"
+      [view]="chartView"
+      [animations]="true"
+    >
+    </ngx-charts-pie-chart>
+  </div>
+  <div class="stats-wrapper">
+    <div class="stat-box total">
+      <span class="stat-label">Total photos</span>
+      <span class="stat-value">{{ totalPhotos }}</span>
+    </div>
+    <div class="stat-box approved">
+      <span class="stat-label">Approved</span>
+      <span class="stat-value">{{ approvedPhotos }}</span>
+    </div>
+    <div class="stat-box unapproved">
+      <span class="stat-label">Unapproved</span>
+      <span class="stat-value">{{ unapprovedPhotos }}</span>
+    </div>
+  </div>
+</div>

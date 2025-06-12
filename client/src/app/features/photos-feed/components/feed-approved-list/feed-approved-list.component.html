@@ -1,0 +1,12 @@
+<h2 class="text-center">Approved photos</h2>
+<div class="approved-list">
+  <ng-container *ngIf="approvedPhotos$ | async as approvedPhotos">
+    @for (photo of approvedPhotos; track $index) {
+    <div class="approved-photo">
+      <img [src]="photo.url" [alt]="'Photo ' + photo.id" />
+    </div>
+    } @if(!approvedPhotos.length){
+    <p class="no-photos">No approved photos.</p>
+    }
+  </ng-container>
+</div>

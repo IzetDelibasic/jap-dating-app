@@ -45,6 +45,15 @@
             >Messages</a
           >
         </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/photos-feed"
+            routerLinkActive="active"
+            (click)="toggleNavbar()"
+            >Photos Feed</a
+          >
+        </li>
         <li class="nav-item" *appHasRole="['Admin', 'Moderator']">
           <a
             class="nav-link"

@@ -7,6 +7,7 @@ import { adminRoutes } from './features/admin-features/admin.routing';
 import { memberRoutes } from './features/member-features/members.routing';
 import { connectionsRoutes } from './features/connections/connections.routing';
 import { messengerRoutes } from './features/messenger/messenger.routing';
+import { photosFeedRoutes } from './features/photos-feed/photos-feed.routing';
 
 export const routes: Routes = [
   // /
@@ -26,6 +27,7 @@ export const routes: Routes = [
       ...memberRoutes,
       ...connectionsRoutes,
       ...messengerRoutes,
+      ...photosFeedRoutes,
     ],
   },
   { path: 'auth/login', component: LoginFormPageComponent },
