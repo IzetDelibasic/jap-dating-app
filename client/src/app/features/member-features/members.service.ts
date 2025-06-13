@@ -4,7 +4,7 @@ import { Member } from '../../core/models/member';
 import { Photo } from '../../core/models/photo';
 import { PaginatedResult } from '../../core/models/pagination';
 import { UserParams } from '../../core/models/userParams';
-import { catchError, map, Observable, of, tap } from 'rxjs';
+import { catchError, map, Observable, of, shareReplay, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import {
   setPaginatedResponse,
@@ -25,6 +25,8 @@ export class MembersService {
   user = this.authStore.getCurrentUser();
   userParams = signal<UserParams>(new UserParams(this.user));
   paginatedResult = signal<PaginatedResult<Member[]> | null>(null);
+
+  private memberObservables = new Map<string, Observable<Member>>();
 
   resetUserParams() {
     this.userParams.set(new UserParams(this.user));
@@ -65,17 +67,25 @@ export class MembersService {
   }
 
   getMember(username: string): Observable<Member> {
+    if (this.memberObservables.has(username)) {
+      return this.memberObservables.get(username)!;
+    }
+
     const member: Member = [...this.memberCache.values()]
       .reduce((arr, elem) => arr.concat(elem.body), [])
       .find((m: Member) => m.userName === username);
 
     if (member) return of(member);
 
-    return this.http
+    const member$ = this.http
       .get<Member>(environment.apiBaseUrl + USER_API.BY_USERNAME(username))
       .pipe(
+        shareReplay(1),
         catchError(this.handleError<Member>(`getMember username=${username}`))
       );
+
+    this.memberObservables.set(username, member$);
+    return member$;
   }
 
   updateMember(member: Member): Observable<any> {
