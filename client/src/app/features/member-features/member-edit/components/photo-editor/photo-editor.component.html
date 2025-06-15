@@ -66,7 +66,7 @@
         <button
           class="btn btn-sm btn-danger"
           [disabled]="photo.isMain || !photo.isApproved"
-          (click)="deletePhoto(photo)"
+          (click)="openDeleteModal(photo)"
         >
           <i class="fa fa-trash"></i>
         </button>
@@ -143,10 +143,17 @@
         type="button"
         class="btn btn-success btn-sm me-2"
         (click)="uploader?.uploadAll()"
-        [disabled]="!uploader?.getNotUploadedItems()?.length"
+        [disabled]="
+          !uploader?.getNotUploadedItems()?.length || !currentTags.length
+        "
       >
         <span class="fa fa-upload"></span> Upload all
       </button>
+      @if (!currentTags.length) {
+      <div class="text-danger my-2">
+        Please select at least one tag before uploading photos.
+      </div>
+      }
       <button
         type="button"
         class="btn btn-danger btn-sm"

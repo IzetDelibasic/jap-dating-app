@@ -18,8 +18,18 @@ import { environment } from '../../../../../../environments/environment';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { AuthStoreService } from '../../../../../core/services/auth-store.service';
-import { BehaviorSubject, catchError, combineLatest, map, of, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  combineLatest,
+  map,
+  of,
+  take,
+  tap,
+} from 'rxjs';
 import { PHOTOS_API } from '../../../../../core/constants/servicesConstants/photoServiceConstant';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ConfirmDialogComponent } from '../../../../../shared/components/modals/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-photo-editor',
@@ -38,12 +48,14 @@ export class PhotoEditorComponent implements OnInit, OnChanges {
   private authStore = inject(AuthStoreService);
   private memberService = inject(MembersService);
   private cdr = inject(ChangeDetectorRef);
+  private modalService = inject(BsModalService);
 
   @Input() member!: Member;
   @Output() memberChange = new EventEmitter<Member>();
 
   uploader?: FileUploader;
   hasBaseDropZoneOver = false;
+  bsModalRef?: BsModalRef;
 
   tags: { id: number; name: string }[] = [];
   photoTags: { [photoId: number]: string[] } = {};
@@ -68,7 +80,6 @@ export class PhotoEditorComponent implements OnInit, OnChanges {
     this.initializeUploader();
     this.loadTags();
     this.photos$.next(this.member.photos);
-    this.member.photos.forEach((photo) => this.loadTagsForPhoto(photo.id));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -159,6 +170,23 @@ export class PhotoEditorComponent implements OnInit, OnChanges {
         })
       )
       .subscribe();
+  }
+
+  openDeleteModal(photo: Photo) {
+    this.bsModalRef = this.modalService.show(ConfirmDialogComponent, {
+      initialState: {
+        title: 'Delete Photo',
+        message: 'Are you sure you want to delete this photo?',
+        btnOkText: 'Delete',
+        btnCancelText: 'Cancel',
+      },
+    });
+
+    this.bsModalRef.onHidden?.pipe(take(1)).subscribe(() => {
+      if (this.bsModalRef?.content?.result === true) {
+        this.deletePhoto(photo);
+      }
+    });
   }
 
   setMainPhoto(photo: Photo): void {

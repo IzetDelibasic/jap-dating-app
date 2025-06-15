@@ -4,9 +4,11 @@ using DatingApp.Common.DTO;
 using DatingApp.Exceptions;
 using DatingApp.Controllers;
 using DatingApp.Infrastructure.Interfaces.IServices;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DatingApp.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class IntelligentAssistantController(IIntelligentAssistantService intelligentAssistantService) : BaseApiController

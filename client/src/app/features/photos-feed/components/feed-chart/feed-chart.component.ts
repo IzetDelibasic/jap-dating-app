@@ -1,15 +1,8 @@
-import {
-  Component,
-  inject,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PhotosFeedService } from '../../photos-feed.service';
 import { Photo } from '../../../../core/models/photo';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-feed-chart',
@@ -17,8 +10,10 @@ import { Photo } from '../../../../core/models/photo';
   templateUrl: './feed-chart.component.html',
   styleUrl: './feed-chart.component.css',
 })
-export class FeedChartComponent implements OnChanges, OnInit, OnDestroy {
+export class FeedChartComponent implements OnInit, OnDestroy {
   @Input() userId?: number;
+  @Input() photos$?: Observable<Photo[]>;
+
   private photosFeedService = inject(PhotosFeedService);
 
   pieChartData = [
@@ -30,32 +25,24 @@ export class FeedChartComponent implements OnChanges, OnInit, OnDestroy {
   totalPhotos = 0;
   approvedPhotos = 0;
   unapprovedPhotos = 0;
+  private photosSub?: Subscription;
 
   private resizeListener = () => this.setResponsiveChartView();
 
   ngOnInit(): void {
     this.setResponsiveChartView();
     window.addEventListener('resize', this.resizeListener);
+
+    if (this.photos$) {
+      this.photosSub = this.photos$.subscribe((photos) => {
+        this.updateChartData(photos);
+      });
+    }
   }
 
   ngOnDestroy(): void {
     window.removeEventListener('resize', this.resizeListener);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['userId'] && this.userId !== undefined) {
-      this.photosFeedService
-        .getPhotosByUserId(this.userId)
-        .subscribe((photos: Photo[]) => {
-          this.totalPhotos = photos.length;
-          this.approvedPhotos = photos.filter((p) => p.isApproved).length;
-          this.unapprovedPhotos = photos.filter((p) => !p.isApproved).length;
-          this.pieChartData = [
-            { name: 'Approved', value: this.approvedPhotos },
-            { name: 'Unapproved', value: this.unapprovedPhotos },
-          ];
-        });
-    }
+    this.photosSub?.unsubscribe();
   }
 
   setResponsiveChartView() {
@@ -64,5 +51,15 @@ export class FeedChartComponent implements OnChanges, OnInit, OnDestroy {
     } else {
       this.chartView = [850, 350];
     }
+  }
+
+  private updateChartData(photos: Photo[]) {
+    this.totalPhotos = photos.length;
+    this.approvedPhotos = photos.filter((p) => p.isApproved).length;
+    this.unapprovedPhotos = photos.filter((p) => !p.isApproved).length;
+    this.pieChartData = [
+      { name: 'Approved', value: this.approvedPhotos },
+      { name: 'Unapproved', value: this.unapprovedPhotos },
+    ];
   }
 }

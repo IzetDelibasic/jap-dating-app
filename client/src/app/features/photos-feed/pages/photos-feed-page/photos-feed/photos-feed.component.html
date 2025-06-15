@@ -1,2 +1,5 @@
-<app-feed-chart [userId]="userId"></app-feed-chart>
-<app-feed-approved-list [userId]="userId"></app-feed-approved-list>
+<h3 class="text-center mt-4">Photos feed</h3>
+<ng-container *ngIf="photos$ as photos">
+  <app-feed-chart [photos$]="photos"></app-feed-chart>
+  <app-feed-approved-list [photos$]="photos"></app-feed-approved-list
+></ng-container>

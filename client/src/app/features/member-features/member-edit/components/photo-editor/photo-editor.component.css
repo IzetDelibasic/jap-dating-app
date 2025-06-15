@@ -71,7 +71,7 @@
 }
 
 ::ng-deep .ng-value-label {
-  padding: 2px 5px;
+  padding: 1px 5px;
   margin: 1px 3px;
   border-radius: 10%;
   background-color: #0a66c2;

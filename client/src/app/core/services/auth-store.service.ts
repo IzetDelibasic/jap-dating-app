@@ -76,7 +76,6 @@ export class AuthStoreService {
   }
 
   private rehydrateUser(): void {
-    console.log('rehydrateUser called');
     const userJson = localStorage.getItem('user');
     if (userJson) {
       const user = JSON.parse(userJson);

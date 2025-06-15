@@ -122,13 +122,13 @@ export class MembersService {
 
   setMainPhoto(photo: Photo): Observable<any> {
     return this.http
-      .put(environment.apiBaseUrl + USER_API.SET_MAIN_PHOTO(photo.id), {})
+      .put(environment.apiBaseUrl + PHOTOS_API.SET_MAIN_PHOTO(photo.id), {})
       .pipe(catchError(this.handleError<any>('setMainPhoto')));
   }
 
   deletePhoto(photo: Photo): Observable<any> {
     return this.http
-      .delete(environment.apiBaseUrl + USER_API.DELETE_PHOTO(photo.id))
+      .delete(environment.apiBaseUrl + PHOTOS_API.DELETE_PHOTO(photo.id))
       .pipe(catchError(this.handleError<any>('deletePhoto')));
   }
 
