@@ -7,6 +7,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BehaviorSubject, catchError, of, tap } from 'rxjs';
 import { Member } from '../../../../../core/models/member';
+import { LikesService } from '../../../../../core/services/likes.service';
 
 @Component({
   selector: 'app-members-board-page',
@@ -21,6 +22,7 @@ import { Member } from '../../../../../core/models/member';
   styleUrl: './members-board-page.component.css',
 })
 export class MembersBoardComponent implements OnInit {
+  private likesService = inject(LikesService);
   membersService = inject(MembersService);
   genderList = [
     { value: 'male', display: 'Males' },
@@ -32,6 +34,7 @@ export class MembersBoardComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.membersService.paginatedResult()) this.loadMembers();
+    this.likesService.initializeLikeIds();
   }
 
   loadMembers() {

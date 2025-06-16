@@ -75,7 +75,7 @@ export class RegisterFormComponent implements OnInit {
       .register(this.registerForm.value)
       .pipe(
         tap(() => {
-          this.router.navigateByUrl('/board');
+          this.router.navigateByUrl('/auth/login');
         }),
         catchError((error) => {
           this.toastr.error(error.error);
@@ -89,8 +89,12 @@ export class RegisterFormComponent implements OnInit {
     this.cancelRegister.emit(false);
   }
 
-  private getDateOnly(dob: string | undefined) {
+  private getDateOnly(dob: string | undefined): string | undefined {
     if (!dob) return;
-    return new Date(dob).toISOString().slice(0, 10);
+    const date = new Date(dob);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
   }
 }

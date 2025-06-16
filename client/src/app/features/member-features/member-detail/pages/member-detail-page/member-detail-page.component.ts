@@ -9,9 +9,8 @@ import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
 import { MemberMessagesComponent } from '../../components/member-messages/member-messages.component';
 import { MessageService } from '../../../../../core/services/message.service';
 import { PresenceService } from '../../../../../core/services/presence.service';
-import { AccountService } from '../../../../../core/services/account.service';
-import { LikesService } from '../../../../../core/services/likes.service';
 import { catchError, combineLatest, of, tap } from 'rxjs';
+import { AuthStoreService } from '../../../../../core/services/auth-store.service';
 
 @Component({
   selector: 'app-member-detail',
@@ -30,8 +29,7 @@ export class MemberDetailPageComponent implements OnInit, OnDestroy {
   @ViewChild('memberTabs', { static: true }) memberTabs?: TabsetComponent;
   presenceService = inject(PresenceService);
   private messageService = inject(MessageService);
-  private accountService = inject(AccountService);
-  private likeService = inject(LikesService);
+  private authStore = inject(AuthStoreService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   member: Member = {} as Member;
@@ -79,7 +77,7 @@ export class MemberDetailPageComponent implements OnInit, OnDestroy {
   }
 
   onRouteParamsChange() {
-    const user = this.accountService.currentUser();
+    const user = this.authStore.getCurrentUser();
     if (!user) return;
     if (
       this.messageService.hubConnection?.state ===
@@ -100,7 +98,7 @@ export class MemberDetailPageComponent implements OnInit, OnDestroy {
       queryParamsHandling: 'merge',
     });
     if (this.activeTab.heading === 'Messages' && this.member) {
-      const user = this.accountService.currentUser();
+      const user = this.authStore.getCurrentUser();
       if (!user) return;
       this.messageService.createHubConnection(user, this.member.userName);
     } else {

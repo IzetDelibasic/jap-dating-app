@@ -53,6 +53,11 @@ public class PhotoService(IUnitOfWork unitOfWork, IMapper mapper, ICloudinarySer
         throw new Exception("Problem adding photo with tags");
     }
 
+    public async Task<IEnumerable<PhotoDto>> GetPhotosByUserId(int id)
+    {
+        return await unitOfWork.PhotoRepository.GetPhotosByUserId(id);
+    }
+
     public async Task<IEnumerable<object>> GetPhotosForModeration()
     {
         return await unitOfWork.PhotoRepository.GetUnapprovedPhotos();

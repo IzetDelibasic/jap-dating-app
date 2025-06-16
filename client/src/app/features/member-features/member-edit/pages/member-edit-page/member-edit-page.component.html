@@ -50,21 +50,36 @@
               name="introduction"
               [(ngModel)]="member.introduction"
               rows="6"
+              maxlength="500"
             ></textarea>
+            <div class="text-end small text-muted">
+              {{ member.introduction.length || 0 }}/500
+            </div>
+
             <h4 class="mt-2">Looking for</h4>
             <textarea
               class="form-control"
               name="lookingFor"
               [(ngModel)]="member.lookingFor"
+              maxlength="500"
               rows="6"
-            ></textarea>
+            >
+            </textarea>
+            <div class="text-end small text-muted">
+              {{ member.lookingFor.length || 0 }}/500
+            </div>
+
             <h4 class="mt-2">Interests</h4>
             <textarea
               class="form-control"
               name="interests"
               [(ngModel)]="member.interests"
+              maxlength="300"
               rows="6"
             ></textarea>
+            <div class="text-end small text-muted">
+              {{ member.interests.length || 0 }}/300
+            </div>
 
             <h4 class="mt-2">Location details:</h4>
             <div class="d-flex align-items-center mb-2">
@@ -73,6 +88,7 @@
                 type="text"
                 [(ngModel)]="member.city"
                 class="form-control mx-2"
+                maxlength="70"
                 name="city"
               />
               <label>Country: </label>
@@ -80,6 +96,7 @@
                 type="text"
                 [(ngModel)]="member.country"
                 class="form-control mx-2"
+                maxlength="70"
                 name="country"
               />
             </div>

@@ -46,7 +46,11 @@
           type="number"
           class="form-control form-control-sm filter-input"
           name="minAge"
+          placeholder="Minimum age (18)"
           [(ngModel)]="membersService.userParams().minAge"
+          [min]="18"
+          [max]="100"
+          required
         />
       </div>
 
@@ -56,9 +60,17 @@
           type="number"
           class="form-control form-control-sm filter-input"
           name="maxAge"
+          placeholder="Maximum age (100)"
           [(ngModel)]="membersService.userParams().maxAge"
+          [min]="18"
+          [max]="100"
+          required
         />
       </div>
+      @if(membersService.userParams().minAge >
+      membersService.userParams().maxAge){
+      <div class="text-danger">'Age from' cannot be greater than 'Age to'.</div>
+      }
 
       <div class="col filter-item">
         <label class="col-form-label filter-label">Show</label>
@@ -79,6 +91,12 @@
         <button
           class="btn btn-primary btn-sm filter-button w-100"
           type="submit"
+          [disabled]="
+            membersService.userParams().minAge < 18 ||
+            membersService.userParams().maxAge > 100 ||
+            membersService.userParams().minAge >
+              membersService.userParams().maxAge
+          "
         >
           Apply filters
         </button>
@@ -105,7 +123,11 @@
     }
   </div>
 
-  @if(membersService.paginatedResult()?.pagination) {
+  @if ((membersService.paginatedResult()?.items ?? []).length === 0) {
+  <p class="text-center text-muted my-5">
+    No members found for selected filters.
+  </p>
+  } @if(membersService.paginatedResult()?.pagination) {
   <div class="d-flex justify-content-center mt-4 pagination-section">
     <pagination
       [boundaryLinks]="true"

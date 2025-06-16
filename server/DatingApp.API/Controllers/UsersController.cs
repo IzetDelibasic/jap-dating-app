@@ -17,10 +17,6 @@ public class UsersController(IUsersService usersService) : BaseApiController
     public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
     {
         var users = await usersService.GetUsers(userParams, User.GetUsername());
-        if (users == null || !users.Any())
-        {
-            throw new NotFoundException("No users found.");
-        }
         Response.AddPaginationHeader(users);
         return Ok(users);
     }

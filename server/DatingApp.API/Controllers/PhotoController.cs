@@ -31,6 +31,17 @@ namespace DatingApp.API.Controllers
             return CreatedAtAction("GetUser", "Users", new { username = User.GetUsername() }, photoDto);
         }
 
+        [HttpGet("get-photos-by-user/{id:int}")]
+        public async Task<ActionResult<IEnumerable<PhotoDto>>> GetPhotosByUserId(int id)
+        {
+            var photos = await photoService.GetPhotosByUserId(id);
+            if (photos == null || !photos.Any())
+            {
+                throw new NotFoundException("No photos found.");
+            }
+            return Ok(photos);
+        }
+
         [HttpPut("set-main-photo/{photoId:int}")]
         public async Task<ActionResult> SetMainPhoto(int photoId)
         {

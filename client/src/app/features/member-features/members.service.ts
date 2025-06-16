@@ -4,27 +4,29 @@ import { Member } from '../../core/models/member';
 import { Photo } from '../../core/models/photo';
 import { PaginatedResult } from '../../core/models/pagination';
 import { UserParams } from '../../core/models/userParams';
-import { catchError, map, Observable, of, tap } from 'rxjs';
+import { catchError, map, Observable, of, shareReplay, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { AccountService } from '../../core/services/account.service';
 import {
   setPaginatedResponse,
   setPaginationHeaders,
 } from '../../core/services/paginationHelper';
 import { USER_API } from '../../core/constants/servicesConstants/userServiceConstant';
 import { PHOTOS_API } from '../../core/constants/servicesConstants/photoServiceConstant';
+import { AuthStoreService } from '../../core/services/auth-store.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MembersService {
   private http = inject(HttpClient);
-  private accountService = inject(AccountService);
+  private authStore = inject(AuthStoreService);
 
   memberCache = new Map();
-  user = this.accountService.currentUser();
+  user = this.authStore.getCurrentUser();
   userParams = signal<UserParams>(new UserParams(this.user));
   paginatedResult = signal<PaginatedResult<Member[]> | null>(null);
+
+  private memberObservables = new Map<string, Observable<Member>>();
 
   resetUserParams() {
     this.userParams.set(new UserParams(this.user));
@@ -65,17 +67,25 @@ export class MembersService {
   }
 
   getMember(username: string): Observable<Member> {
+    if (this.memberObservables.has(username)) {
+      return this.memberObservables.get(username)!;
+    }
+
     const member: Member = [...this.memberCache.values()]
       .reduce((arr, elem) => arr.concat(elem.body), [])
       .find((m: Member) => m.userName === username);
 
     if (member) return of(member);
 
-    return this.http
+    const member$ = this.http
       .get<Member>(environment.apiBaseUrl + USER_API.BY_USERNAME(username))
       .pipe(
+        shareReplay(1),
         catchError(this.handleError<Member>(`getMember username=${username}`))
       );
+
+    this.memberObservables.set(username, member$);
+    return member$;
   }
 
   updateMember(member: Member): Observable<any> {
@@ -112,13 +122,13 @@ export class MembersService {
 
   setMainPhoto(photo: Photo): Observable<any> {
     return this.http
-      .put(environment.apiBaseUrl + USER_API.SET_MAIN_PHOTO(photo.id), {})
+      .put(environment.apiBaseUrl + PHOTOS_API.SET_MAIN_PHOTO(photo.id), {})
       .pipe(catchError(this.handleError<any>('setMainPhoto')));
   }
 
   deletePhoto(photo: Photo): Observable<any> {
     return this.http
-      .delete(environment.apiBaseUrl + USER_API.DELETE_PHOTO(photo.id))
+      .delete(environment.apiBaseUrl + PHOTOS_API.DELETE_PHOTO(photo.id))
       .pipe(catchError(this.handleError<any>('deletePhoto')));
   }
 
