@@ -4,10 +4,11 @@ using DatingApp.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using DatingApp.Application.Contracts.Responses;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DatingApp.Controllers
 {
-    [Route("api/likes")]
+    [Authorize]
     [ApiController]
     public class LikesController(IMediator mediator) : BaseApiController
     {

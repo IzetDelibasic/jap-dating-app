@@ -8,7 +8,6 @@ using DatingApp.Exceptions;
 namespace DatingApp.API.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
     [ApiController]
     public class IntelligentAssistantController(IMediator mediator) : BaseApiController
     {

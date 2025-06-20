@@ -10,7 +10,6 @@ using DatingApp.Application.Contracts.Requests;
 namespace DatingApp.Controllers
 {
     [Authorize]
-    [Route("api/messages")]
     [ApiController]
     public class MessagesController(IMediator mediator) : BaseApiController
     {

@@ -9,7 +9,6 @@ namespace DatingApp.API.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/tag")]
     public class TagController(IMediator mediator) : BaseApiController
     {
         [HttpGet]

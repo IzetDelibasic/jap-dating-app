@@ -12,7 +12,6 @@ namespace DatingApp.API.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/photo")]
     public class PhotoController(IMediator mediator, IProcedureService procedureService) : BaseApiController
     {
         [HttpPost("add-photo")]

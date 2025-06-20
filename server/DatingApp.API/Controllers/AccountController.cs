@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.Controllers
 {
-    [Route("api/account")]
     [ApiController]
-    public class AccountController(IMediator mediator) : ControllerBase
+    public class AccountController(IMediator mediator) : BaseApiController
     {
         [HttpPost("register")]
         public async Task<ActionResult<UserResponse>> Register(RegisterUserRequest registerDto)

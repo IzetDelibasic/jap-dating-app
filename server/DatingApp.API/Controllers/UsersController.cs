@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using DatingApp.Application.Contracts.Requests;
 using DatingApp.Application.Contracts.Responses;
 using MediatR;
+using DatingApp.Exceptions;
 
 namespace DatingApp.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("api/user")]
 public class UsersController(IMediator mediator) : BaseApiController
 {
     [HttpGet]
@@ -54,4 +54,30 @@ public class UsersController(IMediator mediator) : BaseApiController
         }
         return NoContent();
     }
+
+    [Authorize(Policy = "RequireAdminRole")]
+    [HttpGet("users-with-roles")]
+    public async Task<ActionResult> GetUsersWithRoles()
+    {
+        var users = await mediator.Send(new GetUsersWithRolesQuery());
+        if (users == null)
+        {
+            throw new NotFoundException("No users with roles found.");
+        }
+        return Ok(users);
+    }
+
+    [Authorize(Policy = "RequireAdminRole")]
+    [HttpPost("edit-roles/{username}")]
+    public async Task<ActionResult> EditRoles(string username, string roles)
+    {
+        var result = await mediator.Send(new EditRolesCommand { Username = username, Roles = roles });
+        if (!result)
+        {
+            throw new BadRequestException($"Failed to update roles for user '{username}'.");
+        }
+        var userRoles = await mediator.Send(new GetUserRolesQuery { Username = username });
+        return Ok(userRoles);
+    }
+
 }
