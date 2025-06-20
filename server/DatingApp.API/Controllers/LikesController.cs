@@ -1,20 +1,24 @@
-using DatingApp.Entities.DTO;
 using DatingApp.Extensions;
 using DatingApp.Helpers;
-using DatingApp.Services.Interfaces;
 using DatingApp.Exceptions;
 using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using DatingApp.Application.Contracts.Responses;
 
 namespace DatingApp.Controllers
 {
     [Route("api/likes")]
     [ApiController]
-    public class LikesController(ILikesService likesService) : BaseApiController
+    public class LikesController(IMediator mediator) : BaseApiController
     {
         [HttpPost("{targetUserId:int}")]
         public async Task<ActionResult> ToggleLike(int targetUserId)
         {
-            var result = await likesService.ToggleLike(User.GetUserId(), targetUserId);
+            var result = await mediator.Send(new ToggleLikeCommand
+            {
+                SourceUserId = User.GetUserId(),
+                TargetUserId = targetUserId
+            });
             if (!result)
             {
                 throw new BadRequestException("Failed to update like.");
@@ -25,15 +29,21 @@ namespace DatingApp.Controllers
         [HttpGet("list")]
         public async Task<ActionResult<IEnumerable<int>>> GetCurrentUserLikeIds()
         {
-            var likeIds = await likesService.GetCurrentUserLikeIds(User.GetUserId());
+            var likeIds = await mediator.Send(new GetCurrentUserLikeIdsQuery
+            {
+                UserId = User.GetUserId()
+            });
             return Ok(likeIds);
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUserLikes([FromQuery] LikesParams likesParams)
+        public async Task<ActionResult<IEnumerable<MemberResponse>>> GetUserLikes([FromQuery] LikesParams likesParams)
         {
             likesParams.UserId = User.GetUserId();
-            var users = await likesService.GetUserLikes(likesParams);
+            var users = await mediator.Send(new GetUserLikesQuery
+            {
+                LikesParams = likesParams
+            });
             Response.AddPaginationHeader(users);
             return Ok(users);
         }

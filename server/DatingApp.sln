@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingApp.Services", "Datin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingApp.XUnitTests", "DatingApp.XUnitTests\DatingApp.XUnitTests.csproj", "{BBF95250-B001-418F-99F7-04B72497C1DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingApp.Application", "DatingApp.Application\DatingApp.Application.csproj", "{B68C2A7A-B59B-46C1-9752-A24AAAB96C7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,18 @@ Global
 		{BBF95250-B001-418F-99F7-04B72497C1DA}.Release|x64.Build.0 = Release|Any CPU
 		{BBF95250-B001-418F-99F7-04B72497C1DA}.Release|x86.ActiveCfg = Release|Any CPU
 		{BBF95250-B001-418F-99F7-04B72497C1DA}.Release|x86.Build.0 = Release|Any CPU
+		{B68C2A7A-B59B-46C1-9752-A24AAAB96C7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B68C2A7A-B59B-46C1-9752-A24AAAB96C7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B68C2A7A-B59B-46C1-9752-A24AAAB96C7E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B68C2A7A-B59B-46C1-9752-A24AAAB96C7E}.Debug|x64.Build.0 = Debug|Any CPU
+		{B68C2A7A-B59B-46C1-9752-A24AAAB96C7E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B68C2A7A-B59B-46C1-9752-A24AAAB96C7E}.Debug|x86.Build.0 = Debug|Any CPU
+		{B68C2A7A-B59B-46C1-9752-A24AAAB96C7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B68C2A7A-B59B-46C1-9752-A24AAAB96C7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B68C2A7A-B59B-46C1-9752-A24AAAB96C7E}.Release|x64.ActiveCfg = Release|Any CPU
+		{B68C2A7A-B59B-46C1-9752-A24AAAB96C7E}.Release|x64.Build.0 = Release|Any CPU
+		{B68C2A7A-B59B-46C1-9752-A24AAAB96C7E}.Release|x86.ActiveCfg = Release|Any CPU
+		{B68C2A7A-B59B-46C1-9752-A24AAAB96C7E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

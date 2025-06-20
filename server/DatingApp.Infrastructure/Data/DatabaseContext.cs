@@ -1,4 +1,4 @@
-using DatingApp.Common.DTO;
+using DatingApp.Application.Contracts.Responses;
 using DatingApp.Core.Entities;
 using DatingApp.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -22,8 +22,8 @@ public class DatabaseContext : IdentityDbContext<AppUser, AppRole, int,
     public DbSet<Tag> Tags { get; set; }
 
     // Procedures
-    public DbSet<PhotoApprovalStatsDto> PhotoApprovalStats { get; set; }
-    public DbSet<UserWithoutMainPhotoDto> UsersWithoutMainPhoto { get; set; }
+    public DbSet<PhotoApprovalStatsResponse> PhotoApprovalStats { get; set; }
+    public DbSet<UserWithoutMainPhotoResponse> UsersWithoutMainPhoto { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder builder)

@@ -1,18 +1,19 @@
-using DatingApp.Entities.DTO;
+using DatingApp.Application.Contracts.Requests;
+using DatingApp.Application.Contracts.Responses;
 using DatingApp.Exceptions;
-using DatingApp.Services.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.Controllers
 {
     [Route("api/account")]
     [ApiController]
-    public class AccountController(IAccountService accountService) : BaseApiController
+    public class AccountController(IMediator mediator) : ControllerBase
     {
         [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<UserResponse>> Register(RegisterUserRequest registerDto)
         {
-            var result = await accountService.Register(registerDto);
+            var result = await mediator.Send(new RegisterUserCommand { Request = registerDto });
             if (result == null)
             {
                 throw new BadRequestException("Failed to register user");
@@ -21,9 +22,9 @@ namespace DatingApp.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+        public async Task<ActionResult<UserResponse>> Login(LoginRequest loginDto)
         {
-            var result = await accountService.Login(loginDto);
+            var result = await mediator.Send(new LoginUserQuery { Request = loginDto });
             if (result == null)
             {
                 throw new UnauthorizedException("Invalid username or password");
