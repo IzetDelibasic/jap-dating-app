@@ -1,8 +1,8 @@
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using DatingApp.Application.Contracts.Responses;
 using DatingApp.Data;
 using DatingApp.Entities;
-using DatingApp.Entities.DTO;
 using DatingApp.Helpers;
 using DatingApp.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -13,11 +13,11 @@ public class UserRepository(DatabaseContext dbContext, IMapper mapper) : BaseRep
 {
     private readonly IMapper _mapper = mapper;
 
-    public async Task<MemberDto?> GetMemberAsync(string username, bool isCurrentUser)
+    public async Task<MemberResponse?> GetMemberAsync(string username, bool isCurrentUser)
     {
         var query = dbSet
             .Where(x => x.UserName == username)
-            .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
+            .ProjectTo<MemberResponse>(_mapper.ConfigurationProvider)
             .AsQueryable();
 
         if (isCurrentUser) query = query.IgnoreQueryFilters();
@@ -25,7 +25,7 @@ public class UserRepository(DatabaseContext dbContext, IMapper mapper) : BaseRep
         return await query.FirstOrDefaultAsync();
     }
 
-    public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
+    public async Task<PagedList<MemberResponse>> GetMembersAsync(UserParams userParams)
     {
         var query = dbSet.AsQueryable();
 
@@ -47,7 +47,7 @@ public class UserRepository(DatabaseContext dbContext, IMapper mapper) : BaseRep
             _ => query.OrderByDescending(x => x.LastActive)
         };
 
-        return await PagedList<MemberDto>.CreateAsync(query.ProjectTo<MemberDto>(_mapper.ConfigurationProvider),
+        return await PagedList<MemberResponse>.CreateAsync(query.ProjectTo<MemberResponse>(_mapper.ConfigurationProvider),
             userParams.PageNumber, userParams.PageSize);
     }
 

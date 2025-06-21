@@ -1,13 +1,13 @@
+using DatingApp.Application.Contracts.Responses;
 using DatingApp.Entities;
-using DatingApp.Entities.DTO;
 using DatingApp.Helpers;
 
 namespace DatingApp.Repository.Interfaces;
 
 public interface IMessageRepository : IBaseRepository<Message>
 {
-    Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams);
-    Task<IEnumerable<MessageDto>> GetMessageThread(string currentUsername, string recipientUsername);
+    Task<PagedList<MessageResponse>> GetMessagesForUser(MessageParams messageParams);
+    Task<IEnumerable<MessageResponse>> GetMessageThread(string currentUsername, string recipientUsername);
     void AddGroup(Group group);
     void RemoveConnection(Connection connection);
     Task<Connection?> GetConnection(string connectionId);

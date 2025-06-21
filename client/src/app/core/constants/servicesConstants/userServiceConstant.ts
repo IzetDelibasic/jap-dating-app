@@ -1,8 +1,8 @@
 export const USER_API = {
-  BASE: 'user',
-  BY_USERNAME: (username: string) => `user/${username}`,
-  UPDATE: 'user',
-  USERS_WITH_ROLES: 'user/users-with-roles',
+  BASE: 'Users',
+  BY_USERNAME: (username: string) => `Users/${username}`,
+  UPDATE: 'Users',
+  USERS_WITH_ROLES: 'Users/users-with-roles',
   EDIT_ROLES: (username: string, roles: string[]) =>
-    `user/edit-roles/${username}?roles=${roles}`,
+    `Users/edit-roles/${username}?roles=${roles}`,
 };

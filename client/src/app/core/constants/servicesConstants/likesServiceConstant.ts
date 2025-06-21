@@ -1,5 +1,5 @@
 export const LIKES_API = {
-  BASE: 'likes',
-  TOGGLE: (targetId: number) => `likes/${targetId}`,
-  LIST: 'likes/list',
+  BASE: 'Likes',
+  TOGGLE: (targetId: number) => `Likes/${targetId}`,
+  LIST: 'Likes/list',
 };

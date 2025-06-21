@@ -1,8 +1,8 @@
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using DatingApp.Application.Contracts.Responses;
 using DatingApp.Data;
 using DatingApp.Entities;
-using DatingApp.Entities.DTO;
 using DatingApp.Helpers;
 using DatingApp.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +34,7 @@ public class MessageRepository(DatabaseContext dbContext, IMapper mapper) : Base
             .FirstOrDefaultAsync(x => x.Name == groupName);
     }
 
-    public async Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams)
+    public async Task<PagedList<MessageResponse>> GetMessagesForUser(MessageParams messageParams)
     {
         var query = dbSet
             .OrderByDescending(x => x.MessageSent)
@@ -47,12 +47,12 @@ public class MessageRepository(DatabaseContext dbContext, IMapper mapper) : Base
             _ => query.Where(x => x.Recipient.UserName == messageParams.Username && x.DateRead == null && !x.RecipientDeleted)
         };
 
-        var messages = query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
+        var messages = query.ProjectTo<MessageResponse>(_mapper.ConfigurationProvider);
 
-        return await PagedList<MessageDto>.CreateAsync(messages, messageParams.PageNumber, messageParams.PageSize);
+        return await PagedList<MessageResponse>.CreateAsync(messages, messageParams.PageNumber, messageParams.PageSize);
     }
 
-    public async Task<IEnumerable<MessageDto>> GetMessageThread(string currentUsername, string recipientUsername)
+    public async Task<IEnumerable<MessageResponse>> GetMessageThread(string currentUsername, string recipientUsername)
     {
         var query = dbSet
             .Where(x =>
@@ -68,7 +68,7 @@ public class MessageRepository(DatabaseContext dbContext, IMapper mapper) : Base
             unreadMessages.ForEach(x => x.DateRead = DateTime.UtcNow);
         }
 
-        return await query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider).ToListAsync();
+        return await query.ProjectTo<MessageResponse>(_mapper.ConfigurationProvider).ToListAsync();
     }
 
     public void AddGroup(Group group)

@@ -1,9 +1,9 @@
-using DatingApp.Common.DTO;
+using DatingApp.Application.Contracts.Responses;
 
 namespace DatingApp.Infrastructure.Interfaces.IServices;
 
 public interface IProcedureService
 {
-    Task<List<PhotoApprovalStatsDto>> GetPhotoApprovalStatsAsync();
-    Task<List<UserWithoutMainPhotoDto>> GetUsersWithoutMainPhotoAsync();
+    Task<List<PhotoApprovalStatsResponse>> GetPhotoApprovalStatsAsync();
+    Task<List<UserWithoutMainPhotoResponse>> GetUsersWithoutMainPhotoAsync();
 }

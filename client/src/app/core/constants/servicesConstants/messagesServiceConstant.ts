@@ -1,6 +1,6 @@
 export const MESSAGES_API = {
-  BASE: 'messages',
-  THREAD: (username: string) => `messages/thread/${username}`,
-  DELETE: (id: number) => `messages/${id}`,
+  BASE: 'Messages',
+  THREAD: (username: string) => `Messages/thread/${username}`,
+  DELETE: (id: number) => `Messages/${id}`,
   GENERATE_MESSAGE: 'IntelligentAssistant/generate-message',
 };

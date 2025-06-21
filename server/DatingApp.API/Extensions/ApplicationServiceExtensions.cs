@@ -1,3 +1,4 @@
+using System.Runtime.Serialization;
 using DatingApp.Data;
 using DatingApp.Helpers;
 using DatingApp.Infrastructure.Interfaces.IRepository;
@@ -8,7 +9,6 @@ using DatingApp.Repository;
 using DatingApp.Repository.Interfaces;
 using DatingApp.Services;
 using DatingApp.Services.Interfaces;
-using DatingApp.Services.Services;
 using DatingApp.SignalR;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,14 +25,7 @@ public static class ApplicationServiceExtensions
         });
         services.AddCors();
         services.AddScoped<ITokenService, TokenService>();
-        services.AddScoped<IPhotoService, PhotoService>();
-        services.AddScoped<ILikesService, LikesService>();
-        services.AddScoped<IMessagesService, MessagesService>();
         services.AddScoped<ICloudinaryService, CloudinaryService>();
-        services.AddScoped<IUsersService, UsersService>();
-        services.AddScoped<IAccountService, AccountService>();
-        services.AddScoped<ITagService, TagService>();
-        services.AddScoped<IIntelligentAssistantService, IntelligentAssistantService>();
         services.AddScoped<IProcedureService, ProcedureService>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ILikesRepository, LikesRepository>();
@@ -46,6 +39,8 @@ public static class ApplicationServiceExtensions
         services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
         services.AddSignalR();
         services.AddSingleton<PresenceTracker>();
+
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 
         return services;
     }

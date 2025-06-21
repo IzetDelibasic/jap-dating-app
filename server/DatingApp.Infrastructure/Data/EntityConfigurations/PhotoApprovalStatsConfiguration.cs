@@ -1,12 +1,12 @@
-using DatingApp.Common.DTO;
+using DatingApp.Application.Contracts.Responses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DatingApp.Infrastructure.Data.EntityConfigurations;
 
-public class PhotoApprovalStatsConfiguration : IEntityTypeConfiguration<PhotoApprovalStatsDto>
+public class PhotoApprovalStatsConfiguration : IEntityTypeConfiguration<PhotoApprovalStatsResponse>
 {
-    public void Configure(EntityTypeBuilder<PhotoApprovalStatsDto> builder)
+    public void Configure(EntityTypeBuilder<PhotoApprovalStatsResponse> builder)
     {
         builder.HasNoKey(); 
     }
