@@ -1,27 +1,29 @@
 using Microsoft.AspNetCore.Mvc;
-using DatingApp.Services.Services;
-using DatingApp.Common.DTO;
-using DatingApp.Exceptions;
 using DatingApp.Controllers;
-using DatingApp.Infrastructure.Interfaces.IServices;
 using Microsoft.AspNetCore.Authorization;
+using MediatR;
+using DatingApp.Application.Contracts.Requests;
+using DatingApp.Exceptions;
 
 namespace DatingApp.API.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
     [ApiController]
-    public class IntelligentAssistantController(IIntelligentAssistantService intelligentAssistantService) : BaseApiController
+    public class IntelligentAssistantController(IMediator mediator) : BaseApiController
     {
         [HttpPost("generate-message")]
-        public async Task<IActionResult> GenerateMessage([FromBody] DatingMessageDto userMessageDto)
+        public async Task<IActionResult> GenerateMessage([FromBody] GenerateMessageRequest request)
         {
-            if (string.IsNullOrEmpty(userMessageDto.Interests) || string.IsNullOrEmpty(userMessageDto.LookingFor))
+            if (string.IsNullOrEmpty(request.Interests) || string.IsNullOrEmpty(request.LookingFor))
             {
                 throw new BadRequestException("Interests and LookingFor properties must not be null or empty.");
             }
 
-            var message = await intelligentAssistantService.GenerateIntroductionMessageAsync(userMessageDto.Interests, userMessageDto.LookingFor);
+            var message = await mediator.Send(new GenerateMessageCommand
+            {
+                Interests = request.Interests,
+                LookingFor = request.LookingFor
+            });
             return Ok(new { Message = message });
         }
     }

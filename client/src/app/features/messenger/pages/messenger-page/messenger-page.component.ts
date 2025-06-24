@@ -7,6 +7,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { Message } from '../../../../core/models/message';
 import { catchError, EMPTY, tap } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-messenger-page',
@@ -16,6 +17,7 @@ import { catchError, EMPTY, tap } from 'rxjs';
     TimeagoModule,
     RouterLink,
     PaginationModule,
+    CommonModule,
   ],
   templateUrl: './messenger-page.component.html',
   styleUrl: './messenger-page.component.css',
@@ -26,22 +28,25 @@ export class MessengerPageComponent implements OnInit {
   pageNumber = 1;
   pageSize = 5;
   isOutbox = this.container === 'Outbox';
+  loading = false;
 
   ngOnInit(): void {
     this.loadMessages();
   }
 
   loadMessages() {
-  this.messageService
-    .getMessages(this.pageNumber, this.pageSize, this.container)
-    .pipe(
-      catchError((err) => {
-        console.error('Error loading messages:', err);
-        return EMPTY;
-      })
-    )
-    .subscribe();
-}
+    this.loading = true;
+    this.messageService
+      .getMessages(this.pageNumber, this.pageSize, this.container)
+      .pipe(
+        tap(() => (this.loading = false)),
+        catchError((err) => {
+          this.loading = false;
+          return EMPTY;
+        })
+      )
+      .subscribe();
+  }
 
   getRoute(message: Message) {
     if (this.container === 'Outbox')

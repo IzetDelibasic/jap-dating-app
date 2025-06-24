@@ -1,6 +1,7 @@
 using AutoMapper;
+using DatingApp.Application.Contracts.Requests;
+using DatingApp.Application.Contracts.Responses;
 using DatingApp.Entities;
-using DatingApp.Entities.DTO;
 using DatingApp.Extensions;
 using DatingApp.Repository.Interfaces;
 using Microsoft.AspNetCore.SignalR;
@@ -37,7 +38,7 @@ public class MessageHub(IUnitOfWork unitOfWork, IMapper mapper, IHubContext<Pres
         await base.OnDisconnectedAsync(exception);
     }
 
-    public async Task SendMessage(CreateMessageDto createMessageDto)
+    public async Task SendMessage(SendMessageRequest createMessageDto)
     {
         var username = Context.User?.GetUsername() ?? throw new Exception("Could not find user");
 
@@ -80,7 +81,7 @@ public class MessageHub(IUnitOfWork unitOfWork, IMapper mapper, IHubContext<Pres
 
         if (await unitOfWork.Complete())
         {
-            await Clients.Group(groupName).SendAsync("NewMessage", mapper.Map<MessageDto>(message));
+            await Clients.Group(groupName).SendAsync("NewMessage", mapper.Map<MessageResponse>(message));
         }
     }
 

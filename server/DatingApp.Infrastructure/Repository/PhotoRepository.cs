@@ -1,6 +1,6 @@
+using DatingApp.Application.Contracts.Responses;
 using DatingApp.Data;
 using DatingApp.Entities;
-using DatingApp.Entities.DTO;
 using DatingApp.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,12 +15,12 @@ public class PhotoRepository(DatabaseContext dbContext) : BaseRepository<Photo>(
             .SingleOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<IEnumerable<PhotoDto>> GetPhotosByUserId(int userId)
+    public async Task<IEnumerable<PhotoResponse>> GetPhotosByUserId(int userId)
     {
         return await dbSet
             .IgnoreQueryFilters()
             .Where(x => x.AppUserId == userId)
-            .Select(u => new PhotoDto
+            .Select(u => new PhotoResponse
             {
                 Id = u.Id,
                 Url = u.Url,
@@ -30,12 +30,12 @@ public class PhotoRepository(DatabaseContext dbContext) : BaseRepository<Photo>(
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<PhotoForApprovalDto>> GetUnapprovedPhotos()
+    public async Task<IEnumerable<PhotoForApprovalResponse>> GetUnapprovedPhotos()
     {
         return await dbSet
             .IgnoreQueryFilters()
             .Where(x => x.IsApproved == false)
-            .Select(u => new PhotoForApprovalDto
+            .Select(u => new PhotoForApprovalResponse
             {
                 Id = u.Id,
                 Username = u.AppUser.UserName,
